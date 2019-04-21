@@ -1,0 +1,123 @@
+{
+    "playlist": {
+        "subscribed": false,
+        "creator": {
+            "defaultAvatar": false,
+            "province": 510000,
+            "authStatus": 0,
+            "followed": false,
+            "avatarUrl": "http://p1.music.126.net/dkTS70y9Z1gO510BGxfrdA==/1423867564531753.jpg",
+            "accountStatus": 0,
+            "gender": 1,
+            "city": 511600,
+            "birthday": 1387431404989,
+            "userId": 109496832,
+            "userType": 0,
+            "nickname": "至死不渝的回答",
+            "signature": "……你嫣然的一笑如含苞待放～",
+            "description": "",
+            "detailDescription": "",
+            "avatarImgId": 1423867564531753,
+            "backgroundImgId": 3440371898648755,
+            "backgroundUrl": "http://p1.music.126.net/GFUxY_jGOWQ5p6t0Nhg7xw==/3440371898648755.jpg",
+            "authority": 0,
+            "mutual": false,
+            "djStatus": 10,
+            "vipType": 0,
+            "avatarImgIdStr": "1423867564531753",
+            "backgroundImgIdStr": "3440371898648755"
+        },
+        "tracks": [
+            {
+                "name": "当你老了 (Live)",
+                "id": 31877536,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 3695,
+                        "name": "李健"
+                    }
+                ],
+                "pop": 100,
+                "st": 0,
+                "fee": 8,
+                "v": 685,
+                "cf": "",
+                "al": {
+                    "id": 3142078,
+                    "name": "我是歌手第三季 第8期",
+                    "picUrl": "http://p2.music.126.net/93vWfsA7gvpBK20Ify82bw==/2908208256687521.jpg",
+                    "pic": 2908208256687521
+                },
+                "dt": 320302,
+                "cd": "1",
+                "no": 1,
+                "ftype": 0,
+                "djId": 0,
+                "copyright": 0,
+                "s_id": 0,
+                "rtype": 0,
+                "mst": 9,
+                "cp": 404023,
+                "mv": 0,
+                "publishTime": 1424361600007
+            }
+        ],
+        "trackIds": [
+            {
+                "id": 32977771,
+                "v": 730
+            }
+        ],
+        "ordered": false,
+        "status": 0,
+        "cloudTrackCount": 0,
+        "subscribedCount": 0,
+        "adType": 0,
+        "trackNumberUpdateTime": 1554194741688,
+        "coverImgId": 1365593485733565,
+        "updateTime": 1554194741688,
+        "privacy": 0,
+        "newImported": false,
+        "specialType": 0,
+        "commentThreadId": "A_PL_0_158293485",
+        "highQuality": false,
+        "createTime": 1453475680384,
+        "trackUpdateTime": 1554625856507,
+        "trackCount": 37,
+        "playCount": 876,
+        "coverImgUrl": "http://p2.music.126.net/arTkeMDjWdFJBWbd3m5mPA==/1365593485733565.jpg",
+        "description": "我想你你那颗纯白的心",
+        "tags": [
+            "清新",
+            "浪漫",
+            "校园"
+        ],
+        "userId": 109496832,
+        "name": "亲音乐",
+        "id": 158293485,
+        "shareCount": 0,
+        "commentCount": 0
+    },
+    "code": 200,
+    "privileges": [
+        {
+            "id": 32977771,
+            "fee": 0,
+            "payed": 0,
+            "st": 0,
+            "pl": 128000,
+            "dl": 128000,
+            "sp": 7,
+            "cp": 1,
+            "subp": 1,
+            "cs": false,
+            "maxbr": 128000,
+            "fl": 320000,
+            "toast": false,
+            "flag": 128,
+            "preSell": false
+        }
+    ]
+}

@@ -1,0 +1,96 @@
+{
+    "loginType": 1,
+    "code": 200,
+    "account": {
+        "id": 109496832,
+        "userName": "1_13882628313",
+        "type": 1,
+        "status": 0,
+        "whitelistAuthority": 0,
+        "createTime": 1448983870704,
+        "salt": "[B@3687f95a",
+        "tokenVersion": 0,
+        "ban": 0,
+        "baoyueVersion": 0,
+        "donateVersion": 0,
+        "vipType": 0,
+        "viptypeVersion": 0,
+        "anonimousUser": false
+    },
+    "profile": {
+        "vipType": 0,
+        "userId": 109496832,
+        "defaultAvatar": false,
+        "avatarUrl": "https://p1.music.126.net/dkTS70y9Z1gO510BGxfrdA==/1423867564531753.jpg",
+        "mutual": false,
+        "remarkName": null,
+        "expertTags": null,
+        "authStatus": 0,
+        "djStatus": 10,
+        "gender": 1,
+        "accountStatus": 0,
+        "backgroundUrl": "https://p2.music.126.net/GFUxY_jGOWQ5p6t0Nhg7xw==/3440371898648755.jpg",
+        "backgroundImgId": 3440371898648755,
+        "userType": 0,
+        "experts": {
+            
+        },
+        "avatarImgIdStr": "1423867564531753",
+        "backgroundImgIdStr": "3440371898648755",
+        "description": "",
+        "avatarImgId": 1423867564531753,
+        "nickname": "至死不渝的回答",
+        "birthday": 1387431404989,
+        "city": 511600,
+        "province": 510000,
+        "detailDescription": "",
+        "followed": false,
+        "signature": "……你嫣然的一笑如含苞待放～",
+        "authority": 0,
+        "followeds": 16,
+        "follows": 14,
+        "eventCount": 2,
+        "playlistCount": 4,
+        "playlistBeSubscribedCount": 0
+    },
+    "bindings": [
+        {
+            "url": "",
+            "userId": 109496832,
+            "bindingTime": 1448983870705,
+            "expiresIn": 2147483647,
+            "expired": false,
+            "tokenJsonStr": "{\"countrycode\":\"\",\"cellphone\":\"13882628313\",\"hasPassword\":true}",
+            "refreshTime": 1448983870,
+            "id": 51137490,
+            "type": 1
+        },
+        {
+            "url": "http://t.qq.com/tanxingliang6843",
+            "userId": 109496832,
+            "bindingTime": 1449266345513,
+            "expiresIn": 8035200,
+            "expired": true,
+            "tokenJsonStr": "{\"openkey\":\"2C2D0DB60214991147BF8FA66DCC38D1\",\"nick\":\"课程ws\",\"name\":\"tanxingliang6843\",\"openid\":\"6e6c12efb8975321811e0dad90cc2634\",\"expires_in\":8035200,\"refresh_token\":\"07bd5db28a3e5a8329163f14558b5c3c\",\"access_token\":\"5f6523f8b3ef28c82c3b9e179931cb1f\",\"openId\":\"6E6C12EFB8975321811E0DAD90CC2634\"}",
+            "refreshTime": 1449266345,
+            "id": 51634888,
+            "type": 6
+        },
+        {
+            "url": "",
+            "userId": 109496832,
+            "bindingTime": 1483933322518,
+            "expiresIn": 7776000,
+            "expired": true,
+            "tokenJsonStr": "{\"access_token\":\"A560364B184AFBE086F008C5A04E7FD2\",\"query_authority_cost\":2039,\"openid\":\"10DDAFF453BFEC248AA0ECB0252809AD\",\"nickname\":\"红发\",\"partnerType\":\"0\",\"expires_in\":7776000,\"login_cost\":2139,\"authority_cost\":2360}",
+            "refreshTime": 1483933322,
+            "id": 2951558810,
+            "type": 5
+        }
+    ]
+}
+
+
+
+
+

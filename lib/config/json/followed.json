@@ -1,0 +1,25 @@
+{
+    "code": 200,
+    "more": false,
+    "followeds": [
+        {
+            "py": "ymd",
+            "time": 1522594271277,
+            "accountStatus": 0,
+            "avatarUrl": "http://p1.music.126.net/ojOQXFt74JR55xbBxOMleQ==/109951163726965741.jpg",
+            "authStatus": 0,
+            "userType": 0,
+            "gender": 1,
+            "vipType": 0,
+            "nickname": "云麦冬",
+            "userId": 365246085,
+            "followed": false,
+            "mutual": false,
+            "follows": 12,
+            "followeds": 1,
+            "signature": "",
+            "eventCount": 0,
+            "playlistCount": 10
+        }
+    ]
+}
