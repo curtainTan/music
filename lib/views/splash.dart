@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       if( status ==AnimationStatus.completed ){
 
         _timer =Timer( Duration(seconds: 2) , (){
-          Routes.router.navigateTo(context, '/', clearStack: true );
+          Routes.router.navigateTo(context, '/login', clearStack: true );
         });
       }
     });
