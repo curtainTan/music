@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 
+import 'dart:async';
 import '../modal/playList.dart';
 
 
@@ -33,11 +34,11 @@ class PlayMusic with ChangeNotifier{
 
   }
 
-  setPlayUrl( data ){
+  setPlayUrl( data ) async {
 
-    playUrl = data;
-    audioPlayer.setUrl( playUrl );
-    notifyListeners();
+    // playUrl = data;
+    await audioPlayer.play( data );
+    // notifyListeners();
 
   }
   // 重置

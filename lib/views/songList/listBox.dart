@@ -5,6 +5,10 @@ import '../../routers/route.dart';
 import 'package:music/provider/inPlayList.dart';
 import 'package:provide/provide.dart';
 
+import 'package:music/provider/play_music.dart';
+import 'package:music/service/http.dart';
+
+
 
 
 class ListBox extends StatelessWidget {
@@ -26,7 +30,7 @@ class ListBox extends StatelessWidget {
             itemExtent: ScreenUtil().setHeight(170),
             delegate: SliverChildBuilderDelegate(
               ( context, index ){
-                return oneItem( index, context, data.tracks[index].name, data.tracks[index].ar[0].name, );
+                return oneItem( index, context, data.tracks[index].name, data.tracks[index].ar[0].name, data.tracks[index].id );
               },
               childCount: data.tracks.length
             ),
@@ -37,10 +41,19 @@ class ListBox extends StatelessWidget {
   }
 
 
-  Widget oneItem( int index, context, String songname, String auth ){
+  Widget oneItem( int index, context, String songname, String auth, int id ){
     return InkWell(
-      onTap: (){
-        Routes.router.navigateTo(context, Routes.playpage);
+      onTap: () async {
+        // Routes.router.navigateTo(context, Routes.playpage);
+
+        requestGet("songurl", formData: { "id" : id } ).then( ( res ){
+
+          // print("-----${res['data'][0]['url']}---------获取的url数据是：${res}");
+          
+          Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
+
+        } );
+
       },
       child: Container(
         height: ScreenUtil().setHeight(170),
