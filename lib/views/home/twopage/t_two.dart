@@ -7,7 +7,7 @@ import 'package:music/provider/me.dart';
 import 'package:music/provider/userData.dart';
 
 import 'package:music/service/http.dart';
-
+import 'package:extended_image/extended_image.dart';
 
 
 class TTwoPage extends StatefulWidget {
@@ -15,12 +15,6 @@ class TTwoPage extends StatefulWidget {
 }
 
 class _TTwoPageState extends State<TTwoPage> with AutomaticKeepAliveClientMixin {
-
-  @override
-  void initState() {
-    super.initState();
-    // _getfrend();
-  }
 
   @override 
   bool get wantKeepAlive => true;
@@ -97,19 +91,26 @@ class Friend extends StatelessWidget {
               Routes.router.navigateTo(context, "/user/" + onefollow.userId.toString() );
             },
             customBorder: CircleBorder(),
-            child: Container(
-              height: ScreenUtil().setWidth(140),
+            child: ExtendedImage.network(
+              onefollow.avatarUrl,
+              cache: true,
               width: ScreenUtil().setWidth(140),
-              margin: EdgeInsets.all( ScreenUtil().setWidth( 20 ) ),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  // image: NetworkImage('http://curtaintan.club/headImg/1549358122065.jpg'),
-                  image: NetworkImage( onefollow.avatarUrl ),
-                  fit: BoxFit.fitWidth
-                )
-              ),
+              height: ScreenUtil().setWidth(140),
+              shape: BoxShape.circle,
             ),
+            // child: Container(
+            //   height: ScreenUtil().setWidth(140),
+            //   width: ScreenUtil().setWidth(140),
+            //   margin: EdgeInsets.all( ScreenUtil().setWidth( 20 ) ),
+            //   decoration: BoxDecoration(
+            //     shape: BoxShape.circle,
+            //     image: DecorationImage(
+            //       // image: NetworkImage('http://curtaintan.club/headImg/1549358122065.jpg'),
+            //       image: NetworkImage( onefollow.avatarUrl ),
+            //       fit: BoxFit.fitWidth
+            //     )
+            //   ),
+            // ),
           ),
           Text(
             "${onefollow.nickname}", 

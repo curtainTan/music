@@ -34,6 +34,7 @@ dependencies:
   provide: ^1.0.2
   audioplayers: ^0.10.1
   flutter_spinkit: ^3.1.0
+  extended_image: ^0.2.7
 
 
 
@@ -78,6 +79,9 @@ flutter:
    - asset/image/head/n4.jpg
    - asset/image/head/o1.jpg
    - asset/image/head/o2.jpg
+   - asset/image/loading/loding1.gif
+   - asset/image/loading/loding2.gif
+   - asset/image/loading/loding3.gif
 
    
 

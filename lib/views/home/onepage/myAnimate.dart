@@ -66,7 +66,6 @@ class _MyAnimateZhuanState extends State<MyAnimateZhuan> with SingleTickerProvid
     if( !o1 ){
       return Provide<MeInfoProvide>(
         builder: ( context, child, data ){
-          // print("---------歌单重新渲染了----");
           if( data.myPlayList == null ){
             return Container(
               child: Text("正在加载中......."),

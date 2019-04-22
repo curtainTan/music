@@ -6,7 +6,8 @@ import 'package:provide/provide.dart';
 
 import 'package:music/provider/inPlayList.dart';
 import 'package:music/routers/route.dart';
-
+// import 'package:extended_image/extended_image.dart';
+import 'package:music/component/myImage.dart';
 
 
 
@@ -26,13 +27,30 @@ class OneMenu extends StatelessWidget {
         left: ScreenUtil().setWidth(20),
         right: ScreenUtil().setWidth(20),
       ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all( Radius.circular( ScreenUtil().setWidth(10) ) ),
-        image: DecorationImage(
-          fit: BoxFit.fitHeight,
-          // image: NetworkImage("http://curtaintan.club/headImg/1549358122065.jpg"),
-          image: NetworkImage( imageUrl ),
-        )
+      // decoration: BoxDecoration(
+      //   borderRadius: BorderRadius.all( Radius.circular( ScreenUtil().setWidth(10) ) ),
+      //   image: DecorationImage(
+      //     fit: BoxFit.fitHeight,
+      //     // image: NetworkImage("http://curtaintan.club/headImg/1549358122065.jpg"),
+      //     image: NetworkImage( imageUrl ),
+      //   )
+      // ),
+      // child: ExtendedImage.network(
+      //   imageUrl,
+      //   fit: BoxFit.cover,
+      //   cache: true,
+      //   width: ScreenUtil().setWidth(140),
+      //   height: ScreenUtil().setHeight(140),
+      //   shape: BoxShape.rectangle,
+      //   borderRadius: BorderRadius.all( Radius.circular( ScreenUtil().setWidth(10) ) ),
+      // ),
+      child: MyImage(
+        h: ScreenUtil().setHeight(140),
+        w: ScreenUtil().setWidth(140),
+        shape: BoxShape.rectangle,
+        url: imageUrl,
+        b: BoxFit.cover,
+        br: ScreenUtil().setWidth(10),
       ),
     );
   }
