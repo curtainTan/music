@@ -27,6 +27,7 @@ class _MyImageState extends State<MyImage> {
 
   @override
   Widget build(BuildContext context) {
+
     return ExtendedImage.network(
       widget.url,
       cache: true,

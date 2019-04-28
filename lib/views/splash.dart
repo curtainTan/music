@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../routers/route.dart';
 
-
 class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -45,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _timer.cancel();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance =ScreenUtil()..init(context);

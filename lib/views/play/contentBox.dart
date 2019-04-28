@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provide/provide.dart';
+
+import 'package:music/provider/play_music.dart';
 
 
 class ContentBox extends StatefulWidget {
@@ -39,16 +42,20 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      height: ScreenUtil().setHeight(1300),
-      width: ScreenUtil().setWidth(1080),
-      child: IndexedStack(
-        index: selectIndex,
-        children: <Widget>[
-          _one(),
-          _two()
-        ],
-      ),
+    return Provide<PlayMusic>(
+      builder: ( context, child, data ){
+        return Container(
+          height: ScreenUtil().setHeight(1300),
+          width: ScreenUtil().setWidth(1080),
+          child: IndexedStack(
+            index: selectIndex,
+            children: <Widget>[
+              _one(),
+              _two()
+            ],
+          ),
+        );
+      },
     );
   }
 

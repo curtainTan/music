@@ -48,12 +48,17 @@ class ListBox extends StatelessWidget {
 
         requestGet("songurl", formData: { "id" : id } ).then( ( res ){
 
-          // print("-----${res['data'][0]['url']}---------获取的url数据是：${res}");
+          var playList =  Provide.value<InPlayList>(context).nowUiList.playlist;
+          Provide.value<PlayMusic>(context).setPlayList(playList);
+          Provide.value<PlayMusic>(context).setTrack( playList.tracks[index] );
           
           Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
 
         } );
 
+      },
+      onDoubleTap: (){
+        Routes.router.navigateTo(context, Routes.playpage);
       },
       child: Container(
         height: ScreenUtil().setHeight(170),

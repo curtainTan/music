@@ -8,6 +8,7 @@ import 'package:music/provider/userData.dart';
 
 import 'package:music/service/http.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:music/component/myImage.dart';
 
 
 class TTwoPage extends StatefulWidget {
@@ -91,13 +92,19 @@ class Friend extends StatelessWidget {
               Routes.router.navigateTo(context, "/user/" + onefollow.userId.toString() );
             },
             customBorder: CircleBorder(),
-            child: ExtendedImage.network(
-              onefollow.avatarUrl,
-              cache: true,
-              width: ScreenUtil().setWidth(140),
-              height: ScreenUtil().setWidth(140),
+            child: MyImage(
+              url: onefollow.avatarUrl,
+              w: ScreenUtil().setWidth(140),
+              h: ScreenUtil().setWidth(140),
               shape: BoxShape.circle,
             ),
+            // child: ExtendedImage.network(
+            //   onefollow.avatarUrl,
+            //   cache: true,
+            //   width: ScreenUtil().setWidth(140),
+            //   height: ScreenUtil().setWidth(140),
+            //   shape: BoxShape.circle,
+            // ),
             // child: Container(
             //   height: ScreenUtil().setWidth(140),
             //   width: ScreenUtil().setWidth(140),
