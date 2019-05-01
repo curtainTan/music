@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
+
+import 'package:music/service/http.dart';
 import '../modal/playList.dart';
 
 
@@ -122,9 +124,10 @@ class PlayMusic with ChangeNotifier{
   }
   // 获取播放进度
   getPosition(){
-  positionSubscription = audioPlayer.onAudioPositionChanged.listen((onData){
-      position = onData;
-    });
+    positionSubscription = audioPlayer.onAudioPositionChanged.listen((onData){
+        position = onData;
+        notifyListeners();
+      });
   }
   // 重置
   setStop(  ){
@@ -141,6 +144,13 @@ class PlayMusic with ChangeNotifier{
     audioPlayer.resume();
     isPlay = true;
     getDuration();
+    getPosition();
+    audioPlayer.onPlayerStateChanged.listen( ( status){
+      print("---------audio的状态${ status }");
+      if( status == AudioPlayerState.COMPLETED ){
+        isPlay = false;
+      }
+    });
     notifyListeners();
   }
   // 跳转
@@ -148,18 +158,32 @@ class PlayMusic with ChangeNotifier{
     audioPlayer.seek( Duration( milliseconds: mm ) );
   }
   // 下一曲
-  nextPlay( index ){
-    tracks = playlist.tracks[index];
+  nextPlay(){
+    tracks = playlist.tracks[ ++currentIndex ];
+    if( checkMusic( tracks.id ) ){
+      requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
+        setPlayUrl( res['data'][0]['url'] );
+      });
+    } else {
+      nextPlay();
+    }
+    notifyListeners();
+  }
+  // 上一曲
+  forwardSong(){
+    tracks = playlist.tracks[ --currentIndex ];
+    if( checkMusic( tracks.id ) ){
+      requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
+        setPlayUrl( res['data'][0]['url'] );
+      });
+    } else {
+      nextPlay();
+    }
     notifyListeners();
   }
 
 
-
 }
-
-
-
-
 
 
 

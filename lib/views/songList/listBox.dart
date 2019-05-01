@@ -51,8 +51,8 @@ class ListBox extends StatelessWidget {
     return InkWell(
       onTap: () async {
         // Routes.router.navigateTo(context, Routes.playpage);
-
-        requestGet("songurl", formData: { "id" : id } ).then( ( res ){
+        if( checkMusic( id )){
+          requestGet("songurl", formData: { "id" : id } ).then( ( res ){
 
           if( playListId != Provide.value<PlayMusic>(context).playListId ){
             var playList =  Provide.value<InPlayList>(context).nowUiList.playlist;
@@ -61,8 +61,11 @@ class ListBox extends StatelessWidget {
           Provide.value<PlayMusic>(context).setTrack( index );
           Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
 
-        } );
-
+          } );
+        }else{
+          print("暂无版权");
+        }
+        
       },
       onDoubleTap: (){
         Routes.router.navigateTo(context, Routes.playpage);

@@ -54,12 +54,22 @@ Future requestGet( url, { formData } ) async {
       throw Exception('后端接口出现异常，请检测代码和服务器情况.........');
     }
   } catch( e ){
-    return print("------出错了----抛出的错误-------->>>>>${e}");
+    print("------出错了----抛出的错误-------->>>>>${e}");
+    return {
+      "success" : false
+    };
   }
 
 
 }
 
+
+
+bool checkMusic( int id ) {
+  requestGet( "checkmusic", formData: { "id" : id } ).then((res){
+    return res['success'];
+  });
+}
 
 
 
@@ -110,6 +120,7 @@ class HttpUtil{
 
 
 }
+
 
 
 

@@ -23,7 +23,8 @@ class ProgressBar extends StatelessWidget {
           padding: EdgeInsets.symmetric( horizontal: ScreenUtil().setWidth(50) ),
           child: Row(
             children: <Widget>[
-              Text( data.position != null ? "${ data.position.toString() }" : "0.0" ,
+              Text( data.position != null ? 
+                "${ data.position.inMinutes }:${data.position.inSeconds % 60 }" : "00.00" ,
                 style: TextStyle( fontSize: ScreenUtil().setSp( 30 ), color: Colors.white70 ), ),
               Expanded(
                 child: Slider(

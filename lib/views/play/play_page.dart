@@ -33,7 +33,7 @@ class _PlayPageState extends State<PlayPage> {
               BackdropFilter(
                 filter: ImageFilter.blur( sigmaX: 30, sigmaY: 30 ),
                 child: Container(
-                  color: Colors.grey.withOpacity(0.3),
+                  color: Colors.grey[600].withOpacity(0.5),
                   width: ScreenUtil().setWidth(1080),
                   height: ScreenUtil().setHeight(1920),
                   child: Column(

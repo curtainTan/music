@@ -33,7 +33,7 @@ const servicePath = {
 
 
 
-var ces = "http://132.232.45.108:8888/song/url?id=31877536&br=128000";
+var ces = "http://132.232.45.108:8888/check/music?id=66842&br=128000";
 var id = 109496832;
 
 
