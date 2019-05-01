@@ -35,7 +35,7 @@ class BottomBar extends StatelessWidget {
   Widget oneIcon( int icon, context ){
     return IconButton(
       onPressed: (){
-        Provide.value<PlayMusic>(context).resume();
+        Provide.value<PlayMusic>(context).priresume();
       },
       icon: Icon( IconData( icon, fontFamily: 'iconfont' ), color: Colors.white, size: ScreenUtil().setSp(75), ),
     );
@@ -51,7 +51,7 @@ class BottomBar extends StatelessWidget {
         if( isPlay ){
           Provide.value<PlayMusic>(context).setPause();
         } else {
-          Provide.value<PlayMusic>(context).resume();
+          Provide.value<PlayMusic>(context).priresume();
         }
         
 

@@ -64,16 +64,6 @@ Future requestGet( url, { formData } ) async {
 }
 
 
-
-bool checkMusic( int id ) {
-  requestGet( "checkmusic", formData: { "id" : id } ).then((res){
-    return res['success'];
-  });
-}
-
-
-
-
 class HttpUtil{
   static HttpUtil instance;
   Dio dio;

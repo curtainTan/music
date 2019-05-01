@@ -50,22 +50,23 @@ class ListBox extends StatelessWidget {
   Widget oneItem( int index, context, String songname, String auth, int id, int playListId ){
     return InkWell(
       onTap: () async {
-        // Routes.router.navigateTo(context, Routes.playpage);
-        if( checkMusic( id )){
-          requestGet("songurl", formData: { "id" : id } ).then( ( res ){
 
-          if( playListId != Provide.value<PlayMusic>(context).playListId ){
-            var playList =  Provide.value<InPlayList>(context).nowUiList.playlist;
-            Provide.value<PlayMusic>(context).setPlayList(playList, playListId);
+        requestGet( "checkmusic", formData: { "id" : id } ).then((res){
+          if( res['success'] != true ){
+            print("-------------没有权限----------");
+          }else{
+            requestGet("songurl", formData: { "id" : id } ).then( ( res ){
+
+            if( playListId != Provide.value<PlayMusic>(context).playListId ){
+              var playList =  Provide.value<InPlayList>(context).nowUiList.playlist;
+              Provide.value<PlayMusic>(context).setPlayList(playList, playListId);
+            }
+            Provide.value<PlayMusic>(context).setTrack( index );
+            Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
+
+            } );
           }
-          Provide.value<PlayMusic>(context).setTrack( index );
-          Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
-
-          } );
-        }else{
-          print("暂无版权");
-        }
-        
+        });
       },
       onDoubleTap: (){
         Routes.router.navigateTo(context, Routes.playpage);

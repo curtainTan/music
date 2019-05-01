@@ -35,7 +35,7 @@ class ProgressBar extends StatelessWidget {
                   activeColor: Colors.white,
                   inactiveColor: Colors.white,
                   onChanged: ( val ){
-                    print("----------------拉取的值$val------------------");
+                    Provide.value<PlayMusic>(context).seek( (val * data.duration.inMilliseconds).toInt() );
                   },
                 ),
               ),
