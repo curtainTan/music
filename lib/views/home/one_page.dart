@@ -132,7 +132,7 @@ class _OnePageState extends State<OnePage> with AutomaticKeepAliveClientMixin {
         children: <Widget>[
           topCard(),
           OneTopBox(),
-          OneMidBox()
+          OneMidBox(),
         ],
       ),
     );

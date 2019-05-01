@@ -11,7 +11,6 @@ import 'package:music/provider/play_music.dart';
 class BottomBar extends StatelessWidget {
 
 
-
   @override
   Widget build(BuildContext context) {
     return Provide<PlayMusic>(
@@ -49,10 +48,15 @@ class BottomBar extends StatelessWidget {
         // if( result == 1 ){
         //   print("---------成功播放----");
         // }
-        Provide.value<PlayMusic>(context).setPause();
+        if( isPlay ){
+          Provide.value<PlayMusic>(context).setPause();
+        } else {
+          Provide.value<PlayMusic>(context).resume();
+        }
+        
 
       },
-      icon: Icon( IconData( 0xe629, fontFamily: 'iconfont' ), color: Colors.white, size: ScreenUtil().setSp(75), ),
+      icon: Icon( IconData( isPlay ? 0xe629 : 0xe61e , fontFamily: 'iconfont' ), color: Colors.white, size: ScreenUtil().setSp(75), ),
     );
   }
 

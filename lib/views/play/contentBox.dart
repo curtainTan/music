@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
 
 import 'package:music/provider/play_music.dart';
-
+import 'package:music/component/myImage.dart';
 
 class ContentBox extends StatefulWidget {
   @override
@@ -38,7 +38,6 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
 
@@ -50,7 +49,7 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
           child: IndexedStack(
             index: selectIndex,
             children: <Widget>[
-              _one(),
+              _one( data.tracks.al.picUrl ),
               _two()
             ],
           ),
@@ -59,7 +58,7 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
     );
   }
 
-  Widget _one(){
+  Widget _one( url ){
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -86,17 +85,24 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
               child: RotationTransition(
                 turns: _animation,
                 child: Center(
-                  child: Container(
-                    height: ScreenUtil().setWidth(650),
-                    width: ScreenUtil().setWidth(650),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage("https://www.curtaintan.club/bg/m2.jpg"),
-                        fit: BoxFit.cover
-                      ),
-                      shape: BoxShape.circle
-                    ),
+                  child: MyImage(
+                    shape: BoxShape.circle,
+                    url: url,
+                    h: ScreenUtil().setWidth(650),
+                    w: ScreenUtil().setWidth(650),
                   ),
+                  // child: Container(
+                  //   height: ScreenUtil().setWidth(650),
+                  //   width: ScreenUtil().setWidth(650),
+                  //   decoration: BoxDecoration(
+                  //     image: DecorationImage(
+                  //       // image: NetworkImage("https://www.curtaintan.club/bg/m2.jpg"),
+                  //       image: NetworkImage(url),
+                  //       fit: BoxFit.cover
+                  //     ),
+                  //     shape: BoxShape.circle
+                  //   ),
+                  // ),
                 )
               )
             ),

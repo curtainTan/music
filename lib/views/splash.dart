@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:provide/provide.dart';
 
 import '../routers/route.dart';
+import 'package:music/provider/play_music.dart';
+
 
 class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
@@ -37,12 +39,23 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _animationController.forward();
 
   }
+  @override
+  void didChangeDependencies() {
+    initPlay( context );
+    super.didChangeDependencies();
+  }
 
   @override
   void dispose() {
     _animationController.dispose();
     _timer.cancel();
     super.dispose();
+  }
+
+  void initPlay( context ){
+
+    Provide.value<PlayMusic>(context).initplayer();
+    
   }
 
   @override

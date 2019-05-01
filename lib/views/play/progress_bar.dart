@@ -1,41 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provide/provide.dart';
+
+
+import 'package:music/provider/play_music.dart';
 
 
 
-class ProgressBar extends StatefulWidget {
-  @override
-  _ProgressBarState createState() => _ProgressBarState();
-}
 
-class _ProgressBarState extends State<ProgressBar> {
+
+class ProgressBar extends StatelessWidget {
+
 
   double _value = 0.0;
 
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: ScreenUtil().setHeight(90),
-      padding: EdgeInsets.symmetric( horizontal: ScreenUtil().setWidth(50) ),
-      child: Row(
-        children: <Widget>[
-          Text( "02:12", style: TextStyle( fontSize: ScreenUtil().setSp( 30 ), color: Colors.white70 ), ),
-          Expanded(
-            child: Slider(
-              value: _value,
-              activeColor: Colors.white,
-              inactiveColor: Colors.white,
-              onChanged: ( val ){
-                setState(() {
-                 _value = val; 
-                });
-              },
-            ),
+    return Provide<PlayMusic>(
+      builder: ( context, child, data ){
+        return Container(
+          height: ScreenUtil().setHeight(90),
+          padding: EdgeInsets.symmetric( horizontal: ScreenUtil().setWidth(50) ),
+          child: Row(
+            children: <Widget>[
+              Text( data.position != null ? "${ data.position.toString() }" : "0.0" ,
+                style: TextStyle( fontSize: ScreenUtil().setSp( 30 ), color: Colors.white70 ), ),
+              Expanded(
+                child: Slider(
+                  value: ( data.duration != null &&
+                          data.position != null &&
+                          data.position.inMilliseconds > 0
+                   ) ? (data.position.inMilliseconds / data.duration.inMilliseconds ) : 0.0 ,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.white,
+                  onChanged: ( val ){
+                    print("----------------拉取的值$val------------------");
+                  },
+                ),
+              ),
+              Text(  data.duration != null ? 
+                "${ (data.duration.inSeconds.ceil() / 60).floor() }:${ data.duration.inSeconds.ceil() % 60 }" : "04.10" ,
+                style: TextStyle( fontSize: ScreenUtil().setSp( 30 ), color: Colors.white70 ), ),
+            ],
           ),
-          Text( "04:14", style: TextStyle( fontSize: ScreenUtil().setSp( 30 ), color: Colors.white70 ), ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

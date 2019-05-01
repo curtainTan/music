@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:extended_tabs/extended_tabs.dart';
-import 'package:provide/provide.dart';
 
 import './myDrawer.dart';
 import './one_page.dart';
 import './twopage/main.dart';
 import './threepage/index.dart';
-import 'package:music/provider/play_music.dart';
 import 'package:music/component/bottomBar.dart';
 
 
@@ -33,7 +31,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    initPlay(context);
   }
 
 
@@ -43,13 +40,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _tabController1.dispose();
     super.dispose();
   }
-
-  void initPlay( context ){
-
-    Provide.value<PlayMusic>(context).initplayer();
-    
-  }
-  
 
   Widget topTabBar(){
     return Container(

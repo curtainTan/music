@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
 
 
-
+import 'package:music/component/myImage.dart';
 import 'package:music/provider/play_music.dart';
 import 'package:music/routers/route.dart';
 
@@ -19,7 +19,9 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Provide<PlayMusic>(
       builder: ( context, child, data ){
-        return GestureDetector(
+        return data.playlist == null ? Container(
+          height: ScreenUtil().setHeight(1),
+        ) : GestureDetector(
           onTap: (){
             Routes.router.navigateTo(context, '/playpage' );
           },
@@ -42,7 +44,14 @@ class _BottomBarState extends State<BottomBar> {
                   height: ScreenUtil().setHeight(100),
                   padding: EdgeInsets.only( right: ScreenUtil().setWidth(40) ),
                   child: ClipOval(
-                    child: Image.network("http://curtaintan.club/headImg/1549358122065.jpg"),
+                    // child: Image.network("http://curtaintan.club/headImg/1549358122065.jpg"),
+                    // child: Image.network( data.tracks.al.picUrl ),
+                    child: MyImage(
+                      url: data.tracks.al.picUrl,
+                      h: ScreenUtil().setHeight(100),
+                      w: ScreenUtil().setHeight(100),
+                      shape: BoxShape.circle,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -50,18 +59,30 @@ class _BottomBarState extends State<BottomBar> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("歌名"),
-                      Text("演唱者", style: TextStyle( fontSize: ScreenUtil().setSp(30), color: Colors.grey ),)
+                      Text("${ data.tracks.name }"),
+                      Text("${ data.tracks.ar[0].name }", style: TextStyle( fontSize: ScreenUtil().setSp(30), color: Colors.grey ),)
                     ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric( horizontal: ScreenUtil().setWidth(40) ),
-                  child: Icon(  IconData( 0xe629, fontFamily: 'iconfont' ), color: Colors.black26, size: ScreenUtil().setSp(65), ),
+                InkWell(
+                  onTap: (){
+                    print("点击了一下播放----");
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric( horizontal: ScreenUtil().setWidth(40) ),
+                    height: ScreenUtil().setHeight(150),
+                    child: Icon( IconData( data.isPlay ? 0xe629 : 0xe61e , fontFamily: 'iconfont' ), color: Colors.black26, size: ScreenUtil().setSp(65), ),
+                  )
                 ),
                 Container(
                   padding: EdgeInsets.symmetric( horizontal: ScreenUtil().setWidth(10) ),
-                  child: Icon(  IconData( 0xe617, fontFamily: 'iconfont' ), color: Colors.black45, size: ScreenUtil().setSp(65), ),
+                  height: ScreenUtil().setHeight(150),
+                  child:  InkWell(
+                    onTap: (){
+                      
+                    },
+                    child: Icon(  IconData( 0xe617, fontFamily: 'iconfont' ), color: Colors.black45, size: ScreenUtil().setSp(65), ),
+                  )
                 ),
               ],
             ),

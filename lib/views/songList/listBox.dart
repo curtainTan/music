@@ -30,7 +30,13 @@ class ListBox extends StatelessWidget {
             itemExtent: ScreenUtil().setHeight(170),
             delegate: SliverChildBuilderDelegate(
               ( context, index ){
-                return oneItem( index, context, data.tracks[index].name, data.tracks[index].ar[0].name, data.tracks[index].id );
+                return oneItem( 
+                  index, 
+                  context, 
+                  data.tracks[index].name, 
+                  data.tracks[index].ar[0].name, 
+                  data.tracks[index].id, 
+                  data.nowUiList.playlist.id );
               },
               childCount: data.tracks.length
             ),
@@ -41,17 +47,18 @@ class ListBox extends StatelessWidget {
   }
 
 
-  Widget oneItem( int index, context, String songname, String auth, int id ){
+  Widget oneItem( int index, context, String songname, String auth, int id, int playListId ){
     return InkWell(
       onTap: () async {
         // Routes.router.navigateTo(context, Routes.playpage);
 
         requestGet("songurl", formData: { "id" : id } ).then( ( res ){
 
-          var playList =  Provide.value<InPlayList>(context).nowUiList.playlist;
-          Provide.value<PlayMusic>(context).setPlayList(playList);
-          Provide.value<PlayMusic>(context).setTrack( playList.tracks[index] );
-          
+          if( playListId != Provide.value<PlayMusic>(context).playListId ){
+            var playList =  Provide.value<InPlayList>(context).nowUiList.playlist;
+            Provide.value<PlayMusic>(context).setPlayList(playList, playListId);
+          }
+          Provide.value<PlayMusic>(context).setTrack( index );
           Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
 
         } );
