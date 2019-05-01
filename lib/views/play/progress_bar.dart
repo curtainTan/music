@@ -11,9 +11,6 @@ import 'package:music/provider/play_music.dart';
 
 class ProgressBar extends StatelessWidget {
 
-
-  double _value = 0.0;
-
   @override
   Widget build(BuildContext context) {
     return Provide<PlayMusic>(

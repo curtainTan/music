@@ -26,9 +26,6 @@ class InPlayList with ChangeNotifier{
   }
 
   setNow( data ){
-
-    print("----------InPlayList内部------------");
-
     nowUiList = UserPlayList.fromJson( data );
     // print("-----设置tracks");
     tracks = nowUiList.playlist.tracks;

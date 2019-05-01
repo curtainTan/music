@@ -35,7 +35,6 @@ class PlayMusic with ChangeNotifier{
     prefs = await SharedPreferences.getInstance();
     await getListToLocal();
     await getSongData();
-    // getDuration();
     tracks = playlist.tracks[currentIndex];
     print("${ tracks.name }----------${ tracks.al.name }");
     notifyListeners();
@@ -145,11 +144,8 @@ class PlayMusic with ChangeNotifier{
   }
   // 下一曲
   nextPlay() async {
-    var ss = currentIndex;
-    ss++;
-    print("------ss->>-$ss------currentIndex----->>$currentIndex----");
-    currentIndex ++;
-    tracks = playlist.tracks[ ss ];
+    tracks = playlist.tracks[ ++currentIndex ];
+    position = Duration( seconds: 0 );
     requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res){
       if( res['success'] == true ){
         requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
@@ -164,6 +160,7 @@ class PlayMusic with ChangeNotifier{
   // 上一曲
   forwardSong() async {
     tracks = playlist.tracks[ --currentIndex ];
+    position = Duration( seconds: 0 );
     requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res){
       if( res['success'] != true ){
         requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
