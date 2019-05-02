@@ -2,6 +2,8 @@
     "sgc": false,
     "sfy": false,
     "qfy": false,
+    "nolyric": true,
+    "needDesc": true,
     "lyricUser": {
         "id": 31877536,
         "status": 0,

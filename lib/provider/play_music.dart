@@ -7,14 +7,22 @@ import 'dart:convert';
 
 import 'package:music/service/http.dart';
 import '../modal/playList.dart';
-
+import 'package:music/modal/lyric.dart';
 
 
 class PlayMusic with ChangeNotifier{
   Playlist playlist = null;                         // 歌曲列表
   Tracks tracks = null;                             // 一首歌的信息
   int currentIndex = 0;                             // 当前播放歌曲的index
-  int playListId = 0;
+  int playListId = 0;                               // 歌曲列表的id
+  LyricModel lyricModel = null;                     // 歌词modal
+
+
+
+  List<String> lyricList = [];                      // 歌词列表
+  List<int> lyricTimes = [];                        // 歌词时间列表
+  int nowLyricIndex = 0;                            // 当前歌词的index
+
 
   String playUrl = "";                              // 歌曲的url
   AudioPlayer audioPlayer = new AudioPlayer();
@@ -175,6 +183,27 @@ class PlayMusic with ChangeNotifier{
       }
       notifyListeners();
     });
+  }
+
+  // 初始化歌词modal
+  initLyricModel( data ){
+    lyricModel = LyricModel.fromJson( data );
+    if( lyricModel.nolyric ){
+      
+    }else{
+
+    }
+    notifyListeners();
+  }
+
+  // 设置歌词列表和歌词时间列表
+  setLyric( data ){
+
+
+
+
+    
+    notifyListeners();
   }
 
 

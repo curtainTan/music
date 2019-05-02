@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:extended_image/extended_image.dart';
 
-
+// 自己封装的图片插件，代码丑死了，请勿模仿
 
 class MyImage extends StatefulWidget {
 

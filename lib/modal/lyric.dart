@@ -2,6 +2,8 @@ class LyricModel {
   bool sgc;
   bool sfy;
   bool qfy;
+  bool nolyric;
+  bool needDesc;
   LyricUser lyricUser;
   Lrc lrc;
   Klyric klyric;
@@ -12,6 +14,8 @@ class LyricModel {
       {this.sgc,
       this.sfy,
       this.qfy,
+      this.nolyric,
+      this.needDesc,
       this.lyricUser,
       this.lrc,
       this.klyric,
@@ -22,6 +26,8 @@ class LyricModel {
     sgc = json['sgc'];
     sfy = json['sfy'];
     qfy = json['qfy'];
+    nolyric = json['nolyric'];
+    needDesc = json['needDesc'];
     lyricUser = json['lyricUser'] != null
         ? new LyricUser.fromJson(json['lyricUser'])
         : null;
@@ -38,6 +44,8 @@ class LyricModel {
     data['sgc'] = this.sgc;
     data['sfy'] = this.sfy;
     data['qfy'] = this.qfy;
+    data['nolyric'] = this.nolyric;
+    data['needDesc'] = this.needDesc;
     if (this.lyricUser != null) {
       data['lyricUser'] = this.lyricUser.toJson();
     }

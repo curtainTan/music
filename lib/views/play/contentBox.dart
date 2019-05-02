@@ -54,7 +54,7 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
             index: selectIndex,
             children: <Widget>[
               _one( data.tracks.al.picUrl ),
-              _two()
+              _two( context )
             ],
           ),
         );
@@ -140,7 +140,7 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
     );
   }
 
-  Widget _two(){
+  Widget _two( context ){
     return GestureDetector(
       onTap: (){
         print("---------obj00ect");
@@ -150,9 +150,18 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
       },
       child: Center(
         child: Container(
-          height: ScreenUtil().setHeight(900),
+          height: ScreenUtil().setHeight(1000),
           width: ScreenUtil().setWidth(680),
-          color: Colors.grey,
+          child: ListView.builder(
+            itemBuilder: ( context, index ){
+              return ListTile(
+                title: Center(
+                  child: Text("现在是第$index 个元素", style: TextStyle( color: Colors.white70 ),),
+                )
+              );
+            },
+            itemCount: 30,
+          ),
         ),
       ),
     );
