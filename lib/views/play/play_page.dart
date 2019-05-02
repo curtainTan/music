@@ -68,9 +68,10 @@ class _PlayPageState extends State<PlayPage> {
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text( title , style: TextStyle( fontSize: ScreenUtil().setSp( 40 ) ),),
-              Text("$name >", style: TextStyle( fontSize: ScreenUtil().setSp( 30 ), color: Colors.grey ),)
+              Text("$name >", style: TextStyle( fontSize: ScreenUtil().setSp( 30 ), color: Colors.white ),)
             ],
           ),
         ),

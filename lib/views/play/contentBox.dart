@@ -5,6 +5,8 @@ import 'package:provide/provide.dart';
 import 'package:music/provider/play_music.dart';
 import 'package:music/component/myImage.dart';
 
+// import 'package:music/event_bus/play.dart';
+
 class ContentBox extends StatefulWidget {
   @override
   _ContentBoxState createState() => _ContentBoxState();
@@ -15,12 +17,12 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
   int selectIndex = 0;
   AnimationController _controller;
   Animation _animation;
-  bool roat = false;
+  // bool roat = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController( vsync: this, duration: Duration( seconds: 24 ) );
+    _controller = AnimationController( vsync: this, duration: Duration( seconds: 28 ) );
     _animation = Tween( begin: 0.0, end: 1.0 ).animate( CurvedAnimation( parent: _controller, curve: Curves.linear ) );
     _controller.addStatusListener(
       ( AnimationStatus status ){
@@ -37,12 +39,14 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
     _controller.dispose();
     super.dispose();
   }
+  
 
   @override
   Widget build(BuildContext context) {
 
     return Provide<PlayMusic>(
       builder: ( context, child, data ){
+        data.isPlay ? _controller.forward() : _controller.stop();
         return Container(
           height: ScreenUtil().setHeight(1300),
           width: ScreenUtil().setWidth(1080),
@@ -67,20 +71,23 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: (){
-                print("---------object");
-                if( roat ){
-                  setState(() {
-                    // selectIndex = selectIndex == 0 ? 1 : 0;
-                    _controller.stop();
-                    roat = false;
-                  });
-                }else{
-                  setState(() {
-                    // selectIndex = selectIndex == 0 ? 1 : 0;
-                    _controller.forward();
-                    roat = true;
-                  });
-                }
+                setState(() {
+                  selectIndex = selectIndex == 0 ? 1 : 0;
+                });
+                // print("---------object");
+                // if( roat ){
+                //   _controller.stop();
+                //   setState(() {
+                //     // selectIndex = selectIndex == 0 ? 1 : 0;
+                //     roat = false;
+                //   });
+                // }else{
+                //   _controller.forward();
+                //   setState(() {
+                //     // selectIndex = selectIndex == 0 ? 1 : 0;
+                //     roat = true;
+                //   });
+                // }
               },
               child: RotationTransition(
                 turns: _animation,
@@ -143,8 +150,8 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
       },
       child: Center(
         child: Container(
-          height: ScreenUtil().setHeight(500),
-          width: ScreenUtil().setWidth(580),
+          height: ScreenUtil().setHeight(900),
+          width: ScreenUtil().setWidth(680),
           color: Colors.grey,
         ),
       ),

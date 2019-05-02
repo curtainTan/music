@@ -20,9 +20,11 @@ class BottomBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               oneIcon( 0xe69b, context ),
-              oneIcon( 0xe62b, context ),
+              // oneIcon( 0xe62b, context ),
+              _prevBtn(context),
               _playmenu( data.isPlay, context ),
-              oneIcon( 0xe628, context ),
+              // oneIcon( 0xe628, context ),
+              _nextBtn(context),
               oneIcon( 0xec39, context ),
             ],
           ),
@@ -41,13 +43,28 @@ class BottomBar extends StatelessWidget {
     );
   }
 
+  Widget _nextBtn( context ){
+    return IconButton(
+      onPressed: (){
+        Provide.value<PlayMusic>(context).nextPlay();
+      },
+      icon: Icon( IconData( 0xe628, fontFamily: 'iconfont' ), color: Colors.white, size: ScreenUtil().setSp(75), ),
+    );
+  }
+  Widget _prevBtn( context ){
+    return IconButton(
+      onPressed: (){
+        Provide.value<PlayMusic>(context).forwardSong();
+      },
+      icon: Icon( IconData( 0xe62b, fontFamily: 'iconfont' ), color: Colors.white, size: ScreenUtil().setSp(75), ),
+    );
+  }
+
+
+
   Widget _playmenu( bool isPlay, context ){
     return IconButton(
       onPressed: () {
-        // int result = await audioPlayer.play("https://www.curtaintan.club/m1.mp3");
-        // if( result == 1 ){
-        //   print("---------成功播放----");
-        // }
         if( isPlay ){
           Provide.value<PlayMusic>(context).setPause();
         } else {

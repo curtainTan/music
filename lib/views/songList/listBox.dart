@@ -51,8 +51,8 @@ class ListBox extends StatelessWidget {
     return InkWell(
       onTap: () async {
 
-        requestGet( "checkmusic", formData: { "id" : id } ).then((res){
-          if( res['success'] != true ){
+        requestGet( "checkmusic", formData: { "id" : id } ).then((res1){
+          if( res1['success'] != true ){
             print("-------------没有权限----------");
           }else{
             requestGet("songurl", formData: { "id" : id } ).then( ( res ){

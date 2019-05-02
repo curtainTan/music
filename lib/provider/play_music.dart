@@ -25,6 +25,7 @@ class PlayMusic with ChangeNotifier{
 
   StreamSubscription durationSubscription;
   StreamSubscription positionSubscription;
+  StreamSubscription playerCompleteSubscription;
 
 
   bool isPlay = false;
@@ -36,7 +37,8 @@ class PlayMusic with ChangeNotifier{
     await getListToLocal();
     await getSongData();
     tracks = playlist.tracks[currentIndex];
-    print("${ tracks.name }----------${ tracks.al.name }");
+    // print("${ tracks.name }----------${ tracks.al.name }");
+    computed();
     notifyListeners();
   }
   // 保存歌曲列表
@@ -50,11 +52,13 @@ class PlayMusic with ChangeNotifier{
   }
   // 获取一首歌的信息
   getSongData(){
-    currentIndex = prefs.getInt( 'currentIndex' );      // 获取歌曲的在列表中的index
+    currentIndex = prefs.getInt( 'currentIndex' ) == null ? 0 : prefs.getInt( 'currentIndex' ) ;      // 获取歌曲的在列表中的index
     duration = Duration( milliseconds: prefs.getInt( "duration" ) == null ? 0 : prefs.getInt( "duration" )   ); // 获取duration
-    playUrl = prefs.getString("playUrl");           // 获取歌曲url，并设置
-    playListId = prefs.getInt("playListId");        // 获取列表id
-    audioPlayer.setUrl(playUrl);                    // 设置url
+    playUrl = prefs.getString("playUrl") == null ? "" : prefs.getString("playUrl") ;           // 获取歌曲url，并设置
+    playListId = prefs.getInt("playListId") == null ? 0 : prefs.getInt("playListId") ;        // 获取列表id
+    if( playUrl != "" ){
+      audioPlayer.setUrl(playUrl);                    // 设置url
+    }
   }
   // 保存一首歌的信息
   setSongData(){
@@ -97,9 +101,9 @@ class PlayMusic with ChangeNotifier{
     durationSubscription = audioPlayer.onDurationChanged.listen((onData){
       
       if( duration != onData ){
-        print("总时长---------------$onData");
-        print("转为秒---------------${ onData.inSeconds }");
-        print("转为秒---------------${ onData.inSeconds.ceil() }");
+        // print("总时长---------------$onData");
+        // print("转为秒---------------${ onData.inSeconds }");
+        // print("转为秒---------------${ onData.inSeconds.ceil() }");
         duration = onData;
       }
     });
@@ -121,19 +125,19 @@ class PlayMusic with ChangeNotifier{
     isPlay = false;
     notifyListeners();
   }
+  computed(){
+    playerCompleteSubscription = audioPlayer.onPlayerCompletion.listen((onData){
+      print("-----onPlayerCompletion------------");
+      position = Duration( seconds: 0 );
+      nextPlay();
+    });
+  }
   // 恢复播放
   priresume(){
     audioPlayer.resume();
     isPlay = true;
     getDuration();
     getPosition();
-    audioPlayer.onPlayerStateChanged.listen( ( status){
-      print("---------audio的状态${ status }");
-      if( status == AudioPlayerState.COMPLETED ){
-        position = Duration( seconds: 0 );
-        nextPlay();
-      }
-    });
     notifyListeners();
   }
   // 跳转
@@ -145,24 +149,24 @@ class PlayMusic with ChangeNotifier{
   // 下一曲
   nextPlay() async {
     tracks = playlist.tracks[ ++currentIndex ];
+    print("-------当前index-------$currentIndex-----");
     position = Duration( seconds: 0 );
-    requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res){
-      if( res['success'] == true ){
+    requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
+      if( res1['success'] == true ){
         requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
           setPlayUrl( res['data'][0]['url'] );
         });
         } else {
           nextPlay();
       }
-      notifyListeners();
     });
   }
   // 上一曲
   forwardSong() async {
     tracks = playlist.tracks[ --currentIndex ];
     position = Duration( seconds: 0 );
-    requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res){
-      if( res['success'] != true ){
+    requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
+      if( res1['success'] == true ){
         requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
           setPlayUrl( res['data'][0]['url'] );
         });
