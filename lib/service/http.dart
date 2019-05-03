@@ -2,16 +2,13 @@ import 'package:dio/dio.dart';
 import 'dart:async';
 import 'dart:io';
 
-
 import '../config/server/api.dart';
-
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
 Future request( url, { formData } ) async {
   try {
-    print("开始获取数据-------");
     Response response;
     Dio dio = Dio();
     dio.options.contentType = ContentType.parse("application/x-www-form-urlencoded");
@@ -36,10 +33,14 @@ Future request( url, { formData } ) async {
 
 Future requestGet( url, { formData } ) async {
   try {
-    // print("开始获取数据-------");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String lovely = pref.getString("De-lovely");
     Response response;
     Dio mdio = Dio();
     mdio.options.contentType = ContentType.parse("application/x-www-form-urlencoded");
+    if( lovely != null ){
+      mdio.options.cookies = [ Cookie( 'set-cookie', lovely ) ];
+    }
     if( formData == null ){
       response = await mdio.get( servicePath[url] );
     } else {
@@ -48,6 +49,12 @@ Future requestGet( url, { formData } ) async {
     if( response.statusCode == 200 || response.statusCode == 201 ){
       // print("------获取成功------------>>>>>请看下一步.......");
       // print("$response");
+      print( "---------header里面的数据--------${response.headers.toString()}-----" );
+      print( "---------header里面的数据--------${response.headers['set-cookie']}-------${response.headers['cookie']}--" );
+      if( response.headers['set-cookie'] != null ){
+        // Cookie ss = Cookie( "De-lovely", response.headers['set-cookie'].toString() );
+        pref.setString("De-lovely", response.headers['set-cookie'].toString());
+      }
       return response.data;
     }else{
       print("------出错了------------>>>>>请检测代码和服务器情况.......");

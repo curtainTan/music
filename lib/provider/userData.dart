@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 
 
-import 'package:music/modal/user_model.dart';
+import 'package:music/modal/user_detail_modal.dart';
 import 'package:music/modal/myFollow.dart';
 import 'package:music/modal/followedModel.dart';
 import 'package:music/modal/gedan.dart';
 
 
-
-
 class UserDataProvide with ChangeNotifier{
-  String name = '', headImg = '';
-  UserModel userdata = null;
-  MyFollower myFollower = null;
-  FollowedModel followedModel = null;
-  GedanModel userPlayList = null;
+  String name = '', headImg = '';                       // 个人中心的name和headimg
+  UserDetailModal userdata = null;                      // 用户data
+  MyFollower myFollower = null;                         // 关注的人
+  FollowedModel followedModel = null;                   // 我关注的人
+  GedanModel userPlayList = null;                       // 所有的歌单
 
-  List<PlaylistAbout> onlyMyPlayList = [];
+  List<PlaylistAbout> onlyMyPlayList = [];              // 自己的歌单
   List<PlaylistAbout> collectionPlayList = [];
 
   initUserData( cname, cheadImg ){
@@ -27,7 +25,7 @@ class UserDataProvide with ChangeNotifier{
 
   }
   setUserdata( data ){
-    userdata = UserModel.fromJson(data);
+    userdata = UserDetailModal.fromJson(data);
     notifyListeners();
   }
 
@@ -61,11 +59,6 @@ class UserDataProvide with ChangeNotifier{
 
 
 }
-
-
-
-
-
 
 
 

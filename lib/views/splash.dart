@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 import '../routers/route.dart';
 import 'package:music/provider/play_music.dart';
-
+// import 'package:music/service/http.dart';
 
 class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
@@ -16,10 +18,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   AnimationController _animationController;
   Animation _animation;
   Timer _timer;
+  SharedPreferences pref;
+  bool isLoged = false;
 
   @override
   void initState() {
     super.initState();
+
     _animationController =AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 2000),
@@ -29,18 +34,22 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _animation.addStatusListener( ( status ){
       if( status ==AnimationStatus.completed ){
 
-        _timer =Timer( Duration(seconds: 2) , (){
-          // Routes.router.navigateTo(context, '/login', clearStack: true );
-          Routes.router.navigateTo(context, '/', clearStack: true );
+        _timer =Timer( Duration(seconds: 3) , (){
+          if( isLoged ){
+            Routes.router.navigateTo(context, '/', clearStack: true );
+          }else{
+            Routes.router.navigateTo(context, '/login', clearStack: true );
+          }
         });
       }
     });
-
     _animationController.forward();
 
   }
+
   @override
   void didChangeDependencies() {
+    initUserData( context );
     initPlay( context );
     super.didChangeDependencies();
   }
@@ -53,10 +62,21 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   void initPlay( context ){
-
     Provide.value<PlayMusic>(context).initplayer();
-    
   }
+  void initUserData( context ) async {
+    pref = await SharedPreferences.getInstance();
+    var loged = pref.getInt("userId");
+    if( loged != null ){
+      setState(() {
+       isLoged = true;
+      });
+      // requestGet( "" ).then( (res){
+
+      // } );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {

@@ -7,8 +7,8 @@ const serviceUrl = "http://132.232.45.108:8888";
 
 
 const servicePath = {
-  "login" : serviceUrl + "/login/cellphone",
-  "userDetail" : serviceUrl + "/user/detail",
+  "login" : serviceUrl + "/login/cellphone",               // /login/cellphone?phone=xxx&password=yyy
+  "userDetail" : serviceUrl + "/user/detail",              // 必选参数 : uid : 用户 id
   "userPlaylist" : serviceUrl + "/user/playlist",
   "playlistdetail" : serviceUrl + "/playlist/detail",      // 传入歌单id
   "banner": serviceUrl + "/banner",                        // 轮播图
@@ -31,7 +31,7 @@ const servicePath = {
 
 
 
-var ces = "http://132.232.45.108:8888/lyric?id=32977771&br=128000";
+var ces = "http://132.232.45.108:8888/login/cellphone?id=32977771&br=128000";
 var id = 109496832;
 
 

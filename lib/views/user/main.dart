@@ -31,6 +31,7 @@ class _UserMainState extends State<UserMain> with TickerProviderStateMixin {
     _scrollController = ScrollController();
     _scrollController.addListener(
       (){ 
+
         // print("----------------->>>>${_scrollController.position.pixels}");
         // print("----------------->>atEdge>>${_scrollController.position.atEdge}");
         // print("-------------->>axis>>${_scrollController.position.axis}");
@@ -179,7 +180,10 @@ class _UserMainState extends State<UserMain> with TickerProviderStateMixin {
                             headrow( head ),
                             name( username ),
                             aboutme( userdata.userdata ),
-                            label(),
+                            label( 
+                              userdata.userdata.level, 
+                              userdata.userdata.profile.gender, 
+                            ),
                           ],
                         ),
                       ) : null
@@ -298,7 +302,7 @@ class _UserMainState extends State<UserMain> with TickerProviderStateMixin {
     );
   }
 
-  Widget label(){
+  Widget label( level, gender,  ){
     return Container(
       margin: EdgeInsets.only(
         top: ScreenUtil().setHeight(40)
@@ -306,7 +310,8 @@ class _UserMainState extends State<UserMain> with TickerProviderStateMixin {
       child: Row(
         children: <Widget>[
           oneLabel( "10后" ),
-          oneLabel( "Lv8" ),
+          oneLabel( "Lv$level" ),
+          gender != 1 ? oneLabel( "性别：女" ) : oneLabel( "性别：男" ),
           oneLabel( "广安市" ),
           oneLabel( "射手座" ),
         ],

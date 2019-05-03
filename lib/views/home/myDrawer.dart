@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
-import 'package:music/views/testpage.dart';
-
  // 所有小部件
 class MyDrawer extends StatelessWidget {
 
@@ -123,11 +121,6 @@ class MyDrawer extends StatelessWidget {
             InkWell(
               onTap: (){
                 print("点了一下头像区....");
-                Navigator.of(context).push( MaterialPageRoute(
-                  builder: ( context ){
-                    return TestPage();
-                  }
-                ) );
               },
               child: Container(
                 alignment: Alignment.centerLeft,

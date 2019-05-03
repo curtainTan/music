@@ -184,7 +184,10 @@ class PlayMusic with ChangeNotifier{
   }
   // 下一曲
   nextPlay() async {
-    tracks = playlist.tracks[ ++currentIndex ];
+    if( ( ++currentIndex) > playlist.tracks.length ){
+      currentIndex = 0;
+    }
+    tracks = playlist.tracks[ currentIndex ];
     print("-------当前index-------$currentIndex-----");
     position = Duration( seconds: 0 );
     requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
@@ -202,7 +205,10 @@ class PlayMusic with ChangeNotifier{
   }
   // 上一曲
   forwardSong() async {
-    tracks = playlist.tracks[ --currentIndex ];
+    if( ( --currentIndex ) < 0  ){
+      currentIndex = playlist.tracks.length;
+    }
+    tracks = playlist.tracks[ currentIndex ];
     position = Duration( seconds: 0 );
     requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
       if( res1['success'] == true ){
