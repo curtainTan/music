@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:extended_tabs/extended_tabs.dart';
+// import 'package:provide/provide.dart';
+
 
 import './myDrawer.dart';
 import './one_page.dart';
 import './twopage/main.dart';
 import './threepage/index.dart';
 import 'package:music/component/bottomBar.dart';
-
+// import 'package:music/provider/play_music.dart';
+// import 'package:music/service/http.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -31,6 +34,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    // setLyric(context);
   }
 
 
@@ -40,6 +44,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _tabController1.dispose();
     super.dispose();
   }
+
+  // void setLyric( context ){
+  //   requestGet("lyric", formData: { "id" : 31877536 }).then((onValue){
+  //     Provide.value<PlayMusic>(context).initLyricModel(onValue);
+  //   });
+  // }
 
   Widget topTabBar(){
     return Container(

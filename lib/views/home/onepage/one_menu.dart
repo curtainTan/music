@@ -21,7 +21,7 @@ class OneMenu extends StatelessWidget {
 
   Widget headImg( context, dd ){
     return Container(
-      width: ScreenUtil().setWidth(140),
+      width: ScreenUtil().setHeight(140),
       height: ScreenUtil().setHeight(140),
       margin: EdgeInsets.only(
         left: ScreenUtil().setWidth(20),
@@ -46,7 +46,7 @@ class OneMenu extends StatelessWidget {
       // ),
       child: MyImage(
         h: ScreenUtil().setHeight(140),
-        w: ScreenUtil().setWidth(140),
+        w: ScreenUtil().setHeight(140),
         shape: BoxShape.rectangle,
         url: imageUrl,
         b: BoxFit.cover,

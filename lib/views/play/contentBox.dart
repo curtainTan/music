@@ -17,11 +17,14 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
   int selectIndex = 0;
   AnimationController _controller;
   Animation _animation;
+  ScrollController scrollController;
+  int lyIndex = 0;
   // bool roat = false;
 
   @override
   void initState() {
     super.initState();
+    scrollController = ScrollController();
     _controller = AnimationController( vsync: this, duration: Duration( seconds: 28 ) );
     _animation = Tween( begin: 0.0, end: 1.0 ).animate( CurvedAnimation( parent: _controller, curve: Curves.linear ) );
     _controller.addStatusListener(
@@ -37,7 +40,19 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
   @override
   void dispose() {
     _controller.dispose();
+    scrollController.dispose();
     super.dispose();
+  }
+
+  void jup( int data ){
+    // if( data == lyIndex ){
+
+    // }else{
+      setState(() {
+        lyIndex = data;
+      });
+      print("---------gaibian d $data------");
+    // }
   }
   
 
@@ -47,6 +62,16 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
     return Provide<PlayMusic>(
       builder: ( context, child, data ){
         data.isPlay ? _controller.forward() : _controller.stop();
+        // print("0---------------index在改变----${ data.nowLyricIndex }--");
+        // int yu = 1;
+        // if( data.nowLyricIndex > yu ){
+        //   print("-------yu的值---$yu-----");
+        //   yu = data.nowLyricIndex;
+        // }
+        // if( data.nowLyricIndex != lyIndex ){
+        //   jup( data.nowLyricIndex );
+        // }
+        // scrollController.animateTo( data.nowLyricIndex * 200.0, duration: Duration( milliseconds: 200 ), curve: Curves.linear );
         return Container(
           height: ScreenUtil().setHeight(1300),
           width: ScreenUtil().setWidth(1080),
@@ -54,7 +79,7 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
             index: selectIndex,
             children: <Widget>[
               _one( data.tracks.al.picUrl ),
-              _two( context )
+              _two( context, data.lyricList, data.nowLyricIndex, scrollController )
             ],
           ),
         );
@@ -140,7 +165,7 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
     );
   }
 
-  Widget _two( context ){
+  Widget _two( context, List lyricList, int nowLyricIndex, scrollController ){
     return GestureDetector(
       onTap: (){
         print("---------obj00ect");
@@ -151,16 +176,17 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
       child: Center(
         child: Container(
           height: ScreenUtil().setHeight(1000),
-          width: ScreenUtil().setWidth(680),
+          width: ScreenUtil().setWidth(750),
           child: ListView.builder(
+            controller: scrollController,
             itemBuilder: ( context, index ){
               return ListTile(
                 title: Center(
-                  child: Text("现在是第$index 个元素", style: TextStyle( color: Colors.white70 ),),
+                  child: Text("${lyricList[index]}", style: TextStyle( color: (nowLyricIndex -1 ) != index ? Colors.white30 : Colors.white ), textAlign: TextAlign.center,),
                 )
               );
             },
-            itemCount: 30,
+            itemCount: lyricList.length,
           ),
         ),
       ),

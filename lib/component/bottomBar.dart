@@ -47,7 +47,7 @@ class _BottomBarState extends State<BottomBar> {
                     // child: Image.network("http://curtaintan.club/headImg/1549358122065.jpg"),
                     // child: Image.network( data.tracks.al.picUrl ),
                     child: MyImage(
-                      url: data.tracks.al.picUrl,
+                      url: data.tracks?.al?.picUrl ?? "",
                       h: ScreenUtil().setHeight(100),
                       w: ScreenUtil().setHeight(100),
                       shape: BoxShape.circle,

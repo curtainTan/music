@@ -18,10 +18,14 @@ class PlayMusic with ChangeNotifier{
   LyricModel lyricModel = null;                     // 歌词modal
 
 
+  List<String> preposition = [                      // 前置空白
+    "", "", "", "", ""            
+  ];
+  List<int> preTimes = [0,0,0,0,0];                 // 前置空白时间
 
   List<String> lyricList = [];                      // 歌词列表
   List<int> lyricTimes = [];                        // 歌词时间列表
-  int nowLyricIndex = 0;                            // 当前歌词的index
+  int nowLyricIndex = 2;                            // 当前歌词的index
 
 
   String playUrl = "";                              // 歌曲的url
@@ -40,11 +44,13 @@ class PlayMusic with ChangeNotifier{
 
   initplayer() async {
     audioPlayer.setReleaseMode( ReleaseMode.STOP );
+    audioPlayer.stop();
     // await savaPlayIndex();
     prefs = await SharedPreferences.getInstance();
     await getListToLocal();
     await getSongData();
-    tracks = playlist.tracks[currentIndex];
+    print("---------------初始化----  ");
+    // tracks = playlist.tracks[currentIndex];
     // print("${ tracks.name }----------${ tracks.al.name }");
     computed();
     notifyListeners();
@@ -65,7 +71,11 @@ class PlayMusic with ChangeNotifier{
     playUrl = prefs.getString("playUrl") == null ? "" : prefs.getString("playUrl") ;           // 获取歌曲url，并设置
     playListId = prefs.getInt("playListId") == null ? 0 : prefs.getInt("playListId") ;        // 获取列表id
     if( playUrl != "" ){
+      tracks = playlist.tracks[currentIndex];
       audioPlayer.setUrl(playUrl);                    // 设置url
+      requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
+        initLyricModel(onValue);
+      });
     }
   }
   // 保存一首歌的信息
@@ -120,6 +130,10 @@ class PlayMusic with ChangeNotifier{
   getPosition(){
     positionSubscription = audioPlayer.onAudioPositionChanged.listen((onData){
         position = onData;
+        if( position.inSeconds > lyricTimes[nowLyricIndex] ){
+          nowLyricIndex++;
+          print("----------当前歌词----${lyricList[nowLyricIndex]}------------");
+        }
         notifyListeners();
       });
   }
@@ -164,6 +178,9 @@ class PlayMusic with ChangeNotifier{
         requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
           setPlayUrl( res['data'][0]['url'] );
         });
+        requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
+          initLyricModel(onValue);
+        });
         } else {
           nextPlay();
       }
@@ -178,6 +195,9 @@ class PlayMusic with ChangeNotifier{
         requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
           setPlayUrl( res['data'][0]['url'] );
         });
+        requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
+          initLyricModel(onValue);
+        });
         } else {
         forwardSong();
       }
@@ -188,33 +208,49 @@ class PlayMusic with ChangeNotifier{
   // 初始化歌词modal
   initLyricModel( data ){
     lyricModel = LyricModel.fromJson( data );
-    if( lyricModel.nolyric ){
+    if( lyricModel.nolyric != null ){
       
     }else{
-
+      setLyric( lyricModel.lrc.lyric );
     }
     notifyListeners();
   }
 
   // 设置歌词列表和歌词时间列表
-  setLyric( data ){
+  setLyric( String data ){
+    RegExp exp = RegExp( r"\[(\d{1,}):(\d{1,}).(\d{1,})\](.+)?" );
 
+    List<String> nowlyricList = [];                      // 歌词列表
+    List<int> nowlyricTimes = [];                        // 歌词时间列表
 
-
-
+    List<String> uuu = data.split("\n");
+    uuu.forEach((f){
+      Iterable<Match> aaa = exp.allMatches(f);
+      for( Match one in aaa ){
+        // String sss = one.group(0);
+        int m = int.parse(one.group(1));
+        int s = int.parse( one.group(2) );
+        // int mills = int.parse(one.group(3));
+        String tt = one.group(4);
+        nowlyricList..add( tt == null ? "" : tt );
+        nowlyricTimes..add( m * 60 + s );
+        // print("-------${sss}----${m}---${s}----${mics}------${tt}------");
+      }
+    });
+    // nowlyricTimes.forEach( (onely){
+    //   print("----------$onely");
+    // } );
+    nowLyricIndex = 2;
+    lyricList = [];
+    lyricList..addAll( preposition )..addAll( nowlyricList );
+    lyricTimes = [];
+    lyricTimes..addAll( preTimes )..addAll( nowlyricTimes );
     
     notifyListeners();
   }
 
 
 }
-
-
-
-
-
-
-
 
 
 

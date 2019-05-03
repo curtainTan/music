@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
+import 'package:music/views/testpage.dart';
+
  // 所有小部件
 class MyDrawer extends StatelessWidget {
 
@@ -31,7 +33,7 @@ class MyDrawer extends StatelessWidget {
               physics: ClampingScrollPhysics(),
               padding: EdgeInsets.only(),
               children: <Widget>[
-                _mydrawerHeader(),
+                _mydrawerHeader( context ),
                 _topBox( icon1, text1, righttext1 ),
                 _topBox( icon2, text2, righttext2 ),
                 _topBox( icon3, text3, righttext3 ),
@@ -102,7 +104,7 @@ class MyDrawer extends StatelessWidget {
   }
 
   // 头部
-  Widget _mydrawerHeader(){
+  Widget _mydrawerHeader( context ){
     return DrawerHeader(
       padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       margin: EdgeInsets.only(),
@@ -121,6 +123,11 @@ class MyDrawer extends StatelessWidget {
             InkWell(
               onTap: (){
                 print("点了一下头像区....");
+                Navigator.of(context).push( MaterialPageRoute(
+                  builder: ( context ){
+                    return TestPage();
+                  }
+                ) );
               },
               child: Container(
                 alignment: Alignment.centerLeft,

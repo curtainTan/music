@@ -65,6 +65,9 @@ class ListBox extends StatelessWidget {
             Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
 
             } );
+            requestGet("lyric", formData: { "id" : id }).then((onValue){
+              Provide.value<PlayMusic>(context).initLyricModel(onValue);
+            });
           }
         });
       },
