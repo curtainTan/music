@@ -192,7 +192,7 @@ class OneTopBox extends StatelessWidget {
       margin: EdgeInsets.only(
         top: ScreenUtil().setHeight(20)
       ),
-      height: ScreenUtil().setHeight( icon.length * 150.0 ),
+      height: ScreenUtil().setHeight( icon.length * 150 ),
       child: ListView.builder(
         physics: ClampingScrollPhysics(),
         itemCount: icon.length,

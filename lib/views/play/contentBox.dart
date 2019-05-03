@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
+import 'dart:async';
+
 
 import 'package:music/provider/play_music.dart';
 import 'package:music/component/myImage.dart';
+
 
 // import 'package:music/event_bus/play.dart';
 
@@ -19,12 +22,13 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
   Animation _animation;
   ScrollController scrollController;
   int lyIndex = 0;
+  Timer timer;
   // bool roat = false;
 
   @override
   void initState() {
     super.initState();
-    scrollController = ScrollController();
+    scrollController = ScrollController( initialScrollOffset: 0.0, keepScrollOffset: false );
     _controller = AnimationController( vsync: this, duration: Duration( seconds: 28 ) );
     _animation = Tween( begin: 0.0, end: 1.0 ).animate( CurvedAnimation( parent: _controller, curve: Curves.linear ) );
     _controller.addStatusListener(
@@ -35,25 +39,26 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
         }
       }
     );
+
+    timer = Timer.periodic( Duration( milliseconds: 500 ), ( item ){
+      int nowLyricIndex = Provide.value<PlayMusic>(context).nowLyricIndex;
+      if( lyIndex != nowLyricIndex ){
+        scrollController.animateTo( (nowLyricIndex-3) * ScreenUtil().setHeight(150), duration: Duration( milliseconds: 200 ), curve: Curves.linear );
+        setState(() {
+          lyIndex = nowLyricIndex;
+        });
+      }
+    } );
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    timer.cancel();
     scrollController.dispose();
     super.dispose();
   }
 
-  void jup( int data ){
-    // if( data == lyIndex ){
-
-    // }else{
-      setState(() {
-        lyIndex = data;
-      });
-      print("---------gaibian d $data------");
-    // }
-  }
   
 
   @override
@@ -62,20 +67,6 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
     return Provide<PlayMusic>(
       builder: ( context, child, data ){
         data.isPlay ? _controller.forward() : _controller.stop();
-        // print("0---------------index在改变----${ data.nowLyricIndex }--");
-        // int yu = 1;
-        // if( data.nowLyricIndex > yu ){
-        //   print("-------yu的值---$yu-----");
-        //   yu = data.nowLyricIndex;
-        // }
-        // if( data.nowLyricIndex != lyIndex ){
-        //   jup( data.nowLyricIndex );
-        // }
-        
-        // scrollController.animateTo( data.nowLyricIndex * 200.0, duration: Duration( milliseconds: 200 ), curve: Curves.linear );
-
-
-
         return Container(
           height: ScreenUtil().setHeight(1300),
           width: ScreenUtil().setWidth(1080),
@@ -172,22 +163,20 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
   Widget _two( context, List lyricList, int nowLyricIndex, scrollController ){
     return GestureDetector(
       onTap: (){
-        print("---------obj00ect");
         setState(() {
           selectIndex = selectIndex == 0 ? 1 : 0; 
         });
       },
       child: Center(
         child: Container(
-          height: ScreenUtil().setHeight(1000),
+          height: ScreenUtil().setHeight(1050),
           width: ScreenUtil().setWidth(750),
           child: ListView.builder(
+            itemExtent: ScreenUtil().setHeight(150),
             controller: scrollController,
             itemBuilder: ( context, index ){
               return ListTile(
-                title: Center(
-                  child: Text("${lyricList[index]}", style: TextStyle( color: (nowLyricIndex -1 ) != index ? Colors.white30 : Colors.white ), textAlign: TextAlign.center,),
-                )
+                title:  Text("${lyricList[index]}", style: TextStyle( color: (nowLyricIndex -1 ) != index ? Colors.white30 : Colors.white ), textAlign: TextAlign.center,),
               );
             },
             itemCount: lyricList.length,

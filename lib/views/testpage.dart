@@ -38,6 +38,11 @@ class _TestPageState extends State<TestPage> {
         },
         itemCount: 40,
       ),
+      // body: AnimatedList(
+      //   itemBuilder: ( context, int position, animation ){
+
+      //   },
+      // ),
       floatingActionButton: FloatingActionButton(
         child: Icon( Icons.access_alarm ),
         onPressed: (){
