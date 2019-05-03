@@ -7,7 +7,7 @@ import './listBox.dart';
 import 'package:music/service/http.dart';
 import 'package:music/provider/inPlayList.dart';
 import 'package:provide/provide.dart';
-
+import 'package:music/component/bottomBar.dart';
 
 
 
@@ -66,9 +66,15 @@ class _SongListPageState extends State<SongListPage> {
         controller: _scrollController,
         slivers: <Widget>[
           SongListPageHeader( show: show, ),
-          ListBox(  )
+          ListBox(  ),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: ScreenUtil().setHeight(150),
+            ),
+          )
         ],
       ),
+      bottomSheet: BottomBar(),
     );
   }
 }

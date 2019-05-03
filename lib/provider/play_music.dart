@@ -19,9 +19,9 @@ class PlayMusic with ChangeNotifier{
 
 
   List<String> preposition = [                      // 前置空白
-    "", "", ""           
+    "", "", "" 
   ];
-  List<int> preTimes = [0,0,0];                 // 前置空白时间
+  List<int> preTimes = [0,0,0];                     // 前置空白时间
   String absolute = "纯音乐，请欣赏";
 
   List<String> lyricList = [];                      // 歌词列表

@@ -20,7 +20,6 @@ class MeInfoProvide with ChangeNotifier{
   int uid = 109496832;
 
 
-
   // 获取个人信息
   setMeinfo( data ){
     
@@ -29,12 +28,19 @@ class MeInfoProvide with ChangeNotifier{
     notifyListeners();
 
   }
-  // 关注列表
+  // 我关注的他们
   setMyFollowed( data ){
 
     myFollowered = FollowedModel.fromJson( data );
     notifyListeners();
     
+  }
+  // 关注我的人
+  setFollowMe( data ){
+
+    myFollower = MyFollower.fromJson(data);
+    notifyListeners();
+
   }
   // 获取歌单
   setPlayList( data ){

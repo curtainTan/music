@@ -7,7 +7,7 @@ import 'package:music/provider/me.dart';
 import 'package:music/provider/userData.dart';
 
 import 'package:music/service/http.dart';
-import 'package:extended_image/extended_image.dart';
+// import 'package:extended_image/extended_image.dart';
 import 'package:music/component/myImage.dart';
 
 
@@ -33,7 +33,7 @@ class _TTwoPageState extends State<TTwoPage> with AutomaticKeepAliveClientMixin 
     if( Provide.value<MeInfoProvide>(context).myFollower == null ){
       // print("重新请求了我关注的用户-------");
       var uid = Provide.value<MeInfoProvide>(context).uid;
-      await requestGet("userFolloweds", formData: { "uid": uid }).then(( res ){
+      await requestGet("userFollows", formData: { "uid": uid }).then(( res ){
         Provide.value<MeInfoProvide>(context).setMyFollowed( res );
       });
     }
