@@ -71,7 +71,11 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
         // if( data.nowLyricIndex != lyIndex ){
         //   jup( data.nowLyricIndex );
         // }
+        
         // scrollController.animateTo( data.nowLyricIndex * 200.0, duration: Duration( milliseconds: 200 ), curve: Curves.linear );
+
+
+
         return Container(
           height: ScreenUtil().setHeight(1300),
           width: ScreenUtil().setWidth(1080),
