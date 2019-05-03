@@ -73,7 +73,7 @@ class _MyAnimateZhuanState extends State<MyAnimateZhuan> with SingleTickerProvid
           }else{
             if( widget.isMe ){
               return Container(
-                height: ScreenUtil().setHeight( data.onlyMyPlayList.length * 160 ),
+                height: ScreenUtil().setHeight( data.onlyMyPlayList.length * 160.0 ),
                 width: ScreenUtil().setWidth(1080),
                 child: ListView.builder(
                   physics: ClampingScrollPhysics(),
@@ -91,7 +91,7 @@ class _MyAnimateZhuanState extends State<MyAnimateZhuan> with SingleTickerProvid
               );
             }else{
               return Container(
-                height: ScreenUtil().setHeight( data.collectionPlayList.length * 160 ),
+                height: ScreenUtil().setHeight( data.collectionPlayList.length * 160.0 ),
                 width: ScreenUtil().setWidth(1080),
                 child: ListView.builder(
                   physics: ClampingScrollPhysics(),
