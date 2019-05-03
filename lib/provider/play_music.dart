@@ -19,9 +19,10 @@ class PlayMusic with ChangeNotifier{
 
 
   List<String> preposition = [                      // 前置空白
-    "", "", "", "", ""            
+    "", "", ""           
   ];
-  List<int> preTimes = [0,0,0,0,0];                 // 前置空白时间
+  List<int> preTimes = [0,0,0];                 // 前置空白时间
+  String absolute = "纯音乐，请欣赏";
 
   List<String> lyricList = [];                      // 歌词列表
   List<int> lyricTimes = [];                        // 歌词时间列表
@@ -35,9 +36,9 @@ class PlayMusic with ChangeNotifier{
   Duration duration;                                // 总时长
   Duration position;                                // 位置
 
-  StreamSubscription durationSubscription;
-  StreamSubscription positionSubscription;
-  StreamSubscription playerCompleteSubscription;
+  StreamSubscription durationSubscription;          // 获取歌曲时长的流
+  StreamSubscription positionSubscription;          // 获取歌曲播放位置的流
+  StreamSubscription playerCompleteSubscription;    // 获取播放完成的流
 
 
   bool isPlay = false;
@@ -130,9 +131,11 @@ class PlayMusic with ChangeNotifier{
   getPosition(){
     positionSubscription = audioPlayer.onAudioPositionChanged.listen((onData){
         position = onData;
-        if( position.inSeconds > lyricTimes[nowLyricIndex] ){
-          nowLyricIndex++;
-          print("----------当前歌词----${lyricList[nowLyricIndex]}------------");
+        if( nowLyricIndex < lyricTimes.length ){
+          if( position.inSeconds > lyricTimes[nowLyricIndex] ){
+            nowLyricIndex++;
+            print("----------当前歌词----${lyricList[nowLyricIndex]}------------");
+          }
         }
         notifyListeners();
       });
@@ -147,10 +150,11 @@ class PlayMusic with ChangeNotifier{
     isPlay = false;
     notifyListeners();
   }
+  // 播放完成
   computed(){
     playerCompleteSubscription = audioPlayer.onPlayerCompletion.listen((onData){
-      print("-----onPlayerCompletion------------");
       position = Duration( seconds: 0 );
+      nowLyricIndex = 2;
       nextPlay();
     });
   }
@@ -166,6 +170,16 @@ class PlayMusic with ChangeNotifier{
   seek( mm ){
     audioPlayer.seek( Duration( milliseconds: mm ) );
     position = Duration( milliseconds: mm );
+    if( lyricModel.nolyric == null ){
+      for( int i = 0; i < lyricTimes.length; i++ ){
+        if( position.inSeconds < lyricTimes[i] ){
+          nowLyricIndex = i;
+          break;
+        }
+      }
+    }else{
+      nowLyricIndex = 2;
+    }
     notifyListeners();
   }
   // 下一曲
@@ -208,8 +222,12 @@ class PlayMusic with ChangeNotifier{
   // 初始化歌词modal
   initLyricModel( data ){
     lyricModel = LyricModel.fromJson( data );
-    if( lyricModel.nolyric != null ){
-      
+    if( lyricModel.nolyric != null ){                     // 纯音乐处理
+      nowLyricIndex = 3;
+      lyricList = [];
+      lyricTimes = [];
+      lyricList..addAll( preposition )..add( absolute );
+      lyricTimes..addAll( preTimes );
     }else{
       setLyric( lyricModel.lrc.lyric );
     }
@@ -242,9 +260,9 @@ class PlayMusic with ChangeNotifier{
     // } );
     nowLyricIndex = 2;
     lyricList = [];
-    lyricList..addAll( preposition )..addAll( nowlyricList );
+    lyricList..addAll( preposition )..addAll( nowlyricList )..addAll( preposition );
     lyricTimes = [];
-    lyricTimes..addAll( preTimes )..addAll( nowlyricTimes );
+    lyricTimes..addAll( preTimes )..addAll( nowlyricTimes )..addAll( preTimes );
     
     notifyListeners();
   }

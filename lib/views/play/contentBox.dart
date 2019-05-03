@@ -23,7 +23,6 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
   ScrollController scrollController;
   int lyIndex = 0;
   Timer timer;
-  // bool roat = false;
 
   @override
   void initState() {
@@ -94,20 +93,6 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
                 setState(() {
                   selectIndex = selectIndex == 0 ? 1 : 0;
                 });
-                // print("---------object");
-                // if( roat ){
-                //   _controller.stop();
-                //   setState(() {
-                //     // selectIndex = selectIndex == 0 ? 1 : 0;
-                //     roat = false;
-                //   });
-                // }else{
-                //   _controller.forward();
-                //   setState(() {
-                //     // selectIndex = selectIndex == 0 ? 1 : 0;
-                //     roat = true;
-                //   });
-                // }
               },
               child: RotationTransition(
                 turns: _animation,
@@ -176,7 +161,13 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
             controller: scrollController,
             itemBuilder: ( context, index ){
               return ListTile(
-                title:  Text("${lyricList[index]}", style: TextStyle( color: (nowLyricIndex -1 ) != index ? Colors.white30 : Colors.white ), textAlign: TextAlign.center,),
+                title: Center(
+                  child: Text(
+                    "${lyricList[index]}", 
+                    style: TextStyle( color: (nowLyricIndex -1 ) != index ? Colors.white30 : Colors.white ),
+                    textAlign: TextAlign.center,
+                  ),
+                )
               );
             },
             itemCount: lyricList.length,
