@@ -11,8 +11,8 @@ class MeInfoProvide with ChangeNotifier{
   UserModel meInfo = null;
   Profile profile = null;
   GedanModel myPlayList = null;
-  FollowedModel myFollowered = null;
-  MyFollower myFollower = null;
+  FollowedModel followMe = null;                      // 关注我的
+  MyFollower myFollowered = null;                     // 我关注的
 
   List<PlaylistAbout> onlyMyPlayList = [];
   List<PlaylistAbout> collectionPlayList = [];
@@ -31,14 +31,15 @@ class MeInfoProvide with ChangeNotifier{
   // 我关注的他们
   setMyFollowed( data ){
 
-    myFollowered = FollowedModel.fromJson( data );
+    myFollowered = MyFollower.fromJson( data );
+    print("----------changdu ---${myFollowered.follow.length}-");
     notifyListeners();
     
   }
   // 关注我的人
   setFollowMe( data ){
 
-    myFollower = MyFollower.fromJson(data);
+    followMe = FollowedModel.fromJson(data);
     notifyListeners();
 
   }

@@ -78,33 +78,33 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
       return;
     }
 
-    // Routes.router.navigateTo(context, '/');
-    // return;
+    Routes.router.navigateTo(context, '/');
+    return;
 
-    var formData = {
-      "phone" : phone.text,
-      "password" : psw.text
-    };
-    requestGet("login", formData: formData ).then( (res){
-      if( res != null ){
-        print("-------登录成功...-----------");
-        // Provide.value<MeInfoProvide>(context).setMeinfo( res );
-        // Routes.router.navigateTo(context, '/');
-      }else{
-        showDialog(
-          context: context,
-          barrierDismissible: true,
-          builder: ( context ){
-            return AlertDialog(
-              title: Text("提示！"),
-              content: Text("账号或密码错误...."),
-              titlePadding: EdgeInsets.all( 20 ),
-            );
-          }
-        );
-        return;
-      }
-    });
+    // var formData = {
+    //   "phone" : phone.text,
+    //   "password" : psw.text
+    // };
+    // requestGet("login", formData: formData ).then( (res){
+    //   if( res != null ){
+    //     // print("-------登录成功...-----------");
+    //     Provide.value<MeInfoProvide>(context).setMeinfo( res );
+    //     Routes.router.navigateTo(context, '/');
+    //   }else{
+    //     showDialog(
+    //       context: context,
+    //       barrierDismissible: true,
+    //       builder: ( context ){
+    //         return AlertDialog(
+    //           title: Text("提示！"),
+    //           content: Text("账号或密码错误...."),
+    //           titlePadding: EdgeInsets.all( 20 ),
+    //         );
+    //       }
+    //     );
+    //     return;
+    //   }
+    // });
     
   }
 

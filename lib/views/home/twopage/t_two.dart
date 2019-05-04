@@ -29,15 +29,12 @@ class _TTwoPageState extends State<TTwoPage> with AutomaticKeepAliveClientMixin 
   }
 
   void _getfrend() async {
-
-    if( Provide.value<MeInfoProvide>(context).myFollower == null ){
-      // print("重新请求了我关注的用户-------");
+    if( Provide.value<MeInfoProvide>(context).myFollowered == null ){
       var uid = Provide.value<MeInfoProvide>(context).uid;
       await requestGet("userFollows", formData: { "uid": uid }).then(( res ){
         Provide.value<MeInfoProvide>(context).setMyFollowed( res );
       });
     }
-
   }
 
   @override
@@ -144,9 +141,9 @@ class Friend extends StatelessWidget {
             height: ScreenUtil().setHeight(260),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: meInfoProvide.myFollowered.followeds.length,
+              itemCount: meInfoProvide.myFollowered.follow.length,
               itemBuilder: ( context, index ){
-                return item( context, meInfoProvide.myFollowered.followeds[index] );
+                return item( context, meInfoProvide.myFollowered.follow[index] );
               },
             ),
           );

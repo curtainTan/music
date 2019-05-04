@@ -14,8 +14,8 @@ const servicePath = {
   "banner": serviceUrl + "/banner",                        // 轮播图
   "personalized": serviceUrl + "/personalized",            // 推荐歌单
   "newsong": serviceUrl + "/personalized/newsong",         // 获取推荐新音乐
-  "userFollows": serviceUrl + "/user/follows",             // 传入用户 id, 可以获取用户粉丝列表
-  "userFolloweds": serviceUrl + "/user/followeds",         // 传入用户 id, 可以获取用户关注列表
+  "userFollows": serviceUrl + "/user/follows",             // 传入用户 id, 可以获取用户关注列表
+  "userFolloweds": serviceUrl + "/user/followeds",         // 传入用户 id, 可以获取用户粉丝列表
   "userdj" : serviceUrl + "/user/dj",                      // 传入用户 id, 可以获取用户电台
   "songurl" : serviceUrl + "/song/url",                    // 传入的音乐 id 可选参数 : br: 码率 如果要 320k 则可设置为 320000,其他类推
   "checkmusic" : serviceUrl + "/check/music",              // 传入歌曲 id, 可获取音乐是否可用

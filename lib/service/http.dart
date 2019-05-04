@@ -47,11 +47,9 @@ Future requestGet( url, { formData } ) async {
       response = await mdio.get( servicePath[url], queryParameters: formData );
     }
     if( response.statusCode == 200 || response.statusCode == 201 ){
-      // print("------获取成功------------>>>>>请看下一步.......");
-      // print("$response");
-      print( "---------header里面的数据--------${response.headers.toString()}-----" );
-      print( "---------header里面的数据--------${response.headers['set-cookie']}-------${response.headers['cookie']}--" );
-      if( response.headers['set-cookie'] != null ){
+      // print( "---------header里面的数据--------${response.headers.toString()}-----" );
+      // print( "---------header里面的数据--------${response.headers['set-cookie']}-------${response.headers['cookie']}--" );
+      if( ( response.headers['set-cookie'] != null ) && ( lovely != null ) ){
         // Cookie ss = Cookie( "De-lovely", response.headers['set-cookie'].toString() );
         pref.setString("De-lovely", response.headers['set-cookie'].toString());
       }
@@ -66,8 +64,6 @@ Future requestGet( url, { formData } ) async {
       "success" : false
     };
   }
-
-
 }
 
 
