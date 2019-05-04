@@ -45,7 +45,7 @@ class PlayMusic with ChangeNotifier{
 
   initplayer() async {
     audioPlayer.setReleaseMode( ReleaseMode.STOP );
-    audioPlayer.stop();
+    // audioPlayer.stop();
     // await savaPlayIndex();
     prefs = await SharedPreferences.getInstance();
     await getListToLocal();
@@ -73,7 +73,7 @@ class PlayMusic with ChangeNotifier{
     playListId = prefs.getInt("playListId") == null ? 0 : prefs.getInt("playListId") ;        // 获取列表id
     if( playUrl != "" ){
       tracks = playlist.tracks[currentIndex];
-      audioPlayer.setUrl(playUrl);                    // 设置url
+      audioPlayer.setUrl(playUrl);                                                              // 设置url
       requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
         initLyricModel(onValue);
       });

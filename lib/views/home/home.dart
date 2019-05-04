@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:extended_tabs/extended_tabs.dart';
+import 'dart:async';
+import 'package:provide/provide.dart';
+
 
 import './myDrawer.dart';
 import './one_page.dart';
 import './twopage/main.dart';
+import 'package:music/provider/me.dart';
 import './threepage/index.dart';
 import 'package:music/component/bottomBar.dart';
 
@@ -18,21 +22,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   TabController _tabController;
   TabController _tabController1;
+  Timer _timer;
 
   @override
   void initState() {
     super.initState();
     _tabController =TabController( length: 3, vsync: this );
     _tabController1 =TabController( length: 3, vsync: this );
-
+    _timer = Timer( Duration( seconds: 2 ), onlyOne );
   }
 
 
   @override
   void dispose() {
+    _timer.cancel();
     _tabController.dispose();
     _tabController1.dispose();
     super.dispose();
+  }
+  // 只执行一次 更新用户信息和cookie
+  void onlyOne(){
+    print("-------------这里的代码只执行了一次----------------");
+    Provide.value<MeInfoProvide>(context).updateInfo();
+    // Provide.value<MeInfoProvide>(context).reSetCookie();
   }
 
   Widget topTabBar(){

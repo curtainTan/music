@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../routers/route.dart';
 
 
-
 class LoginMain extends StatefulWidget {
   _LoginMainState createState() => _LoginMainState();
 }
@@ -66,7 +65,6 @@ class _LoginMidBoxState extends State<LoginMidBox> {
         ),
         child: FlatButton(
           onPressed: (){
-            print("点击按钮》。。。。。");
             Routes.router.navigateTo(context, path );
           },
           textColor: Colors.red,
