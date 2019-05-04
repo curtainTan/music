@@ -31,7 +31,7 @@ class SongListPageHeader extends StatelessWidget {
               icon: Icon( IconData( 0xe6bf, fontFamily: 'iconfont' ) ),
             )
           ],
-          expandedHeight: ScreenUtil().setHeight(960),
+          expandedHeight: ScreenUtil().setHeight(900),
           pinned: true,
           title: show ?
           Text("歌单", style: TextStyle( fontSize: ScreenUtil().setSp( 42 ) ),) :
@@ -43,7 +43,7 @@ class SongListPageHeader extends StatelessWidget {
           flexibleSpace: Stack(
             children: <Widget>[
               Container(
-                height: ScreenUtil().setHeight(960),
+                height: ScreenUtil().setHeight(900),
                 width: ScreenUtil().setWidth(1080),
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -56,7 +56,7 @@ class SongListPageHeader extends StatelessWidget {
               BackdropFilter(
                 filter: ImageFilter.blur( sigmaX: 15, sigmaY: 15 ),
                 child: Container(
-                  height: ScreenUtil().setHeight(960),
+                  height: ScreenUtil().setHeight(900),
                   width: ScreenUtil().setWidth(1080),
                   color: Colors.grey.withOpacity(0.4),
                   child: show ? Column(
@@ -147,7 +147,7 @@ class SongListPageHeader extends StatelessWidget {
               children: <Widget>[
                 Container(
                   height: ScreenUtil().setHeight(340),
-                  width: ScreenUtil().setWidth(340),
+                  width: ScreenUtil().setHeight(340),
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       // image: NetworkImage( "https://www.curtaintan.club/bg/m2.jpg" ),

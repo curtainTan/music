@@ -48,7 +48,7 @@ class _OnePageState extends State<OnePage> with AutomaticKeepAliveClientMixin {
                 "http://curtaintan.club/headImg/1549358122065.jpg",
                 // img,
                 width: ScreenUtil().setWidth(130),
-                height: ScreenUtil().setHeight(130),
+                height: ScreenUtil().setWidth(130),
               ),
             ),
             SizedBox(

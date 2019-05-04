@@ -27,9 +27,7 @@ Future request( url, { formData } ) async {
     return print("------出错了------------>>>>>${e}");
   }
 
-
 }
-
 
 Future requestGet( url, { formData } ) async {
   try {
@@ -37,10 +35,12 @@ Future requestGet( url, { formData } ) async {
     String lovely = pref.getString("De-lovely");
     Response response;
     Dio mdio = Dio();
+    // mdio.interceptors.add( CookieManager(  ) );
+
     mdio.options.contentType = ContentType.parse("application/x-www-form-urlencoded");
-    if( lovely != null ){
-      mdio.options.cookies = [ Cookie( 'set-cookie', lovely ) ];
-    }
+    // if( lovely != null ){
+    //   mdio.options.cookies = [ Cookie( 'set-cookie', lovely ) ];
+    // }
     if( formData == null ){
       response = await mdio.get( servicePath[url] );
     } else {
@@ -49,10 +49,10 @@ Future requestGet( url, { formData } ) async {
     if( response.statusCode == 200 || response.statusCode == 201 ){
       // print( "---------header里面的数据--------${response.headers.toString()}-----" );
       // print( "---------header里面的数据--------${response.headers['set-cookie']}-------${response.headers['cookie']}--" );
-      if( ( response.headers['set-cookie'] != null ) && ( lovely != null ) ){
-        // Cookie ss = Cookie( "De-lovely", response.headers['set-cookie'].toString() );
-        pref.setString("De-lovely", response.headers['set-cookie'].toString());
-      }
+      // if( ( response.headers['set-cookie'] != null ) && ( lovely == null ) ){
+      //   // Cookie ss = Cookie( "De-lovely", response.headers['set-cookie'].toString() );
+      //   pref.setString("De-lovely", response.headers['set-cookie'].toString());
+      // }
       return response.data;
     }else{
       print("------出错了------------>>>>>请检测代码和服务器情况.......");

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provide/provide.dart';
+import 'dart:async';
+
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../routers/route.dart';
 import 'package:music/provider/me.dart';
 
+import 'package:music/modal/user_model.dart';
 import '../../service/http.dart';
 
 
@@ -22,6 +25,7 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
   TextEditingController phone, psw;
   Animation _animation, _animationphone, _animationpsw;
   AnimationController _animationController;
+  Timer _timer;
 
   @override
   void initState() {
@@ -45,6 +49,7 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     _animationController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
@@ -78,33 +83,46 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
       return;
     }
 
-    Routes.router.navigateTo(context, '/');
-    return;
+    // Routes.router.navigateTo(context, '/', clearStack: true);
+    // return;
 
-    // var formData = {
-    //   "phone" : phone.text,
-    //   "password" : psw.text
-    // };
-    // requestGet("login", formData: formData ).then( (res){
-    //   if( res != null ){
-    //     // print("-------登录成功...-----------");
-    //     Provide.value<MeInfoProvide>(context).setMeinfo( res );
-    //     Routes.router.navigateTo(context, '/');
-    //   }else{
-    //     showDialog(
-    //       context: context,
-    //       barrierDismissible: true,
-    //       builder: ( context ){
-    //         return AlertDialog(
-    //           title: Text("提示！"),
-    //           content: Text("账号或密码错误...."),
-    //           titlePadding: EdgeInsets.all( 20 ),
-    //         );
-    //       }
-    //     );
-    //     return;
-    //   }
-    // });
+    var formData = {
+      "phone" : phone.text,
+      "password" : psw.text
+    };
+    requestGet("login", formData: formData ).then( (res){
+      if( res != null ){
+        // print("-------登录成功...------${res['profile']['userId']}-----");
+        // Provide.value<MeInfoProvide>(context).setMeinfo( res );
+        UserModel useAlittle = UserModel.fromJson(res);
+
+        DateTime nowTime = DateTime.now();
+        Provide.value<MeInfoProvide>(context).saveNameAndPsw( phone.toString(), psw.toString(), nowTime.toString(), useAlittle.profile.userId );
+        // print("----------------时间-----${nowTime}-----------------");
+
+        requestGet( "userDetail", formData: { "uid" : useAlittle.profile.userId } ).then( ( meInfoData ){
+          print("-------登录成功----------");
+          Provide.value<MeInfoProvide>(context).setMeinfo(meInfoData);
+          _timer = Timer( Duration( seconds: 1 ) , (){
+            Routes.router.navigateTo(context, '/', clearStack: true);
+          });
+        });
+
+      }else{
+        showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: ( context ){
+            return AlertDialog(
+              title: Text("提示！"),
+              content: Text("账号或密码错误...."),
+              titlePadding: EdgeInsets.all( 20 ),
+            );
+          }
+        );
+        return;
+      }
+    });
     
   }
 
@@ -145,7 +163,7 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
                 },
               )
             ),
-            body: SafeArea(
+            body: SingleChildScrollView(
               child: Transform(
                 transform: Matrix4.translationValues(
                   _animation.value * w, 0.0, 0.0

@@ -7,7 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../routers/route.dart';
 import 'package:music/provider/play_music.dart';
-// import 'package:music/service/http.dart';
+import 'package:music/provider/me.dart';
+
 
 class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
@@ -36,6 +37,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
         _timer =Timer( Duration(seconds: 3) , (){
           if( isLoged ){
+            print("-----------uid---------");
             Routes.router.navigateTo(context, '/', clearStack: true );
           }else{
             Routes.router.navigateTo(context, '/login', clearStack: true );
@@ -71,10 +73,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       setState(() {
        isLoged = true;
       });
-      // requestGet( "" ).then( (res){
-
-      // } );
     }
+    Provide.value<MeInfoProvide>(context).getMeInfo();
   }
 
 

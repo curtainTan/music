@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
+
+import 'package:music/routers/route.dart';
 
 
  // 所有小部件
@@ -38,14 +43,14 @@ class MyDrawer extends StatelessWidget {
               ],
             ),
           ),
-          _myFoot()
+          _myFoot( context )
         ],
       ),
     );
   }
 
   // 脚部
-  Widget _myFoot(){
+  Widget _myFoot( context ){
 
     Widget footItem( int icon, String text ){
       return InkWell(
@@ -70,7 +75,7 @@ class MyDrawer extends StatelessWidget {
       );
     }
 
-    Widget footLeft(){
+    Widget footLeft( ){
       return Container(
         child: Row(
           children: <Widget>[
@@ -95,7 +100,38 @@ class MyDrawer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           footLeft(),
-          footItem( 0xe634, "退出" )
+          InkWell(
+            child: footItem( 0xe634, "退出" ),
+            onTap: (){
+              showDialog(
+                context: context,
+                barrierDismissible: true,
+                builder: ( context ){
+                  return AlertDialog(
+                    title: Text("----小提示----", style: TextStyle( fontWeight: FontWeight.bold ),),
+                    content: Text("你确定要退出吗？"),
+                    actions: <Widget>[
+                      RaisedButton(
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                        child: Text("取消"),
+                      ),
+                      RaisedButton(
+                        onPressed: () async {
+                          SharedPreferences pref = await SharedPreferences.getInstance();
+                          pref.clear();
+                          Routes.router.navigateTo(context, Routes.login, clearStack: true  );
+
+                        },
+                        child: Text("确定"),
+                      )
+                    ],
+                  );
+                }
+              );
+            },
+          )
         ],
       ),
     );
