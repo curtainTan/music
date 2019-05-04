@@ -37,6 +37,7 @@ class MeInfoProvide with ChangeNotifier{
     pref.setString("psw", psw );
     pref.setString("time", time);
     pref.setInt("userId", uid);
+    uid = uid;
     notifyListeners();
   }
 
