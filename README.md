@@ -26,32 +26,32 @@
 <span><img src="./asset/picture/gif/twoNav.gif" width="200" ></span>
 
 ## 歌单相关：歌单展示和歌单Header折叠
-<img src="./asset/picture/gif/songListHeader.gif" width="200" >
+<span><img src="./asset/picture/gif/songListHeader.gif" width="200" ></span>
 
 ## 用户中心相关：用户信息展示、header折叠
-<img src="./asset/picture/gif/userData.gif" width="200" >
-<img src="./asset/picture/gif/userHeader.gif" width="200" >
+<span><img src="./asset/picture/gif/userData.gif" width="200" ></span>
+<span><img src="./asset/picture/gif/userHeader.gif" width="200" ></span>
 
 ## 歌曲播放页面：点歌、在播放页面点下一曲和上一曲
-<img src="./asset/picture/gif/changeSong.gif" width="200" >
-<img src="./asset/picture/gif/nextSong.gif" width="200" >
+<span><img src="./asset/picture/gif/changeSong.gif" width="200" ></span>
+<span><img src="./asset/picture/gif/nextSong.gif" width="200" ></span>
 
 ## 播放和暂停
-<img src="./asset/picture/gif/playandstop.gif" width="200" >
+<span><img src="./asset/picture/gif/playandstop.gif" width="200" ></span>
 
 ## 歌词跟随，歌词可以跟随进度条改动而调整，可以拉动查看歌词
-<img src="./asset/picture/gif/lyric.gif" width="200" >
+<span><img src="./asset/picture/gif/lyric.gif" width="200" ></span>
 
 ## 第一屏   登录 home页面 Drower页面
 
-<img src="./asset/picture/1.png" width="200" >
-<img src="./asset/picture/2.png" width="200" >
-<img src="./asset/picture/3.png" width="200" >
-<img src="./asset/picture/4.png" width="200" >
+<span><img src="./asset/picture/1.png" width="200" ></span>
+<span><img src="./asset/picture/2.png" width="200" ></span>
+<span><img src="./asset/picture/3.png" width="200" ></span>
+<span><img src="./asset/picture/4.png" width="200" ></span>
 
 ## home页面的第二个页面
 
-<img src="./asset/picture/5.png" width="200" >
+<span><img src="./asset/picture/5.png" width="200" ></span>
 
 
 这里使用了extended_tabs插件，来解决二级导航滑动的问题，，，，，
@@ -61,23 +61,23 @@
 
 ## 一级导航的第二页 一级导航的第二页中的第二页 个人中心
 
-<img src="./asset/picture/6.png" width="200" >
-<img src="./asset/picture/7.png" width="200" >
-<img src="./asset/picture/8.png" width="200" >
+<span><img src="./asset/picture/6.png" width="200" ></span>
+<span><img src="./asset/picture/7.png" width="200" ></span>
+<span><img src="./asset/picture/8.png" width="200" ></span>
 
 ## 个人中心---展示header的变化，这里也写了超久----不过学习了sliver家族，开心
 
 ##### 好想给你们展示一下动图啊，下次补上
 
-<img src="./asset/picture/9.png" width="200" >
+<span><img src="./asset/picture/9.png" width="200" ></span>
 
 ## 歌单
 
-<img src="./asset/picture/10.png" width="200" >
+<span><img src="./asset/picture/10.png" width="200" ></span>
 
 ## 歌单-----这里也想给你们展示动图........
 
-<img src="./asset/picture/11.png" width="200" >
+<span><img src="./asset/picture/11.png" width="200" ></span>
 
 ## 播放界面---
 
@@ -85,7 +85,7 @@
 
 ### 这里我会加上鲸云的音频波浪效果的------等我.......
 
-<img src="./asset/picture/12.png" width="200" >
+<span><img src="./asset/picture/12.png" width="200" ></span>
 
 
 # 给我一点时间----------
