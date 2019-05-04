@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:provide/provide.dart';
 
 
 import 'package:music/routers/route.dart';
+import 'package:music/provider/me.dart';
+import 'package:music/provider/userData.dart';
 
 
  // 所有小部件
@@ -137,66 +139,72 @@ class MyDrawer extends StatelessWidget {
 
   // 头部
   Widget _mydrawerHeader( context ){
-    return DrawerHeader(
-      padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-      margin: EdgeInsets.only(),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(
-            "https://www.curtaintan.club/bg/m2.jpg",
+    return Provide<MeInfoProvide>(
+      builder: ( context, child, data ){
+        return DrawerHeader(
+          padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+          margin: EdgeInsets.only(),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                "https://www.curtaintan.club/bg/m2.jpg",
+              ),
+              fit: BoxFit.cover
+            )
           ),
-          fit: BoxFit.cover
-        )
-      ),
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            InkWell(
-              onTap: (){
-                print("点了一下头像区....");
-              },
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: ClipOval(
-                  child: Image.network(
-                    "http://curtaintan.club/headImg/1549358122065.jpg",
-                    width: ScreenUtil().setWidth(150),
-                    height: ScreenUtil().setHeight(150),
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                InkWell(
+                  onTap: (){
+                    print("点了一下头像区....");
+                    Provide.value<UserDataProvide>(context).initUserData( data.profile.nickname, data.profile.avatarUrl);
+                    Routes.router.navigateTo(context, "/user/" + data.profile.userId.toString() );
+                  },
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: ClipOval(
+                      child: Image.network(
+                        data?.profile?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
+                        width: ScreenUtil().setWidth(150),
+                        height: ScreenUtil().setHeight(150),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10.0,),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("至死不渝的回答", style: TextStyle( color: Colors.white, fontSize: ScreenUtil().setSp(40) ),),
-                  Container(
-                    width: ScreenUtil().setWidth(180),
-                    height: ScreenUtil().setHeight(80),
-                    child: FlatButton(
-                      onPressed: (){
-                        print("签到");
-                      },
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.circular(20),
-                        side: BorderSide(
-                          width: 1.0,
-                          color: Colors.white
+                Container(
+                  margin: EdgeInsets.only(top: 10.0,),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text( data?.profile?.nickname ?? "至死不渝的回答", style: TextStyle( color: Colors.white, fontSize: ScreenUtil().setSp(40) ),),
+                      Container(
+                        width: ScreenUtil().setWidth(180),
+                        height: ScreenUtil().setHeight(80),
+                        child: FlatButton(
+                          onPressed: (){
+                            print("签到");
+                          },
+                          textColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusDirectional.circular(20),
+                            side: BorderSide(
+                              width: 1.0,
+                              color: Colors.white
+                            )
+                          ),
+                          child: Text("签到",),
                         )
                       ),
-                      child: Text("签到",),
-                    )
-                  ),
-                ],
-              )
-            )
-          ],
-        ),
-      ),
+                    ],
+                  )
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

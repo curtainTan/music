@@ -37,7 +37,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
         _timer =Timer( Duration(seconds: 3) , (){
           if( isLoged ){
-            print("-----------uid---------");
             Routes.router.navigateTo(context, '/', clearStack: true );
           }else{
             Routes.router.navigateTo(context, '/login', clearStack: true );

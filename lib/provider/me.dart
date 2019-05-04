@@ -44,6 +44,7 @@ class MeInfoProvide with ChangeNotifier{
   getMeInfo() async {
     pref = await SharedPreferences.getInstance();
     var info = pref.getString("meInfo");
+    uid = pref.getInt("userId");
     meInfo = info == null ? null : UserDetailModal.fromJson( json.decode(info) );
     notifyListeners();
   }
@@ -60,15 +61,14 @@ class MeInfoProvide with ChangeNotifier{
   setMyFollowed( data ){
 
     myFollowered = MyFollower.fromJson( data );
-    print("----------changdu ---${myFollowered.follow.length}-");
     notifyListeners();
     
   }
 
   // 更新用户信息
   updateInfo(){
-    int uid = pref.getInt("uid");
-    requestGet("userDetail", formData: { "uid" : uid }).then( ( res ){
+    int oooouid = pref.getInt("userId");
+    requestGet("userDetail", formData: { "uid" : oooouid }).then( ( res ){
       setMeinfo( res );
     });
   }
