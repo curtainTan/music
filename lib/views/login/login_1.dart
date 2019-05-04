@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provide/provide.dart';
 import 'dart:async';
-
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../routers/route.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+
+import 'package:music/routers/route.dart';
 import 'package:music/provider/me.dart';
 
 import 'package:music/modal/user_model.dart';
@@ -49,7 +50,6 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     _animationController.dispose();
-    _timer.cancel();
     super.dispose();
   }
 
@@ -95,9 +95,19 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
         // print("-------登录成功...------${res['profile']['userId']}-----");
         // Provide.value<MeInfoProvide>(context).setMeinfo( res );
         UserModel useAlittle = UserModel.fromJson(res);
+        Fluttertoast.showToast(
+          msg: "登录成功......",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: ScreenUtil().setSp(40)
+        );
 
         DateTime nowTime = DateTime.now();
         Provide.value<MeInfoProvide>(context).saveNameAndPsw( phone.toString(), psw.toString(), nowTime.toString(), useAlittle.profile.userId );
+
         // print("----------------时间-----${nowTime}-----------------");
 
         requestGet( "userDetail", formData: { "uid" : useAlittle.profile.userId } ).then( ( meInfoData ){

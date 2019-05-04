@@ -53,9 +53,7 @@ class MyDrawer extends StatelessWidget {
   Widget _myFoot( context ){
 
     Widget footItem( int icon, String text ){
-      return InkWell(
-        onTap: (){},
-        child: Container(
+      return  Container(
           width: ScreenUtil().setWidth(280),
           height: ScreenUtil().setHeight(110),
           padding: EdgeInsets.only(left: 10),
@@ -71,7 +69,6 @@ class MyDrawer extends StatelessWidget {
               Text("$text")
             ],
           ),
-        )
       );
     }
 
@@ -103,6 +100,7 @@ class MyDrawer extends StatelessWidget {
           InkWell(
             child: footItem( 0xe634, "退出" ),
             onTap: (){
+              print("我点了退出");
               showDialog(
                 context: context,
                 barrierDismissible: true,
@@ -115,7 +113,7 @@ class MyDrawer extends StatelessWidget {
                         onPressed: (){
                           Navigator.pop(context);
                         },
-                        child: Text("取消"),
+                        child: Text("取消", style: TextStyle( color: Colors.white ),),
                       ),
                       RaisedButton(
                         onPressed: () async {
@@ -124,7 +122,7 @@ class MyDrawer extends StatelessWidget {
                           Routes.router.navigateTo(context, Routes.login, clearStack: true  );
 
                         },
-                        child: Text("确定"),
+                        child: Text("确定", style: TextStyle( color: Colors.white ),),
                       )
                     ],
                   );
