@@ -16,14 +16,14 @@
 -------------------------
 ## 动图来了，这次更新了很多
 ## 进入app时的splash屏闪页、进入登录页面的动画，登录提示
-<img src="./asset/picture/gif/splash.gif" width="200" >
-<img src="./asset/picture/gif/login.gif" width="200" >
-<img src="./asset/picture/gif/login1.gif" width="200" >
+<a><img src="./asset/picture/gif/splash.gif" width="200" ></a>
+<a><img src="./asset/picture/gif/login.gif" width="200" ></a>
+<a><img src="./asset/picture/gif/login1.gif" width="200" ></a>
 
 ## Home页相关：歌单点击动画、drawer、二级导航联动
-<img src="./asset/picture/gif/switchAnimation.gif" width="200" >
-<img src="./asset/picture/gif/drawer.gif" width="200" >
-<img src="./asset/picture/gif/twoNav.gif" width="200" >
+<span><img src="./asset/picture/gif/switchAnimation.gif" width="200" ></span>
+<span><img src="./asset/picture/gif/drawer.gif" width="200" ></span>
+<span><img src="./asset/picture/gif/twoNav.gif" width="200" ></span>
 
 ## 歌单相关：歌单展示和歌单Header折叠
 <img src="./asset/picture/gif/songListHeader.gif" width="200" >
