@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>网易云音乐+</string>
+	<string>仿云音乐</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,15 +13,15 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>music</string>
+	<string>flutter_button</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>2.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>2</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -29,6 +29,18 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>导航SDK需要您的定位服务，否则可能无法使用，如果您需要使用后台导航功能请选择“始终允许”。</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>导航SDK需要您的定位服务，否则可能无法使用。</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>导航SDK需要您的定位服务，否则可能无法使用。</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>使用语音搜索需要录音权限</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -48,15 +60,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>导航SDK需要您的定位服务，否则可能无法使用，如果您需要使用后台导航功能请选择“始终允许”。</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>导航SDK需要您的定位服务，否则可能无法使用。</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>导航SDK需要您的定位服务，否则可能无法使用。</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>使用语音搜索需要录音权限</string>
-    <key>UIBackgroundModes</key>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 </dict>
 </plist>
