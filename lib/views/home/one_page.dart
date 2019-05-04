@@ -25,10 +25,10 @@ class _OnePageState extends State<OnePage> with AutomaticKeepAliveClientMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    yyy();
+    yyy( context );
   }
 
-  void yyy() async {
+  void yyy( context ) async {
     int uid = Provide.value<MeInfoProvide>(context).uid;
     await requestGet( "userPlaylist", formData: { "uid" : uid } ).then( (res){
       Provide.value<MeInfoProvide>(context).setPlayList(res);

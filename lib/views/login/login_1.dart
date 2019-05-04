@@ -91,8 +91,9 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
       "password" : psw.text
     };
     requestGet("login", formData: formData ).then( (res){
-      if( res != null ){
-        // print("-------登录成功...------${res['profile']['userId']}-----");
+      print("-------登录成功...------${res.toString()}-----");
+      if( res['success'] == null ){
+        // print("-------登录成功...------${res.toString()}-----");
         // Provide.value<MeInfoProvide>(context).setMeinfo( res );
         UserModel useAlittle = UserModel.fromJson(res);
         Fluttertoast.showToast(
@@ -111,7 +112,6 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
         // print("----------------时间-----${nowTime}-----------------");
 
         requestGet( "userDetail", formData: { "uid" : useAlittle.profile.userId } ).then( ( meInfoData ){
-          print("-------登录成功----------");
           Provide.value<MeInfoProvide>(context).setMeinfo(meInfoData);
           _timer = Timer( Duration( seconds: 1 ) , (){
             Routes.router.navigateTo(context, '/', clearStack: true);
