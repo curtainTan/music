@@ -181,8 +181,8 @@ class _UserMainState extends State<UserMain> with TickerProviderStateMixin {
                             name( username ),
                             aboutme( userdata.userdata ),
                             label( 
-                              userdata.userdata.level, 
-                              userdata.userdata.profile.gender, 
+                              userdata?.userdata?.level ?? "" , 
+                              userdata?.userdata?.profile?.gender ?? 1 , 
                             ),
                           ],
                         ),
