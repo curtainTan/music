@@ -32,7 +32,7 @@ Future request( url, { formData } ) async {
 Future requestGet( url, { formData } ) async {
   try {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    String lovely = pref.getString("De-lovely");
+    // String lovely = pref.getString("De-lovely");
     Response response;
     Dio mdio = Dio();
     // mdio.interceptors.add( CookieManager(  ) );
@@ -67,52 +67,52 @@ Future requestGet( url, { formData } ) async {
 }
 
 
-class HttpUtil{
-  static HttpUtil instance;
-  Dio dio;
-  Options options;
+// class HttpUtil{
+//   static HttpUtil instance;
+//   Dio dio;
+//   Options options;
 
-  static HttpUtil getInstance(){
-    print("getInstance");
-    if( instance == null ){
-      instance = HttpUtil();
-    }
-    return instance;
-  }
+//   static HttpUtil getInstance(){
+//     print("getInstance");
+//     if( instance == null ){
+//       instance = HttpUtil();
+//     }
+//     return instance;
+//   }
 
-  HttpUtil() {
-    print("--------初始化--");
-    dio = Dio();
-    dio.options.baseUrl = "http://132.232.45.108:8888";
-    dio.options.connectTimeout = 12000;
-    dio.options.receiveTimeout = 4000;
-    dio.options.contentType = ContentType.parse("application/x-www-form-urlencoded");
-  }
+//   HttpUtil() {
+//     print("--------初始化--");
+//     dio = Dio();
+//     dio.options.baseUrl = "http://132.232.45.108:8888";
+//     dio.options.connectTimeout = 12000;
+//     dio.options.receiveTimeout = 4000;
+//     dio.options.contentType = ContentType.parse("application/x-www-form-urlencoded");
+//   }
 
-  get( url, { data, options } ) async {
-    print("---------------get请求启动--");
-    Response response;
-    try{
-      if( data == null ){
-        response = await dio.get( servicePath[url] );
-      } else {
-        response = await dio.get( servicePath[url], queryParameters: data );
-      }
-      if( response.statusCode == 200 || response.statusCode == 201 ){
-        print("------获取成功------------>>>>>请看下一步.......");
-        print("$response");
-        return response.data;
-      }
-    }catch(e){}
-
-
-
-  }
+//   get( url, { data, options } ) async {
+//     print("---------------get请求启动--");
+//     Response response;
+//     try{
+//       if( data == null ){
+//         response = await dio.get( servicePath[url] );
+//       } else {
+//         response = await dio.get( servicePath[url], queryParameters: data );
+//       }
+//       if( response.statusCode == 200 || response.statusCode == 201 ){
+//         print("------获取成功------------>>>>>请看下一步.......");
+//         print("$response");
+//         return response.data;
+//       }
+//     }catch(e){}
 
 
 
+//   }
 
-}
+
+
+
+// }
 
 
 

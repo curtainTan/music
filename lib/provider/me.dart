@@ -27,17 +27,17 @@ class MeInfoProvide with ChangeNotifier{
 
   // 保存用户信息
   saveMeInfo(  ) async {
-    pref.setString("meInfo", meInfo.toString() );
+    pref.setString("meInfo", json.encode( meInfo ).toString()  );
     notifyListeners();
   }
 
   // 保存基础信息
-  saveNameAndPsw( phoner, psw, time, uid ){
+  saveNameAndPsw( phoner, psw, time, muid ){
     pref.setString("phone", phoner);
     pref.setString("psw", psw );
     pref.setString("time", time);
-    pref.setInt("userId", uid);
-    uid = uid;
+    pref.setInt("userId", muid);
+    uid = muid;
     notifyListeners();
   }
 
@@ -45,7 +45,7 @@ class MeInfoProvide with ChangeNotifier{
   getMeInfo() async {
     pref = await SharedPreferences.getInstance();
     var info = pref.getString("meInfo");
-    uid = pref.getInt("userId");
+    uid = pref.getInt("userId") ?? 109496832 ;
     meInfo = info == null ? null : UserDetailModal.fromJson( json.decode(info) );
     notifyListeners();
   }

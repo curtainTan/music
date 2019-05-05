@@ -105,14 +105,13 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
           textColor: Colors.white,
           fontSize: ScreenUtil().setSp(40)
         );
-
+        
         DateTime nowTime = DateTime.now();
         Provide.value<MeInfoProvide>(context).saveNameAndPsw( phone.toString(), psw.toString(), nowTime.toString(), useAlittle.profile.userId );
 
-        // print("----------------时间-----${nowTime}-----------------");
-
         requestGet( "userDetail", formData: { "uid" : useAlittle.profile.userId } ).then( ( meInfoData ){
           Provide.value<MeInfoProvide>(context).setMeinfo(meInfoData);
+          print("------------设置成功-----zhunbei jishi ");
           _timer = Timer( Duration( seconds: 1 ) , (){
             Routes.router.navigateTo(context, '/', clearStack: true);
           });

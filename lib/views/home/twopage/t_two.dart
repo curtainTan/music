@@ -7,7 +7,6 @@ import 'package:music/provider/me.dart';
 import 'package:music/provider/userData.dart';
 
 import 'package:music/service/http.dart';
-// import 'package:extended_image/extended_image.dart';
 import 'package:music/component/myImage.dart';
 
 
@@ -24,17 +23,17 @@ class _TTwoPageState extends State<TTwoPage> with AutomaticKeepAliveClientMixin 
   void didChangeDependencies() {
     super.didChangeDependencies();
     setState(() {
-      _getfrend();
+      _getfrend( context );
     });
   }
 
-  void _getfrend() async {
-    if( Provide.value<MeInfoProvide>(context).myFollowered == null ){
+  void _getfrend( context ) async {
+    // if( Provide.value<MeInfoProvide>(context).myFollowered == null ){
       var uid = Provide.value<MeInfoProvide>(context).uid;
       await requestGet("userFollows", formData: { "uid": uid }).then(( res ){
         Provide.value<MeInfoProvide>(context).setMyFollowed( res );
       });
-    }
+    // }
   }
 
   @override
@@ -95,26 +94,6 @@ class Friend extends StatelessWidget {
               h: ScreenUtil().setWidth(140),
               shape: BoxShape.circle,
             ),
-            // child: ExtendedImage.network(
-            //   onefollow.avatarUrl,
-            //   cache: true,
-            //   width: ScreenUtil().setWidth(140),
-            //   height: ScreenUtil().setWidth(140),
-            //   shape: BoxShape.circle,
-            // ),
-            // child: Container(
-            //   height: ScreenUtil().setWidth(140),
-            //   width: ScreenUtil().setWidth(140),
-            //   margin: EdgeInsets.all( ScreenUtil().setWidth( 20 ) ),
-            //   decoration: BoxDecoration(
-            //     shape: BoxShape.circle,
-            //     image: DecorationImage(
-            //       // image: NetworkImage('http://curtaintan.club/headImg/1549358122065.jpg'),
-            //       image: NetworkImage( onefollow.avatarUrl ),
-            //       fit: BoxFit.fitWidth
-            //     )
-            //   ),
-            // ),
           ),
           Text(
             "${onefollow.nickname}", 
