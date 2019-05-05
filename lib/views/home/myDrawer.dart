@@ -211,7 +211,7 @@ class MyDrawer extends StatelessWidget {
   Widget _topBox( List icon, List text, List righttext ){
 
     return Container(
-      height: ScreenUtil().setHeight( icon.length * 112 ),
+      height: ScreenUtil().setHeight( icon.length * 112.0 ),
       padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
       decoration: BoxDecoration(
         border: Border(
