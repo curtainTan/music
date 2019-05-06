@@ -1,0 +1,320 @@
+{
+    "result": {
+        "albums": [
+            {
+                "id": 1958163,
+                "name": "Bad",
+                "artist": {
+                    "id": 38853,
+                    "name": "Michael Jackson",
+                    "picUrl": "https://p2.music.126.net/WoMhaqFqAU1oLIb17VOE3g==/109951163025141447.jpg",
+                    "albumSize": 124,
+                    "picId": 109951163025141440,
+                    "img1v1Url": "https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                    "img1v1": 0,
+                    "transNames": [
+                        "迈克尔.杰克逊"
+                    ],
+                    "trans": "迈克尔.杰克逊"
+                },
+                "publishTime": 557334000007,
+                "size": 11,
+                "copyrightId": 5003,
+                "status": 1,
+                "picId": 6674035581517058
+            }
+        ],
+        "artists": [
+            {
+                "id": 11100,
+                "name": "B.A.D",
+                "picUrl": "https://p1.music.126.net/GYKjNmqfQ4RqTrdOOn37Ig==/116548232545402.jpg",
+                "alias": [
+                    "B.A.D."
+                ],
+                "albumSize": 5,
+                "picId": 116548232545402,
+                "img1v1Url": "https://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                "img1v1": -1,
+                "alia": [
+                    "B.A.D."
+                ]
+            }
+        ],
+        "songs": [
+            {
+                "id": 28996105,
+                "name": "Bad Apple!!",
+                "artists": [
+                    {
+                        "id": 16523,
+                        "name": "花たん",
+                        "albumSize": 0,
+                        "picId": 0,
+                        "img1v1Url": "https://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                        "img1v1": 0
+                    }
+                ],
+                "album": {
+                    "id": 2975014,
+                    "name": "HANA TOHOBEST",
+                    "artist": {
+                        "id": 0,
+                        "name": "",
+                        "albumSize": 0,
+                        "picId": 0,
+                        "img1v1Url": "https://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                        "img1v1": 0
+                    },
+                    "publishTime": 1408118400007,
+                    "size": 13,
+                    "copyrightId": 0,
+                    "status": 0,
+                    "picId": 6638851208564995
+                },
+                "duration": 318798,
+                "copyrightId": 663018,
+                "status": 0,
+                "alias": [
+                    "原曲：Bad Apple!!"
+                ],
+                "rtype": 0,
+                "ftype": 0,
+                "mvid": 0,
+                "fee": 0
+            }
+        ],
+        "playlists": [
+            {
+                "id": 549325629,
+                "name": "奥斯卡酒吧蹦迪专用曲",
+                "coverImgUrl": "https://p2.music.126.net/3XSRFlINFwLLtjZGVqoEEQ==/109951163251928949.jpg",
+                "subscribed": false,
+                "trackCount": 90,
+                "userId": 340526497,
+                "playCount": 12027647,
+                "bookCount": 230020,
+                "description": "热情有限，爱要及时。\nvx（xzzppp ）",
+                "highQuality": false
+            }
+        ],
+        "mvs": [
+            {
+                "id": 505395,
+                "cover": "http://p4.music.126.net/wu-ejclXk_ccHwTaY7HWpQ==/3424978722803138.jpg",
+                "name": "Bad Girl",
+                "playCount": 3503705,
+                "briefDesc": "Kris上演嘻哈风格狂野BOY",
+                "artistName": "吴亦凡",
+                "artistId": 964108,
+                "duration": 277000,
+                "mark": 0,
+                "artists": [
+                    {
+                        "id": 964108,
+                        "name": "吴亦凡",
+                        "alias": [
+                            "KRIS",
+                            "Kris Wu"
+                        ]
+                    }
+                ],
+                "subed": false,
+                "mv": {
+                    "authId": 0,
+                    "status": 1,
+                    "id": 505395,
+                    "title": "Bad Girl",
+                    "subTitle": "",
+                    "appTitle": "",
+                    "aliaName": "",
+                    "transName": "",
+                    "pic4v3": 3424978722803137,
+                    "pic16v9": 3424978722803138,
+                    "caption": 1,
+                    "captionLanguage": "其它",
+                    "style": "流行;",
+                    "mottos": "",
+                    "oneword": "",
+                    "appword": "Kris上演嘻哈风格狂野BOY",
+                    "stars": "",
+                    "desc": "《Bad Girl》MV完整版中，吴亦凡多款潮范儿穿搭轮番上阵，时而带着墨镜鸭舌帽演绎嘻哈风格的狂野BOY，时而眼睛流露忧郁演绎深情大男孩，举手投足之间散发的都是凡式魅力！国民师兄陈伟霆的友情出演，引发网友的高度期待。",
+                    "area": "大陆",
+                    "type": "官方版",
+                    "subType": "完整版",
+                    "neteaseonly": 0,
+                    "upban": 0,
+                    "topWeeks": "",
+                    "publishTime": "2015-11-13",
+                    "online": 0,
+                    "score": 0,
+                    "plays": 3503062,
+                    "monthplays": 1804714,
+                    "weekplays": 1757945,
+                    "dayplays": 1758793,
+                    "fee": 0,
+                    "artists": [
+                        {
+                            "id": 964108,
+                            "name": "吴亦凡"
+                        }
+                    ],
+                    "videos": [
+                        {
+                            "tagSign": {
+                                "br": 1080,
+                                "type": "MP4",
+                                "tagSign": "MP4_1080P",
+                                "mvtype": "MP4",
+                                "resolution": 1080
+                            },
+                            "tag": "MP4_1080P",
+                            "url": "cloudmusic/JiAhYiE0MSEgJDQgIWAyIA==/mv/505395/0743ea19015eabd04d43ca47896af860.mp4",
+                            "duration": 277000,
+                            "size": 204759644,
+                            "width": 0,
+                            "height": 1080,
+                            "container": "mp4",
+                            "md5": "",
+                            "check": false
+                        },
+                        {
+                            "tagSign": {
+                                "br": 720,
+                                "type": "TS",
+                                "tagSign": "TS_720P",
+                                "mvtype": "TS",
+                                "resolution": 720
+                            },
+                            "tag": "TS_720P",
+                            "url": "cloudmusic/JiAhYiE0MSEgJDQgIWAyIA==/mv/505395/4fdc9acbabd41654c67eb956ba96796e.m3u8",
+                            "duration": 277000,
+                            "size": 107316012,
+                            "width": 0,
+                            "height": 720,
+                            "container": "m3u8",
+                            "md5": "",
+                            "check": false
+                        },
+                        {
+                            "tagSign": {
+                                "br": 240,
+                                "type": "TS",
+                                "tagSign": "TS_240P",
+                                "mvtype": "TS",
+                                "resolution": 240
+                            },
+                            "tag": "TS_240P",
+                            "url": "cloudmusic/JiAhYiE0MSEgJDQgIWAyIA==/mv/505395/fe8663e68a1ccdabd1999207a153c7cf.m3u8",
+                            "duration": 276000,
+                            "size": 30594341,
+                            "width": 0,
+                            "height": 240,
+                            "container": "m3u8",
+                            "md5": "",
+                            "check": false
+                        },
+                        {
+                            "tagSign": {
+                                "br": 480,
+                                "type": "MP4",
+                                "tagSign": "MP4_480P",
+                                "mvtype": "MP4",
+                                "resolution": 480
+                            },
+                            "tag": "MP4_480P",
+                            "url": "cloudmusic/JiAhYiE0MSEgJDQgIWAyIA==/mv/505395/bfafc9f00fd096e7068b1424f4e2eae4.mp4",
+                            "duration": 277000,
+                            "size": 48711297,
+                            "width": 0,
+                            "height": 480,
+                            "container": "mp4",
+                            "md5": "",
+                            "check": false
+                        },
+                        {
+                            "tagSign": {
+                                "br": 240,
+                                "type": "MP4",
+                                "tagSign": "MP4_240P",
+                                "mvtype": "MP4",
+                                "resolution": 240
+                            },
+                            "tag": "MP4_240P",
+                            "url": "cloudmusic/JiAhYiE0MSEgJDQgIWAyIA==/mv/505395/3e1b387f7c509a4582ff1fa176be6d69.mp4",
+                            "duration": 277000,
+                            "size": 19207138,
+                            "width": 0,
+                            "height": 240,
+                            "container": "mp4",
+                            "md5": "",
+                            "check": false
+                        },
+                        {
+                            "tagSign": {
+                                "br": 480,
+                                "type": "TS",
+                                "tagSign": "TS_480P",
+                                "mvtype": "TS",
+                                "resolution": 480
+                            },
+                            "tag": "TS_480P",
+                            "url": "cloudmusic/JiAhYiE0MSEgJDQgIWAyIA==/mv/505395/edf13fde5ebec0c8704eb0605b6da08c.m3u8",
+                            "duration": 277000,
+                            "size": 59192148,
+                            "width": 0,
+                            "height": 480,
+                            "container": "m3u8",
+                            "md5": "",
+                            "check": false
+                        },
+                        {
+                            "tagSign": {
+                                "br": 1080,
+                                "type": "TS",
+                                "tagSign": "TS_1080P",
+                                "mvtype": "TS",
+                                "resolution": 1080
+                            },
+                            "tag": "TS_1080P",
+                            "url": "cloudmusic/JiAhYiE0MSEgJDQgIWAyIA==/mv/505395/0743ea19015eabd04d43ca47896af860.m3u8",
+                            "duration": 277000,
+                            "size": 223479520,
+                            "width": 0,
+                            "height": 1080,
+                            "container": "m3u8",
+                            "md5": "",
+                            "check": false
+                        },
+                        {
+                            "tagSign": {
+                                "br": 720,
+                                "type": "MP4",
+                                "tagSign": "MP4_720P",
+                                "mvtype": "MP4",
+                                "resolution": 720
+                            },
+                            "tag": "MP4_720P",
+                            "url": "cloudmusic/JiAhYiE0MSEgJDQgIWAyIA==/mv/505395/19739676aa9851fd09d5650f4df2a712.mp4",
+                            "duration": 277000,
+                            "size": 112921090,
+                            "width": 0,
+                            "height": 720,
+                            "container": "mp4",
+                            "md5": "",
+                            "check": false
+                        }
+                    ]
+                }
+            }
+        ],
+        "order": [
+            "songs",
+            "artists",
+            "albums",
+            "mvs",
+            "playlists"
+        ]
+    },
+    "code": 200
+}

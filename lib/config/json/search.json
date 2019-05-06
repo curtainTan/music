@@ -1,0 +1,68 @@
+{
+    "result": {
+        "songs": [
+            {
+                "id": 1313107065,
+                "name": "RISE",
+                "artists": [
+                    {
+                        "id": 102954,
+                        "name": "The Glitch Mob",
+                        "albumSize": 0,
+                        "picId": 0,
+                        "img1v1Url": "https://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                        "img1v1": 0
+                    },
+                    {
+                        "id": 68192,
+                        "name": "Mako",
+                        "albumSize": 0,
+                        "picId": 0,
+                        "img1v1Url": "https://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                        "img1v1": 0
+                    },
+                    {
+                        "id": 213073,
+                        "name": "The Word Alive",
+                        "albumSize": 0,
+                        "picId": 0,
+                        "img1v1Url": "https://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                        "img1v1": 0
+                    }
+                ],
+                "album": {
+                    "id": 73471912,
+                    "name": "RISE",
+                    "artist": {
+                        "id": 0,
+                        "name": "",
+                        "albumSize": 0,
+                        "picId": 0,
+                        "img1v1Url": "https://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                        "img1v1": 0
+                    },
+                    "publishTime": 1537891200007,
+                    "size": 2,
+                    "copyrightId": 0,
+                    "status": 0,
+                    "picId": 109951163573081070,
+                    "alia": [
+                        "英雄联盟2018全球总决赛主题曲"
+                    ]
+                },
+                "duration": 192914,
+                "copyrightId": 0,
+                "status": 0,
+                "alias": [
+                    "登峰造极境—英雄联盟2018全球总决赛主题曲"
+                ],
+                "rtype": 0,
+                "ftype": 0,
+                "mvid": 10798487,
+                "fee": 0
+            }
+        ],
+        "songCount": 600
+    },
+    "code": 200
+}

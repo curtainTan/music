@@ -1,0 +1,57 @@
+{
+    "code": 200,
+    "result": {
+        "hots": [
+            {
+                "first": "孤单心事",
+                "second": 1,
+                "iconType": 1
+            },
+            {
+                "first": "青春住了谁",
+                "second": 1,
+                "iconType": 0
+            },
+            {
+                "first": "Taylor Swift",
+                "second": 1,
+                "iconType": 0
+            },
+            {
+                "first": "袁娅维远东韵律",
+                "second": 1,
+                "iconType": 0
+            },
+            {
+                "first": "复仇者联盟",
+                "second": 1,
+                "iconType": 0
+            },
+            {
+                "first": "权力的游戏",
+                "second": 1,
+                "iconType": 0
+            },
+            {
+                "first": "刘瑞琦新歌",
+                "second": 1,
+                "iconType": 0
+            },
+            {
+                "first": "蝴蝶泉边",
+                "second": 1,
+                "iconType": 0
+            },
+            {
+                "first": "防弹少年团",
+                "second": 1,
+                "iconType": 0
+            },
+            {
+                "first": "心如止水",
+                "second": 1,
+                "iconType": 0
+            }
+        ]
+    }
+}

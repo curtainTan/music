@@ -1,0 +1,27 @@
+{
+    "result": {
+        "artist": [
+            {
+                "name": "B.A.D",
+                "id": 11100,
+                "picId": 116548232545402,
+                "img1v1Id": -1,
+                "briefDesc": "",
+                "picUrl": "https://p1.music.126.net/GYKjNmqfQ4RqTrdOOn37Ig==/116548232545402.jpg",
+                "img1v1Url": "https://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                "albumSize": 5,
+                "alias": [
+                    "B.A.D."
+                ],
+                "trans": "",
+                "musicSize": 56,
+                "mvSize": 9,
+                "alg": "default"
+            }
+        ],
+        "orders": [
+            "artist"
+        ]
+    },
+    "code": 200
+}

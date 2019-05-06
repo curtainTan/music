@@ -1,0 +1,43 @@
+{
+    "result": {
+        "allMatch": [
+            {
+                "keyword": "Bad Boy",
+                "type": 1,
+                "alg": "alg_psug_a",
+                "lastKeyword": ""
+            },
+            {
+                "keyword": "Bad Girl",
+                "type": 1,
+                "alg": "alg_psug_a",
+                "lastKeyword": ""
+            },
+            {
+                "keyword": "Bad Romance",
+                "type": 1,
+                "alg": "alg_psug_a",
+                "lastKeyword": ""
+            },
+            {
+                "keyword": "Bad",
+                "type": 1,
+                "alg": "alg_psug_a",
+                "lastKeyword": ""
+            },
+            {
+                "keyword": "Bad And Boujee",
+                "type": 1,
+                "alg": "alg_psug_a",
+                "lastKeyword": ""
+            },
+            {
+                "keyword": "Bad Guy",
+                "type": 1,
+                "alg": "alg_psug_a",
+                "lastKeyword": ""
+            }
+        ]
+    },
+    "code": 200
+}
