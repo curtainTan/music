@@ -190,7 +190,7 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
                       ),
                       Transform(
                         transform: Matrix4.translationValues( _animationphone.value * w , 0.0, 0.0),
-                        child: new ItemInput( textcontroller: psw, text: "请输入密码", icon: 0xe633, ob: true,  regexpIndex: 1 ),
+                        child: new ItemInput( textcontroller: psw, text: "请输入密码", icon: 0xe633, ob: true,  regexpIndex: 1 ,inputtype: 1,),
                       ),
                       Transform(
                         transform: Matrix4.translationValues( _animationpsw.value * w , 0.0, 0.0),
@@ -216,7 +216,7 @@ class ItemInput extends StatelessWidget {
   final String fretext;
   final bool ob;
   final int regexpIndex;
-
+final int inputtype;
   List regexp = [
     [
       BlacklistingTextInputFormatter( RegExp("[a-z]") ),
@@ -236,6 +236,7 @@ class ItemInput extends StatelessWidget {
     this.icon,
     this.fretext = "",
     this.ob = false,
+    this.inputtype = 0,
     this.regexpIndex = 1 }) : super(key: key);
 
   @override
@@ -257,7 +258,7 @@ class ItemInput extends StatelessWidget {
       child: TextField(
         style: TextStyle( fontSize: ScreenUtil().setSp( 40 ), color: Colors.grey ),
         controller: textcontroller,
-        keyboardType: TextInputType.number,
+        keyboardType: inputtype == 0?TextInputType.number:TextInputType.text,
         obscureText: ob,
         inputFormatters: regexp[regexpIndex],
         decoration: InputDecoration(
