@@ -10,7 +10,7 @@ import 'package:music/routers/route.dart';
 import 'package:music/provider/me.dart';
 
 import 'package:music/modal/user_model.dart';
-import '../../service/http.dart';
+import 'package:music/service/http.dart';
 
 
 class Login1 extends StatefulWidget {
@@ -216,7 +216,7 @@ class ItemInput extends StatelessWidget {
   final String fretext;
   final bool ob;
   final int regexpIndex;
-final int inputtype;
+  final int inputtype;
   List regexp = [
     [
       BlacklistingTextInputFormatter( RegExp("[a-z]") ),

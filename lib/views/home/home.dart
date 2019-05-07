@@ -12,6 +12,8 @@ import './twopage/main.dart';
 import 'package:music/provider/me.dart';
 import './threepage/index.dart';
 import 'package:music/component/bottomBar.dart';
+import 'package:music/routers/route.dart';
+
 
 class HomePage extends StatefulWidget {
 
@@ -42,7 +44,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
   // 只执行一次 更新用户信息和cookie
   void onlyOne(){
-    print("-------------这里的代码只执行了一次----------------");
     Provide.value<MeInfoProvide>(context).updateInfo();
     // Provide.value<MeInfoProvide>(context).reSetCookie();
   }
@@ -71,7 +72,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Widget searchBar(){
     return InkWell(
-      onTap: (){},
+      onTap: (){
+        Routes.router.navigateTo(context, Routes.searchpage );
+      },
       child: Container(
         width: ScreenUtil().setWidth(140),
         height: ScreenUtil().setHeight(100),
@@ -81,33 +84,57 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
+  Future<bool> _onWillPop(){
+    return showDialog(
+      context: context,
+      builder: ( context ) => AlertDialog(
+        title: Text("你确定要退出吗？"),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: (){
+              Navigator.pop(context, true);
+            },
+            child: Text("确定"),
+          ),
+          FlatButton(
+            onPressed: (){
+              Navigator.pop(context, false);
+            },
+            child: Text("取消"),
+          )
+        ],
+      )
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Scaffold(
-         appBar: AppBar(
-           backgroundColor: Colors.red,
-           centerTitle: true,
-           elevation: 0,
-           title: topTabBar(),
-           actions: <Widget>[
-             searchBar(),
-           ],
-         ),
-         drawer: MyDrawer(),
-         body: Container(
-           child: ExtendedTabBarView(
-             controller: _tabController,
-             children: <Widget>[
-               OnePage(),
-               HomeTwoPage( tabController: _tabController1, ),
-               ThreePage()
-             ],
-           ),
-         ),
-         bottomSheet: BottomBar(  ),
-       )
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.red,
+          centerTitle: true,
+          elevation: 0,
+          title: topTabBar(),
+          actions: <Widget>[
+            searchBar(),
+          ],
+        ),
+        drawer: MyDrawer(),
+        body: Container(
+          child: ExtendedTabBarView(
+            controller: _tabController,
+            children: <Widget>[
+              OnePage(),
+              HomeTwoPage( tabController: _tabController1, ),
+              ThreePage()
+            ],
+          ),
+        ),
+        bottomSheet: BottomBar(  ),
+      )
     );
   }
 }

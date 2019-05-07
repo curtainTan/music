@@ -8,7 +8,7 @@ import '../views/login/login_2.dart';
 import '../views/user/main.dart';
 import '../views/songList/songList.dart';
 import '../views/play/play_page.dart';
-
+import 'package:music/views/search/search_page.dart';
 
 
 
@@ -22,6 +22,7 @@ class Routes {
   static String user = '/user/:uid';
   static String songList = '/songList/:id';
   static String playpage = '/playpage';
+  static String searchpage = "/searchpage";
 
 
 
@@ -47,6 +48,9 @@ class Routes {
     );
     router.define(
       playpage, handler: Handler( handlerFunc: ( context, params ) => PlayPage() ), transitionType: TransitionType.inFromBottom
+    );
+    router.define(
+      searchpage, handler: Handler( handlerFunc: ( context, params ) => SearchPage() ), transitionType: TransitionType.inFromRight
     );
 
 

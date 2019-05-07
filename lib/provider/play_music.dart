@@ -30,7 +30,7 @@ class PlayMusic with ChangeNotifier{
 
 
   String playUrl = "";                              // 歌曲的url
-  AudioPlayer audioPlayer = new AudioPlayer();
+  AudioPlayer audioPlayer = AudioPlayer();
   SharedPreferences prefs;
 
   Duration duration;                                // 总时长
@@ -50,10 +50,10 @@ class PlayMusic with ChangeNotifier{
     prefs = await SharedPreferences.getInstance();
     await getListToLocal();
     await getSongData();
-    print("---------------初始化----  ");
+    // print("---------------初始化----  ");
     // tracks = playlist.tracks[currentIndex];
     // print("${ tracks.name }----------${ tracks.al.name }");
-    computed();
+    // computed();
     notifyListeners();
   }
   // 保存歌曲列表
@@ -164,6 +164,7 @@ class PlayMusic with ChangeNotifier{
     isPlay = true;
     getDuration();
     getPosition();
+    computed();
     notifyListeners();
   }
   // 跳转
