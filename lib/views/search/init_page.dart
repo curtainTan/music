@@ -25,11 +25,11 @@ class InitSearchPage extends StatelessWidget {
 
     Widget _topBox(){
       return Container(
-        height: ScreenUtil().setHeight(200),
+        height: ScreenUtil().setHeight(150),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text("历史记录", style: TextStyle( fontWeight: FontWeight.bold, fontSize: ScreenUtil().setSp(46) ),),
+            Text("历史记录", style: TextStyle( fontWeight: FontWeight.bold, fontSize: ScreenUtil().setSp(40) ),),
             IconButton(
               onPressed: (){},
               icon: Icon( Icons.delete ),
@@ -42,7 +42,7 @@ class InitSearchPage extends StatelessWidget {
 
     Widget historyList( context ){
       return Container(
-        height: ScreenUtil().setHeight(200),
+        height: ScreenUtil().setHeight(100),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: 12,
@@ -53,6 +53,10 @@ class InitSearchPage extends StatelessWidget {
               ),
               child: ActionChip(
                 onPressed: (){},
+                padding: EdgeInsets.symmetric(
+                  horizontal: ScreenUtil().setWidth(10)
+                ),
+                backgroundColor: Colors.black12.withOpacity(0.1),
                 label: Text("History--$index", style: TextStyle( fontSize: ScreenUtil().setSp( 30 ) ),),
               )
             );
@@ -63,7 +67,7 @@ class InitSearchPage extends StatelessWidget {
 
 
     return Container(
-      height: ScreenUtil().setHeight(400),
+      height: ScreenUtil().setHeight(300),
       child: Column(
         children: <Widget>[
           _topBox(),
@@ -81,7 +85,7 @@ class InitSearchPage extends StatelessWidget {
     Widget _topBox(){
       return Container(
         alignment: Alignment.centerLeft,
-        child: Text("热门搜索", style: TextStyle( fontWeight: FontWeight.bold, fontSize: ScreenUtil().setSp(46) ),),
+        child: Text("热门搜索", style: TextStyle( fontWeight: FontWeight.bold, fontSize: ScreenUtil().setSp(40) ),),
       );
     }
 
@@ -90,13 +94,17 @@ class InitSearchPage extends StatelessWidget {
       List<Widget> hotData =[];
       for( int i = 0; i < 10; i++ ){
         hotData..add( ActionChip(
+          padding: EdgeInsets.symmetric(
+            horizontal: ScreenUtil().setWidth(10)
+          ),
           onPressed: (){},
-          label: Text("热搜----$i"),
+          label: Text("热搜----$i", style: TextStyle( fontSize: ScreenUtil().setSp( 30 ) )),
         ) );
       }
 
       return Container(
         height: ScreenUtil().setHeight(600),
+        alignment: Alignment.topLeft,
         child: Wrap(
           spacing: ScreenUtil().setWidth( 20 ),
           children: hotData,

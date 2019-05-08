@@ -45,15 +45,14 @@ class PlayMusic with ChangeNotifier{
 
   initplayer() async {
     audioPlayer.setReleaseMode( ReleaseMode.STOP );
-    // audioPlayer.stop();
-    // await savaPlayIndex();
+    audioPlayer.stop();
     prefs = await SharedPreferences.getInstance();
     await getListToLocal();
     await getSongData();
     // print("---------------初始化----  ");
     // tracks = playlist.tracks[currentIndex];
     // print("${ tracks.name }----------${ tracks.al.name }");
-    // computed();
+    computed();
     notifyListeners();
   }
   // 保存歌曲列表
@@ -164,7 +163,7 @@ class PlayMusic with ChangeNotifier{
     isPlay = true;
     getDuration();
     getPosition();
-    computed();
+    // computed();
     notifyListeners();
   }
   // 跳转
@@ -276,9 +275,6 @@ class PlayMusic with ChangeNotifier{
 
 
 }
-
-
-
 
 
 
