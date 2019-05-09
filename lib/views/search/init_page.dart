@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provide/provide.dart';
 
+import 'package:music/provider/searchPageProvide.dart';
 
 
 class InitSearchPage extends StatelessWidget {
+
+  final functionInput;
+  InitSearchPage({ this.functionInput });
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +20,7 @@ class InitSearchPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           historyBox( context ),
-          hotSearch()
+          hotSearch( context )
         ],
       ),
     );
@@ -52,7 +59,9 @@ class InitSearchPage extends StatelessWidget {
                 right: ScreenUtil().setWidth(10)
               ),
               child: ActionChip(
-                onPressed: (){},
+                onPressed: (){
+                  functionInput( "History--$index" );
+                },
                 padding: EdgeInsets.symmetric(
                   horizontal: ScreenUtil().setWidth(10)
                 ),
@@ -80,7 +89,7 @@ class InitSearchPage extends StatelessWidget {
 
 
   // 热门搜索框
-  Widget hotSearch(){
+  Widget hotSearch( context ){
 
     Widget _topBox(){
       return Container(
@@ -89,17 +98,42 @@ class InitSearchPage extends StatelessWidget {
       );
     }
 
-    Widget contentBox(){
+    Widget contentBox( List<String> list ){
 
       List<Widget> hotData =[];
-      for( int i = 0; i < 10; i++ ){
+      for( int i = 0; i < list.length; i++ ){
         hotData..add( ActionChip(
           padding: EdgeInsets.symmetric(
             horizontal: ScreenUtil().setWidth(10)
           ),
-          onPressed: (){},
-          label: Text("热搜----$i", style: TextStyle( fontSize: ScreenUtil().setSp( 30 ) )),
+          onPressed: (){
+            functionInput( list[i] );
+          },
+          label: Text("${list[i]}", style: TextStyle( fontSize: ScreenUtil().setSp( 30 ) )),
         ) );
+      }
+
+      if( list.length == 0 ){
+        return Container(
+          width: double.infinity,
+          height: ScreenUtil().setWidth(100),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(
+                  right: ScreenUtil().setWidth(40)
+                ),
+                height: ScreenUtil().setWidth(70),
+                width: ScreenUtil().setWidth(70),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                )
+              ),
+              Text("加载中...", style: TextStyle( color: Colors.red ), )
+            ], 
+          )
+        );
       }
 
       return Container(
@@ -113,14 +147,18 @@ class InitSearchPage extends StatelessWidget {
     }
 
 
-    return Container(
-      height: ScreenUtil().setHeight(800),
-      child: Column(
-        children: <Widget>[
-          _topBox(),
-          contentBox()
-        ],
-      ),
+    return Provide<SearchPageProvide>(
+      builder: ( context, child, data ){
+        return Container(
+          height: ScreenUtil().setHeight(800),
+          child: Column(
+            children: <Widget>[
+              _topBox(),
+              contentBox( data.searchHotList )
+            ],
+          ),
+        );
+      },
     );
   }
 

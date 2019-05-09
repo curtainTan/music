@@ -44,15 +44,15 @@ class PlayMusic with ChangeNotifier{
   bool isPlay = false;
 
   initplayer() async {
-    audioPlayer.setReleaseMode( ReleaseMode.STOP );
-    audioPlayer.stop();
+    // audioPlayer.setReleaseMode( ReleaseMode.STOP );
+    // audioPlayer.stop();
     prefs = await SharedPreferences.getInstance();
     await getListToLocal();
     await getSongData();
     // print("---------------初始化----  ");
     // tracks = playlist.tracks[currentIndex];
     // print("${ tracks.name }----------${ tracks.al.name }");
-    computed();
+    // computed();
     notifyListeners();
   }
   // 保存歌曲列表
@@ -66,10 +66,10 @@ class PlayMusic with ChangeNotifier{
   }
   // 获取一首歌的信息
   getSongData(){
-    currentIndex = prefs.getInt( 'currentIndex' ) == null ? 0 : prefs.getInt( 'currentIndex' ) ;      // 获取歌曲的在列表中的index
-    duration = Duration( milliseconds: prefs.getInt( "duration" ) == null ? 0 : prefs.getInt( "duration" )   ); // 获取duration
-    playUrl = prefs.getString("playUrl") == null ? "" : prefs.getString("playUrl") ;           // 获取歌曲url，并设置
-    playListId = prefs.getInt("playListId") == null ? 0 : prefs.getInt("playListId") ;        // 获取列表id
+    currentIndex = prefs.getInt( 'currentIndex' ) ?? 0 ;      // 获取歌曲的在列表中的index
+    duration = Duration( milliseconds: prefs.getInt( "duration" ) ?? 0 ); // 获取duration
+    playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
+    playListId = prefs.getInt("playListId") ?? 0 ;        // 获取列表id
     if( playUrl != "" ){
       tracks = playlist.tracks[currentIndex];
       audioPlayer.setUrl(playUrl);                                                              // 设置url
@@ -151,10 +151,13 @@ class PlayMusic with ChangeNotifier{
   }
   // 播放完成
   computed(){
-    playerCompleteSubscription = audioPlayer.onPlayerCompletion.listen((onData){
-      position = Duration( seconds: 0 );
-      nowLyricIndex = 2;
-      nextPlay();
+    playerCompleteSubscription = audioPlayer.onPlayerStateChanged.listen((onData){
+      if( onData == AudioPlayerState.COMPLETED ){
+        // print("---------真的播放完成-------------");
+        position = Duration( seconds: 0 );
+        nowLyricIndex = 0;
+        nextPlay();
+      }
     });
   }
   // 恢复播放
@@ -163,7 +166,7 @@ class PlayMusic with ChangeNotifier{
     isPlay = true;
     getDuration();
     getPosition();
-    // computed();
+    computed();
     notifyListeners();
   }
   // 跳转
@@ -188,7 +191,6 @@ class PlayMusic with ChangeNotifier{
       currentIndex = 0;
     }
     tracks = playlist.tracks[ currentIndex ];
-    print("-------当前index-------$currentIndex-----");
     position = Duration( seconds: 0 );
     requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
       if( res1['success'] == true ){

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provide/provide.dart';
 
+
+
+import 'package:music/provider/searchPageProvide.dart';
 
 
 
@@ -46,6 +50,13 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
 
   @override 
   bool get wantKeepAlive => true;
+
+  @override
+  void didChangeDependencies() {
+    Provide.value<SearchPageProvide>(context).getSearchComplex(searchType: 33);
+    print("-----------------这里只渲染一次吗？？------------------------");
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {

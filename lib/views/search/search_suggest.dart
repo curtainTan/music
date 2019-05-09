@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provide/provide.dart';
 
-
+import 'package:music/provider/searchPageProvide.dart';
 
 
 class SearchSuggest extends StatelessWidget {
 
   final functionShow;
-  SearchSuggest({ this.functionShow });
+  final functionInput;
+  SearchSuggest({ this.functionShow, this.functionInput });
 
 
   @override
@@ -18,7 +20,7 @@ class SearchSuggest extends StatelessWidget {
         // print("抬手位置-------${ x.globalPosition.dx }---${ x.globalPosition.dy }---${ x.globalPosition.distance }");
         if( x.globalPosition.dx > ScreenUtil().setWidth(100) && 
             x.globalPosition.dx < ScreenUtil().setWidth( 680 ) &&
-            x.globalPosition.dy < ( ScreenUtil().setHeight(1820) - kToolbarHeight - ScreenUtil().setHeight(150) * 10 ) ){
+            x.globalPosition.dy < ( ScreenUtil().setHeight(1820) - kToolbarHeight - ScreenUtil().setHeight(150) * 11 ) ){
           print("在内部点击");
         } else {
           print("在外部--点击");
@@ -26,54 +28,48 @@ class SearchSuggest extends StatelessWidget {
         }
       },
       child: SafeArea(
-        child: Container(
-          width: ScreenUtil().setWidth(1080),
-          margin: EdgeInsets.only( 
-            top: (kToolbarHeight + ScreenUtil().setHeight(20) )
-          ),
-          height: ScreenUtil().setHeight(1820) - kToolbarHeight ,
-          padding: EdgeInsets.only(
-            left: ScreenUtil().setWidth(100),
-            right: ScreenUtil().setWidth(400),
-            bottom: ( ScreenUtil().setHeight(1820) - kToolbarHeight - ScreenUtil().setHeight(150) * 10 )
-          ),
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-          ),
-          child: Material(
-            elevation: 10,
-            borderRadius: BorderRadius.all( Radius.circular( 6 ) ),
-            child: ListView.builder(
-              padding: EdgeInsets.only(),
-              itemExtent: ScreenUtil().setHeight(150),
-              itemCount: 10,
-              itemBuilder: ( context, index ){
-                return ListTile(
-                  onTap: (){},
-                  title: Text("----这里是第$index 个数据--", style: TextStyle( fontSize: 12, decoration: TextDecoration.none ),),
-                );
-              },
-            )
-          )
+        child: Provide<SearchPageProvide>(
+          builder: ( context, child, data ){
+            return Container(
+              width: ScreenUtil().setWidth(1080),
+              margin: EdgeInsets.only( 
+                top: (kToolbarHeight + ScreenUtil().setHeight(20) )
+              ),
+              height: ScreenUtil().setHeight(1820) - kToolbarHeight ,
+              padding: EdgeInsets.only(
+                left: ScreenUtil().setWidth(100),
+                right: ScreenUtil().setWidth(400),
+                bottom: ( ScreenUtil().setHeight(1820) - kToolbarHeight - ScreenUtil().setHeight(150) * data.searchSugMobileList.length )
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+              ),
+              child: Material(
+                elevation: 10,
+                borderRadius: BorderRadius.all( Radius.circular( 6 ) ),
+                child: ListView.builder(
+                  padding: EdgeInsets.only(),
+                  itemExtent: ScreenUtil().setHeight(150),
+                  itemCount: data.searchSugMobileList.length,
+                  itemBuilder: ( context, index ){
+                    return ListTile(
+                      onTap: (){
+                        functionInput( data.searchSugMobileList[index] );
+                      },
+                      title: Text( index == 0 ? "搜索  ${data.searchSugMobileList[index]}" : data.searchSugMobileList[index], 
+                        style: TextStyle( fontSize: 12, decoration: TextDecoration.none, color: index == 0 ? Colors.blue : Colors.black ),
+                      ),
+                    );
+                  },
+                )
+              )
+            );
+          },
         )
       )
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

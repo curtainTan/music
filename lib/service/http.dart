@@ -29,7 +29,7 @@ Future request( url, { formData } ) async {
 
 }
 
-Future requestGet( url, { formData } ) async {
+Future requestGet( url, { formData, cancelfuc } ) async {
   try {
     SharedPreferences pref = await SharedPreferences.getInstance();
     // String lovely = pref.getString("De-lovely");
@@ -44,7 +44,11 @@ Future requestGet( url, { formData } ) async {
     if( formData == null ){
       response = await mdio.get( servicePath[url] );
     } else {
-      response = await mdio.get( servicePath[url], queryParameters: formData );
+      if( cancelfuc == null ){
+        response = await mdio.get( servicePath[url], queryParameters: formData );
+      }else{
+        response = await mdio.get( servicePath[url], queryParameters: formData, cancelToken: cancelfuc );
+      }
     }
     if( response.statusCode == 200 || response.statusCode == 201 ){
       // print( "---------header里面的数据--------${response.headers.toString()}-----" );

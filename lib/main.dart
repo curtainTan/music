@@ -13,7 +13,7 @@ import './provider/play_music.dart';
 import './provider/bannerProvider.dart';
 import './provider/inPlayList.dart';
 import './provider/userData.dart';
-
+import './provider/searchPageProvide.dart';
 
 
 void main() {
@@ -25,12 +25,14 @@ void main() {
   var banner = BannerProvide();
   var inplayList = InPlayList();
   var userData = UserDataProvide();
+  var searchPageProvide = SearchPageProvide();
 
   providers..provide( Provider<MeInfoProvide>.value( me ) )
   ..provide( Provider<PlayMusic>.value( playmusic ) )
   ..provide( Provider<BannerProvide>.value( banner ) )
   ..provide( Provider<InPlayList>.value( inplayList ) )
   ..provide( Provider<UserDataProvide>.value( userData ) )
+  ..provide( Provider<SearchPageProvide>.value( searchPageProvide ) )
   ;
   runApp( ProviderNode( child: MyApp(), providers: providers, ) );
 
