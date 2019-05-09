@@ -52,13 +52,19 @@ class SearchSuggest extends StatelessWidget {
                   itemExtent: ScreenUtil().setHeight(150),
                   itemCount: data.searchSugMobileList.length,
                   itemBuilder: ( context, index ){
-                    return ListTile(
+                    return InkWell(
                       onTap: (){
                         functionInput( data.searchSugMobileList[index] );
                       },
-                      title: Text( index == 0 ? "搜索  ${data.searchSugMobileList[index]}" : data.searchSugMobileList[index], 
-                        style: TextStyle( fontSize: 12, decoration: TextDecoration.none, color: index == 0 ? Colors.blue : Colors.black ),
-                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: ScreenUtil().setWidth(40)
+                        ),
+                        alignment: Alignment.centerLeft,
+                        child: Text( index == 0 ? "搜索  ${data.searchSugMobileList[index]}" : data.searchSugMobileList[index], 
+                          style: TextStyle( fontSize: 12, decoration: TextDecoration.none, color: index == 0 ? Colors.blue : Colors.black ),
+                        ),
+                      )
                     );
                   },
                 )

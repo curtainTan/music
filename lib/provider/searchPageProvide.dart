@@ -21,7 +21,6 @@ class SearchPageProvide with ChangeNotifier{
 
   SearchHot searchHot = null;
   SearchComplex searchComplex = null;
-  CancelToken cancelToken;
 
 
   // 开始搜索
@@ -51,6 +50,7 @@ class SearchPageProvide with ChangeNotifier{
       print("--------请求成>>>>------${searchInputData}--");
       requestGet( "searchsuggest", formData: { "keywords" : searchInputData } ).then((onValue){
         print("--------请求成功------${onValue.toString()}--");
+        searchComplex = SearchComplex.fromJson( onValue );
         notifyListeners();
       });
     } else {

@@ -82,7 +82,7 @@ class ListBox extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               width: ScreenUtil().setWidth(100),
-              child: Text( "$index", style: TextStyle( fontSize: ScreenUtil().setSp( 50 ), color: Colors.grey ), ),
+              child: Text( "${ index + 1 }", style: TextStyle( fontSize: ScreenUtil().setSp( 50 ), color: Colors.grey ), ),
             ),
             aboutBox( songname, auth ),
             sub()
@@ -94,20 +94,16 @@ class ListBox extends StatelessWidget {
 
   Widget aboutBox( String songname, String auth ){
     return Expanded(
-      // child: Container(
-      //   alignment: Alignment.centerLeft,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              // child: Text("歌曲名称", style: TextStyle( fontSize: ScreenUtil().setSp( 42 )), ),
-              child: Text("$songname", style: TextStyle( fontSize: ScreenUtil().setSp( 40 )), ),
-            ),
-            Text( auth, style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), color: Colors.grey ),)
-          ],
-        ),
-      // ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            child: Text("$songname", style: TextStyle( fontSize: ScreenUtil().setSp( 40 )), ),
+          ),
+          Text( auth, style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), color: Colors.grey ),)
+        ],
+      ),
     );
   }
 

@@ -32,12 +32,12 @@ class _SongListPageState extends State<SongListPage> {
     _scrollController = ScrollController();
     _scrollController.addListener(
       (){
-        if( _scrollController.position.pixels.floor() > ScreenUtil().setHeight(830).floor() / 2 ){
+        if( _scrollController.position.pixels.floor() > ScreenUtil().setHeight(800).floor() / 2 ){
           setState(() {
            show = false;
           });
         }
-        if( _scrollController.position.pixels.floor() <  ScreenUtil().setHeight(830).floor() / 2 ){
+        if( _scrollController.position.pixels.floor() <  ScreenUtil().setHeight(800).floor() / 2 ){
           setState(() {
            show = true;
           });

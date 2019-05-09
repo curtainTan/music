@@ -4,9 +4,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provide/provide.dart';
 
 
-
+import 'package:music/provider/play_music.dart';
 import 'package:music/provider/searchPageProvide.dart';
-
+import 'package:music/routers/route.dart';
+import 'package:music/service/http.dart';
 
 
 class ResultBox extends StatelessWidget {
@@ -58,8 +59,7 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
     super.didChangeDependencies();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget loading(){
     return Container(
       alignment: Alignment.topCenter,
       child: Container(
@@ -85,12 +85,117 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
           ], 
         )
       )
-      // child: Center(
-      //   child: SpinKitRotatingPlain(
-      //     color: Colors.red,
-      //     size: 30,
-      //   ),
+    );
+  }
+
+  Widget oneItem( int index, context, String songname, String auth, int id, int playListId ){
+    return InkWell(
+      onTap: () async {
+
+        requestGet( "checkmusic", formData: { "id" : id } ).then((res1){
+          if( res1['success'] != true ){
+            print("-------------没有权限----------");
+          }else{
+            requestGet("songurl", formData: { "id" : id } ).then( ( res ){
+
+            Provide.value<PlayMusic>(context).setTrack( index );
+            Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
+
+            } );
+            requestGet("lyric", formData: { "id" : id }).then((onValue){
+              Provide.value<PlayMusic>(context).initLyricModel(onValue);
+            });
+          }
+        });
+      },
+      onDoubleTap: (){
+        Routes.router.navigateTo(context, Routes.playpage);
+      },
+      child: Container(
+        height: ScreenUtil().setHeight(170),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            aboutBox( songname, auth ),
+            sub()
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget aboutBox( String songname, String auth ){
+    return Expanded(
+      // child: Container(
+      //   alignment: Alignment.centerLeft,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              // child: Text("歌曲名称", style: TextStyle( fontSize: ScreenUtil().setSp( 42 )), ),
+              child: Text("$songname", style: TextStyle( fontSize: ScreenUtil().setSp( 40 )), ),
+            ),
+            Text( auth, style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), color: Colors.grey ),)
+          ],
+        ),
       // ),
+    );
+  }
+
+  Widget sub(){
+    return Container(
+      height: ScreenUtil().setHeight(170),
+      child: Row(
+        children: <Widget>[
+          InkWell(
+            onTap: (){},
+            child: Container(
+              height: ScreenUtil().setHeight(170),
+              width: ScreenUtil().setWidth(100),
+              alignment: Alignment.center,
+              child: Icon( IconData( 0xe61e, fontFamily: 'iconfont' ), color: Colors.grey, ),
+            )
+          ),
+          InkWell(
+            onTap: (){},
+            child: Container(
+              height: ScreenUtil().setHeight(170),
+              width: ScreenUtil().setWidth(100),
+              padding: EdgeInsets.only(
+                right: ScreenUtil().setWidth(50)
+              ),
+              alignment: Alignment.center,
+              child: Icon( IconData( 0xe6bf, fontFamily: 'iconfont' ), color: Colors.grey, ),
+            )
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _singleSongBox(){
+    return Container(
+
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Provide<SearchPageProvide>(
+      builder: ( context, child, data ){
+        return data.searchComplex == null ? loading() : 
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: ScreenUtil().setWidth(20)
+          ),
+          child: Column(
+            children: <Widget>[
+              Text("加载成功.....")
+            ],
+          ),
+        );
+      },
     );
   }
 }
