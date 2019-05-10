@@ -209,10 +209,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
               )
             ],
           ),
-          body: searchSubmit ? ResultBox( tabController: _tabController, ) :
-          SingleChildScrollView(
-            child: InitSearchPage( functionInput: tapChipMenu ),
-          ),
+          body: searchSubmit ? ResultBox( tabController: _tabController, ) : InitSearchPage( functionInput: tapChipMenu ),
         ),
         showSuggest ? SearchSuggest( functionShow: controlerShow, functionInput: tapChipMenu ) : Container()
       ],

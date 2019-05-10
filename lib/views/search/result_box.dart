@@ -126,20 +126,16 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
 
   Widget aboutBox( String songname, String auth ){
     return Expanded(
-      // child: Container(
-      //   alignment: Alignment.centerLeft,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              // child: Text("歌曲名称", style: TextStyle( fontSize: ScreenUtil().setSp( 42 )), ),
-              child: Text("$songname", style: TextStyle( fontSize: ScreenUtil().setSp( 40 )), ),
-            ),
-            Text( auth, style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), color: Colors.grey ),)
-          ],
-        ),
-      // ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            child: Text("$songname", style: TextStyle( fontSize: ScreenUtil().setSp( 40 )), ),
+          ),
+          Text( auth, style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), color: Colors.grey ),)
+        ],
+      ),
     );
   }
 
@@ -176,26 +172,52 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
 
   Widget _singleSongBox(){
     return Container(
+      child: Column(
+        children: <Widget>[
 
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Provide<SearchPageProvide>(
-      builder: ( context, child, data ){
-        return data.searchComplex == null ? loading() : 
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: ScreenUtil().setWidth(20)
-          ),
-          child: Column(
-            children: <Widget>[
-              Text("加载成功.....")
-            ],
-          ),
-        );
-      },
+    return SingleChildScrollView(
+      child: Provide<SearchPageProvide>(
+        builder: ( context, child, data ){
+          return data.searchComplex == null ? loading() : 
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: ScreenUtil().setWidth(20)
+            ),
+            child: Column(
+              children: <Widget>[
+                Text("加载成功....."),
+                Container(
+                  height: ScreenUtil().setHeight(600),
+                  width: double.infinity,
+                  color: Colors.pink,
+                ),
+                Container(
+                  height: ScreenUtil().setHeight(600),
+                  width: double.infinity,
+                  color: Colors.red,
+                ),
+                Container(
+                  height: ScreenUtil().setHeight(600),
+                  width: double.infinity,
+                  color: Colors.blue,
+                ),
+                Container(
+                  height: ScreenUtil().setHeight(600),
+                  width: double.infinity,
+                  color: Colors.cyan,
+                )
+              ],
+            ),
+          );
+        },
+      )
     );
   }
 }

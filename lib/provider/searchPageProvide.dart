@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
-import 'package:dio/dio.dart';
 
 import 'package:music/service/http.dart';
 import 'package:music/modal/search.dart';
 import 'package:music/modal/search_sug_mobile.dart';
 import 'package:music/modal/searchHot.dart';
-
+import 'package:music/modal/search_suggest.dart';
 
 
 class SearchPageProvide with ChangeNotifier{
@@ -20,7 +19,7 @@ class SearchPageProvide with ChangeNotifier{
   Timer atimer = null;
 
   SearchHot searchHot = null;
-  SearchComplex searchComplex = null;
+  SearchSuggestMul searchComplex = null;
 
 
   // 开始搜索
@@ -49,8 +48,8 @@ class SearchPageProvide with ChangeNotifier{
     if( searchType == 33 ){
       print("--------请求成>>>>------${searchInputData}--");
       requestGet( "searchsuggest", formData: { "keywords" : searchInputData } ).then((onValue){
-        print("--------请求成功------${onValue.toString()}--");
-        searchComplex = SearchComplex.fromJson( onValue );
+        // print("--------请求成功------${onValue.toString()}--");
+        searchComplex = SearchSuggestMul.fromJson( onValue );
         notifyListeners();
       });
     } else {

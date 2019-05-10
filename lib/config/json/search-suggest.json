@@ -4,7 +4,7 @@
             {
                 "id": 1958163,
                 "name": "Bad",
-                "artist": {
+                "songArtist": {
                     "id": 38853,
                     "name": "Michael Jackson",
                     "picUrl": "https://p2.music.126.net/WoMhaqFqAU1oLIb17VOE3g==/109951163025141447.jpg",
@@ -35,17 +35,14 @@
                 "albumSize": 5,
                 "picId": 116548232545402,
                 "img1v1Url": "https://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
-                "img1v1": -1,
-                "alia": [
-                    "B.A.D."
-                ]
+                "img1v1": -1
             }
         ],
         "songs": [
             {
                 "id": 28996105,
                 "name": "Bad Apple!!",
-                "artists": [
+                "songArtistsss": [
                     {
                         "id": 16523,
                         "name": "花たん",
@@ -58,7 +55,7 @@
                 "album": {
                     "id": 2975014,
                     "name": "HANA TOHOBEST",
-                    "artist": {
+                    "albumArtist": {
                         "id": 0,
                         "name": "",
                         "albumSize": 0,
@@ -109,7 +106,7 @@
                 "artistId": 964108,
                 "duration": 277000,
                 "mark": 0,
-                "artists": [
+                "mvArtists": [
                     {
                         "id": 964108,
                         "name": "吴亦凡",
@@ -153,7 +150,7 @@
                     "weekplays": 1757945,
                     "dayplays": 1758793,
                     "fee": 0,
-                    "artists": [
+                    "inMvArtists": [
                         {
                             "id": 964108,
                             "name": "吴亦凡"

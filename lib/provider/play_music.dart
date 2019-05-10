@@ -53,6 +53,8 @@ class PlayMusic with ChangeNotifier{
     // tracks = playlist.tracks[currentIndex];
     // print("${ tracks.name }----------${ tracks.al.name }");
     // computed();
+    getDuration();
+    getPosition();
     notifyListeners();
   }
   // 保存歌曲列表
@@ -68,15 +70,15 @@ class PlayMusic with ChangeNotifier{
   getSongData(){
     currentIndex = prefs.getInt( 'currentIndex' ) ?? 0 ;      // 获取歌曲的在列表中的index
     duration = Duration( milliseconds: prefs.getInt( "duration" ) ?? 0 ); // 获取duration
-    playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
+    // playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
     playListId = prefs.getInt("playListId") ?? 0 ;        // 获取列表id
-    if( playUrl != "" ){
+    // if( playUrl != "" ){
       tracks = playlist.tracks[currentIndex];
-      audioPlayer.setUrl(playUrl);                                                              // 设置url
+    //   // audioPlayer.setUrl(playUrl);                                                              // 设置url
       requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
         initLyricModel(onValue);
       });
-    }
+    // }
   }
   // 保存一首歌的信息
   setSongData(){
@@ -108,8 +110,10 @@ class PlayMusic with ChangeNotifier{
 
     playUrl = data;
     isPlay = true;
-    audioPlayer.setUrl( data );
-    priresume();
+    // audioPlayer.setUrl( data );
+    audioPlayer.release();
+    audioPlayer.play(data);
+    // priresume();
     setSongData();
 
     notifyListeners();
@@ -119,9 +123,6 @@ class PlayMusic with ChangeNotifier{
     durationSubscription = audioPlayer.onDurationChanged.listen((onData){
       
       if( duration != onData ){
-        // print("总时长---------------$onData");
-        // print("转为秒---------------${ onData.inSeconds }");
-        // print("转为秒---------------${ onData.inSeconds.ceil() }");
         duration = onData;
       }
     });
@@ -133,7 +134,7 @@ class PlayMusic with ChangeNotifier{
         if( nowLyricIndex < lyricTimes.length ){
           if( position.inSeconds > lyricTimes[nowLyricIndex] ){
             nowLyricIndex++;
-            print("----------当前歌词----${lyricList[nowLyricIndex]}------------");
+            // print("----------当前歌词----${lyricList[nowLyricIndex]}------------");
           }
         }
         notifyListeners();
@@ -154,6 +155,7 @@ class PlayMusic with ChangeNotifier{
     playerCompleteSubscription = audioPlayer.onPlayerStateChanged.listen((onData){
       if( onData == AudioPlayerState.COMPLETED ){
         // print("---------真的播放完成-------------");
+        audioPlayer.release();
         position = Duration( seconds: 0 );
         nowLyricIndex = 0;
         nextPlay();
@@ -162,10 +164,15 @@ class PlayMusic with ChangeNotifier{
   }
   // 恢复播放
   priresume(){
-    audioPlayer.resume();
+    if( playUrl.length == 0 ){
+      playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
+      audioPlayer.play( playUrl );
+    }else{
+      audioPlayer.resume();
+      // getDuration();
+      // getPosition();
+    }
     isPlay = true;
-    getDuration();
-    getPosition();
     computed();
     notifyListeners();
   }
@@ -187,8 +194,10 @@ class PlayMusic with ChangeNotifier{
   }
   // 下一曲
   nextPlay() async {
-    if( ( ++currentIndex) > playlist.tracks.length ){
+    if( ( currentIndex + 1 ) >= playlist.tracks.length ){
       currentIndex = 0;
+    }else{
+      currentIndex += 1 ;
     }
     tracks = playlist.tracks[ currentIndex ];
     position = Duration( seconds: 0 );
@@ -207,11 +216,14 @@ class PlayMusic with ChangeNotifier{
   }
   // 上一曲
   forwardSong() async {
-    if( ( --currentIndex ) < 0  ){
-      currentIndex = playlist.tracks.length;
+    if( ( currentIndex - 1 ) < 0  ){
+      currentIndex = playlist.tracks.length - 1 ;
+    }else{
+      currentIndex -= 1;
     }
     tracks = playlist.tracks[ currentIndex ];
     position = Duration( seconds: 0 );
+    notifyListeners();
     requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
       if( res1['success'] == true ){
         requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
