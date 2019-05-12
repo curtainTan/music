@@ -66,15 +66,17 @@ class SearchPageProvide with ChangeNotifier{
   }
   // 获取搜索建议     节流
   getSearchSugMobile( data ){
-    searchSugMobileList = [];
-    searchSugMobileList..add( data );
     if( atimer == null ){
+      searchSugMobileList = [];
+      searchSugMobileList..add( data );
       atimer = Timer( Duration( milliseconds: 600 ) , (){
         getSuggestRequest( data );
         atimer.cancel();
       });
     } else {
       atimer.cancel();
+      searchSugMobileList = [];
+      searchSugMobileList..add( data );
       atimer = Timer( Duration( milliseconds: 600 ) , (){
         getSuggestRequest( data );
         atimer.cancel();

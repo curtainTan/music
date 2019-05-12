@@ -9,7 +9,8 @@ class SearchSuggest extends StatelessWidget {
 
   final functionShow;
   final functionInput;
-  SearchSuggest({ this.functionShow, this.functionInput });
+  final inputController;
+  SearchSuggest({ this.functionShow, this.functionInput, this.inputController });
 
 
   @override
@@ -39,7 +40,7 @@ class SearchSuggest extends StatelessWidget {
               padding: EdgeInsets.only(
                 left: ScreenUtil().setWidth(100),
                 right: ScreenUtil().setWidth(400),
-                bottom: ( ScreenUtil().setHeight(1820) - kToolbarHeight - ScreenUtil().setHeight(150) * data.searchSugMobileList.length )
+                bottom: ScreenUtil().setHeight(1820) - kToolbarHeight - ScreenUtil().setHeight(150) * ( data.searchSugMobileList.length  ?? 6 )
               ),
               decoration: BoxDecoration(
                 color: Colors.transparent,
@@ -61,7 +62,7 @@ class SearchSuggest extends StatelessWidget {
                           horizontal: ScreenUtil().setWidth(40)
                         ),
                         alignment: Alignment.centerLeft,
-                        child: Text( index == 0 ? "搜索  ${data.searchSugMobileList[index]}" : data.searchSugMobileList[index], 
+                        child: Text( index == 0 ? "搜索  ${inputController.text}" : data.searchSugMobileList[index], 
                           style: TextStyle( fontSize: 12, decoration: TextDecoration.none, color: index == 0 ? Colors.blue : Colors.black ),
                         ),
                       )

@@ -177,26 +177,6 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
           Container(
             child: Text("data"),
           ),
-          Container(
-            height: ScreenUtil().setHeight(600),
-            width: double.infinity,
-            color: Colors.red,
-          ),
-          Container(
-            height: ScreenUtil().setHeight(600),
-            width: double.infinity,
-            color: Colors.red,
-          ),
-          Container(
-            height: ScreenUtil().setHeight(600),
-            width: double.infinity,
-            color: Colors.red,
-          ),
-          Container(
-            height: ScreenUtil().setHeight(600),
-            width: double.infinity,
-            color: Colors.red,
-          ),
         ],
       ),
     );

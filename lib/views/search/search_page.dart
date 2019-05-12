@@ -211,7 +211,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
           ),
           body: searchSubmit ? ResultBox( tabController: _tabController, ) : InitSearchPage( functionInput: tapChipMenu ),
         ),
-        showSuggest ? SearchSuggest( functionShow: controlerShow, functionInput: tapChipMenu ) : Container()
+        showSuggest ? SearchSuggest( functionShow: controlerShow, functionInput: tapChipMenu, inputController: _textEditingController, ) : Container()
       ],
     );
   }
