@@ -266,9 +266,9 @@ class Songs {
   Songs.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    if (json['songArtistsss'] != null) {
+    if (json['artists'] != null) {
       songArtistsss = new List<SongArtistsss>();
-      json['songArtistsss'].forEach((v) {
+      json['artists'].forEach((v) {
         songArtistsss.add(new SongArtistsss.fromJson(v));
       });
     }

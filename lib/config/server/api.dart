@@ -19,6 +19,8 @@ const servicePath = {
   "userdj" : serviceUrl + "/user/dj",                      // 传入用户 id, 可以获取用户电台
   "songurl" : serviceUrl + "/song/url",                    // 传入的音乐 id 可选参数 : br: 码率 如果要 320k 则可设置为 320000,其他类推
   "checkmusic" : serviceUrl + "/check/music",              // 传入歌曲 id, 可获取音乐是否可用
+  "songdetail" : serviceUrl + "/song/detail",              // 获取歌曲详情   ids: 音乐 id, 如 ids=347230
+
   
   // 搜索
   "search" : serviceUrl + "/search",                       // 必选参数 : keywords : 关键词

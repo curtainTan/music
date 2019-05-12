@@ -88,7 +88,7 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
     );
   }
 
-  Widget oneItem( int index, context, String songname, String auth, int id, int playListId ){
+  Widget oneItem( int index, context, String songname, String auth, int id ){
     return InkWell(
       onTap: () async {
 
@@ -170,13 +170,45 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
     );
   }
 
-  Widget _singleSongBox(){
+  Widget _singleSongBox( data, context ){
     return Container(
+      height: ScreenUtil().setHeight(1200),
+      padding: EdgeInsets.only(
+        top: ScreenUtil().setHeight(40)
+      ),
       child: Column(
         children: <Widget>[
+          headerBox( "单曲" ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: data.length,
+              itemBuilder: ( context, index ){
+                return oneItem( 
+                  index, 
+                  context, 
+                  data[index]?.name ?? "1", 
+                  data[index]?.songArtistsss[0]?.name ?? "33",
+                  data[index]?.id ?? 123 );
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget headerBox( title ){
+    return Container(
+      child: Row(
+        children: <Widget>[
           Container(
-            child: Text("data"),
-          ),
+            child: Row(
+              children: <Widget>[
+                Text(title, style: TextStyle( fontSize: ScreenUtil().setSp( 46 ), fontWeight: FontWeight.w500 ),),
+                Icon( Icons.keyboard_arrow_right )
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -192,7 +224,7 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
             padding: EdgeInsets.symmetric(
               horizontal: ScreenUtil().setWidth(20)
             ),
-            child: _singleSongBox(),
+            child: _singleSongBox( data.searchComplex.result.songs, context ),
           );
         },
       )

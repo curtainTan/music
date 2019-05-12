@@ -46,10 +46,12 @@ class SearchPageProvide with ChangeNotifier{
   // 综合搜索结果
   getSearchComplex( { page = 0, searchType = 33 } ){
     if( searchType == 33 ){
-      print("--------请求成>>>>------${searchInputData}--");
       requestGet( "searchsuggest", formData: { "keywords" : searchInputData } ).then((onValue){
         // print("--------请求成功------${onValue.toString()}--");
         searchComplex = SearchSuggestMul.fromJson( onValue );
+        // print("--------请求单独的结果>>>>------${searchComplex.result.songs.length}--");
+        print("--------请求单独的结果>>>>------${searchComplex.result.songs[1].songArtistsss[0].toString()}--");
+        // print("--------请求单独的结果>>>>------${searchComplex.result.songs[1].songArtistsss[0].name}--");
         notifyListeners();
       });
     } else {
@@ -66,17 +68,15 @@ class SearchPageProvide with ChangeNotifier{
   }
   // 获取搜索建议     节流
   getSearchSugMobile( data ){
+    searchSugMobileList = [];
+    searchSugMobileList..add( data );
     if( atimer == null ){
-      searchSugMobileList = [];
-      searchSugMobileList..add( data );
       atimer = Timer( Duration( milliseconds: 600 ) , (){
         getSuggestRequest( data );
         atimer.cancel();
       });
     } else {
       atimer.cancel();
-      searchSugMobileList = [];
-      searchSugMobileList..add( data );
       atimer = Timer( Duration( milliseconds: 600 ) , (){
         getSuggestRequest( data );
         atimer.cancel();

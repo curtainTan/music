@@ -10,6 +10,15 @@ import '../modal/playList.dart';
 import 'package:music/modal/lyric.dart';
 
 
+class MyTracks {
+  String name;
+}
+
+
+
+
+
+
 class PlayMusic with ChangeNotifier{
   Playlist playlist = null;                         // 歌曲列表
   Tracks tracks = null;                             // 一首歌的信息
@@ -105,14 +114,15 @@ class PlayMusic with ChangeNotifier{
     tracks = playlist.tracks[index];
     notifyListeners();
   }
+
   // 设置url
   setPlayUrl( data ) async {
 
     playUrl = data;
     isPlay = true;
     audioPlayer.release();
-    audioPlayer.setUrl( data );
-    // audioPlayer.play(data);
+    // audioPlayer.setUrl( data );
+    audioPlayer.play(data);
     priresume();
     setSongData();
 
@@ -164,10 +174,12 @@ class PlayMusic with ChangeNotifier{
   priresume(){
     if( playUrl.length == 0 ){
       playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
-      audioPlayer.setUrl(playUrl);
-      // audioPlayer.play( playUrl );
+      // audioPlayer.setUrl(playUrl);
+      audioPlayer.play( playUrl );
+    }else{
+      audioPlayer.resume();
     }
-    audioPlayer.resume();
+    // audioPlayer.resume();
     getDuration();
     getPosition();
     isPlay = true;
