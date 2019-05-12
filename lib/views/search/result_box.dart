@@ -174,7 +174,29 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
     return Container(
       child: Column(
         children: <Widget>[
-
+          Container(
+            child: Text("data"),
+          ),
+          Container(
+            height: ScreenUtil().setHeight(600),
+            width: double.infinity,
+            color: Colors.red,
+          ),
+          Container(
+            height: ScreenUtil().setHeight(600),
+            width: double.infinity,
+            color: Colors.red,
+          ),
+          Container(
+            height: ScreenUtil().setHeight(600),
+            width: double.infinity,
+            color: Colors.red,
+          ),
+          Container(
+            height: ScreenUtil().setHeight(600),
+            width: double.infinity,
+            color: Colors.red,
+          ),
         ],
       ),
     );
@@ -190,31 +212,7 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
             padding: EdgeInsets.symmetric(
               horizontal: ScreenUtil().setWidth(20)
             ),
-            child: Column(
-              children: <Widget>[
-                Text("加载成功....."),
-                Container(
-                  height: ScreenUtil().setHeight(600),
-                  width: double.infinity,
-                  color: Colors.pink,
-                ),
-                Container(
-                  height: ScreenUtil().setHeight(600),
-                  width: double.infinity,
-                  color: Colors.red,
-                ),
-                Container(
-                  height: ScreenUtil().setHeight(600),
-                  width: double.infinity,
-                  color: Colors.blue,
-                ),
-                Container(
-                  height: ScreenUtil().setHeight(600),
-                  width: double.infinity,
-                  color: Colors.cyan,
-                )
-              ],
-            ),
+            child: _singleSongBox(),
           );
         },
       )

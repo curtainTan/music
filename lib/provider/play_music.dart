@@ -53,8 +53,8 @@ class PlayMusic with ChangeNotifier{
     // tracks = playlist.tracks[currentIndex];
     // print("${ tracks.name }----------${ tracks.al.name }");
     // computed();
-    getDuration();
-    getPosition();
+    // getDuration();
+    // getPosition();
     notifyListeners();
   }
   // 保存歌曲列表
@@ -110,10 +110,10 @@ class PlayMusic with ChangeNotifier{
 
     playUrl = data;
     isPlay = true;
-    // audioPlayer.setUrl( data );
     audioPlayer.release();
-    audioPlayer.play(data);
-    // priresume();
+    audioPlayer.setUrl( data );
+    // audioPlayer.play(data);
+    priresume();
     setSongData();
 
     notifyListeners();
@@ -121,7 +121,6 @@ class PlayMusic with ChangeNotifier{
   // 获取歌曲时长
   getDuration(){
     durationSubscription = audioPlayer.onDurationChanged.listen((onData){
-      
       if( duration != onData ){
         duration = onData;
       }
@@ -154,7 +153,6 @@ class PlayMusic with ChangeNotifier{
   computed(){
     playerCompleteSubscription = audioPlayer.onPlayerStateChanged.listen((onData){
       if( onData == AudioPlayerState.COMPLETED ){
-        // print("---------真的播放完成-------------");
         audioPlayer.release();
         position = Duration( seconds: 0 );
         nowLyricIndex = 0;
@@ -166,12 +164,12 @@ class PlayMusic with ChangeNotifier{
   priresume(){
     if( playUrl.length == 0 ){
       playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
-      audioPlayer.play( playUrl );
-    }else{
-      audioPlayer.resume();
-      // getDuration();
-      // getPosition();
+      audioPlayer.setUrl(playUrl);
+      // audioPlayer.play( playUrl );
     }
+    audioPlayer.resume();
+    getDuration();
+    getPosition();
     isPlay = true;
     computed();
     notifyListeners();
