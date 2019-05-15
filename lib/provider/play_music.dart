@@ -114,6 +114,13 @@ class PlayMusic with ChangeNotifier{
     tracks = playlist.tracks[index];
     notifyListeners();
   }
+  // 只设置单曲信息，不加入循环播放
+  onlySetTrack( data ){
+
+    tracks = Tracks.fromJson( data['songs'][1] );
+
+    notifyListeners();
+  }
 
   // 设置url
   setPlayUrl( data ) async {
@@ -174,6 +181,7 @@ class PlayMusic with ChangeNotifier{
   priresume(){
     if( playUrl.length == 0 ){
       playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
+      print("--------歌曲url----------$playUrl----");
       // audioPlayer.setUrl(playUrl);
       audioPlayer.play( playUrl );
     }else{
@@ -183,7 +191,7 @@ class PlayMusic with ChangeNotifier{
     getDuration();
     getPosition();
     isPlay = true;
-    computed();
+    // computed();
     notifyListeners();
   }
   // 跳转

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:cookie_jar/cookie_jar.dart';
+
 
 import '../config/server/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,7 +37,11 @@ Future requestGet( url, { formData, cancelfuc } ) async {
     // String lovely = pref.getString("De-lovely");
     Response response;
     Dio mdio = Dio();
-    // mdio.interceptors.add( CookieManager(  ) );
+    // var cj = PersistCookieJar();
+
+
+    mdio.interceptors..add( CookieManager( PersistCookieJar(  ) ) );
+
 
     mdio.options.contentType = ContentType.parse("application/x-www-form-urlencoded");
     // if( lovely != null ){
@@ -51,8 +57,9 @@ Future requestGet( url, { formData, cancelfuc } ) async {
       }
     }
     if( response.statusCode == 200 || response.statusCode == 201 ){
-      // print( "---------header里面的数据--------${response.headers.toString()}-----" );
-      // print( "---------header里面的数据--------${response.headers['set-cookie']}-------${response.headers['cookie']}--" );
+      
+      print( "---------header里面的数据--------${response.headers.toString()}-----" );
+      print( "---------header里面的数据cookie--------${response.headers['set-cookie'].length}-------${response.headers['cookie']}--" );
       // if( ( response.headers['set-cookie'] != null ) && ( lovely == null ) ){
       //   // Cookie ss = Cookie( "De-lovely", response.headers['set-cookie'].toString() );
       //   pref.setString("De-lovely", response.headers['set-cookie'].toString());
@@ -71,7 +78,7 @@ Future requestGet( url, { formData, cancelfuc } ) async {
 }
 
 
-// class HttpUtil{
+// class HttpUtil{flutter packages get
 //   static HttpUtil instance;
 //   Dio dio;
 //   Options options;

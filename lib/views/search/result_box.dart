@@ -98,8 +98,7 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
           }else{
             requestGet("songurl", formData: { "id" : id } ).then( ( res ){
 
-            Provide.value<PlayMusic>(context).setTrack( index );
-            Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
+              Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
 
             } );
             requestGet("lyric", formData: { "id" : id }).then((onValue){
