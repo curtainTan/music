@@ -1,12 +1,10 @@
 import 'package:dio/dio.dart';
 import 'dart:async';
 import 'dart:io';
-import 'package:cookie_jar/cookie_jar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../config/server/api.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 
 
 Future request( url, { formData } ) async {
@@ -31,39 +29,36 @@ Future request( url, { formData } ) async {
 
 }
 
-Future requestGet( url, { formData, cancelfuc } ) async {
+Future requestGet( url, { formData } ) async {
+  var pref = await SharedPreferences.getInstance();
+  List<Cookie> myCookie = [];
+  String c1 = pref.getString("cookie1");
+  String c2 = pref.getString("cookie2");
+  String c3 = pref.getString("cookie3");
+  if( c1 != null ){
+    myCookie = [
+      Cookie.fromSetCookieValue(c1),
+      Cookie.fromSetCookieValue(c2),
+      Cookie.fromSetCookieValue(c3)
+    ];
+  }
   try {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    // String lovely = pref.getString("De-lovely");
     Response response;
     Dio mdio = Dio();
-    // var cj = PersistCookieJar();
 
-
-    mdio.interceptors..add( CookieManager( PersistCookieJar(  ) ) );
-
+    if( myCookie.length != 0 ){
+      // print("----------携带cookie------${myCookie.toString()}---");
+      mdio.options.cookies = myCookie;
+    }
 
     mdio.options.contentType = ContentType.parse("application/x-www-form-urlencoded");
-    // if( lovely != null ){
-    //   mdio.options.cookies = [ Cookie( 'set-cookie', lovely ) ];
-    // }
     if( formData == null ){
       response = await mdio.get( servicePath[url] );
     } else {
-      if( cancelfuc == null ){
-        response = await mdio.get( servicePath[url], queryParameters: formData );
-      }else{
-        response = await mdio.get( servicePath[url], queryParameters: formData, cancelToken: cancelfuc );
-      }
+      response = await mdio.get( servicePath[url], queryParameters: formData );
     }
     if( response.statusCode == 200 || response.statusCode == 201 ){
-      
-      print( "---------header里面的数据--------${response.headers.toString()}-----" );
-      print( "---------header里面的数据cookie--------${response.headers['set-cookie'].length}-------${response.headers['cookie']}--" );
-      // if( ( response.headers['set-cookie'] != null ) && ( lovely == null ) ){
-      //   // Cookie ss = Cookie( "De-lovely", response.headers['set-cookie'].toString() );
-      //   pref.setString("De-lovely", response.headers['set-cookie'].toString());
-      // }
+      // print("------------------------>>>>>>基本请求头${response.headers.toString()}");
       return response.data;
     }else{
       print("------出错了------------>>>>>请检测代码和服务器情况.......");
@@ -76,6 +71,44 @@ Future requestGet( url, { formData, cancelfuc } ) async {
     };
   }
 }
+
+
+Future requestSetCookie( url, { formData } ) async {
+  var pref = await SharedPreferences.getInstance();
+  try {
+    Response response;
+    Dio mdio = Dio();
+
+    mdio.options.contentType = ContentType.parse("application/x-www-form-urlencoded");
+    if( formData == null ){
+      response = await mdio.get( servicePath[url] );
+    } else {
+      response = await mdio.get( servicePath[url], queryParameters: formData );
+    }
+    if( response.statusCode == 200 || response.statusCode == 201 ){
+      
+      if( response.headers['set-cookie'] !=  null){
+
+        pref.setString("cookie1", response.headers['set-cookie'][0]);
+        pref.setString("cookie2", response.headers['set-cookie'][1]);
+        pref.setString("cookie3", response.headers['set-cookie'][2]);
+        
+      }
+      
+      return response.data;
+    }else{
+      print("------出错了------------>>>>>请检测代码和服务器情况.......");
+      throw Exception('后端接口出现异常，请检测代码和服务器情况.........');
+    }
+  } catch( e ){
+    print("------出错了----抛出的错误-------->>>>>${e}");
+    return {
+      "success" : false
+    };
+  }
+}
+
+
 
 
 // class HttpUtil{flutter packages get

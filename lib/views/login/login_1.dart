@@ -90,11 +90,9 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
       "phone" : phone.text,
       "password" : psw.text
     };
-    requestGet("login", formData: formData ).then( (res){
+    requestSetCookie("login", formData: formData ).then( (res){
       print("-------登录成功...------${res.toString()}-----");
       if( res['success'] == null ){
-        // print("-------登录成功...------${res.toString()}-----");
-        // Provide.value<MeInfoProvide>(context).setMeinfo( res );
         UserModel useAlittle = UserModel.fromJson(res);
         Fluttertoast.showToast(
           msg: "登录成功......",
@@ -107,7 +105,7 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
         );
         
         DateTime nowTime = DateTime.now();
-        Provide.value<MeInfoProvide>(context).saveNameAndPsw( phone.toString(), psw.toString(), nowTime.toString(), useAlittle.profile.userId );
+        Provide.value<MeInfoProvide>(context).saveNameAndPsw( phone, psw, nowTime, useAlittle.profile.userId );
 
         requestGet( "userDetail", formData: { "uid" : useAlittle.profile.userId } ).then( ( meInfoData ){
           Provide.value<MeInfoProvide>(context).setMeinfo(meInfoData);

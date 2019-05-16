@@ -81,10 +81,12 @@ class MeInfoProvide with ChangeNotifier{
     if( nowTime.isBefore(oldTime) ){
       
     } else {
-      pref.remove("De-lovely");
+      pref.remove("cookie1");
+      pref.remove("cookie2");
+      pref.remove("cookie3");
       String phone = pref.getString("phone");
       String psw = pref.getString("psw");
-      requestGet("login", formData: { "phone": phone, "password": psw }).then(( res ){
+      requestSetCookie("login", formData: { "phone": phone, "password": psw }).then(( res ){
         print("---------更新cookie-----------");
       });
     }

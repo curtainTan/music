@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:ui';
 
@@ -45,17 +46,20 @@ class SongListPageHeader extends StatelessWidget {
               Container(
                 height: ScreenUtil().setHeight(900),
                 width: ScreenUtil().setWidth(1080),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    // image: NetworkImage("https://www.curtaintan.club/bg/m2.jpg"),
-                    image: NetworkImage( data.headerImg ),
-                    fit: BoxFit.cover
-                  )
-                ),
+                child: prefix0.Image.network(data.headerImg, fit: BoxFit.cover,),
+                // decoration: BoxDecoration(
+                //   color: Colors.black12.withAlpha(4),
+                //   image: DecorationImage(
+                //     // image: NetworkImage("https://www.curtaintan.club/bg/m2.jpg"),
+                //     image: NetworkImage( data.headerImg ),
+                //     fit: BoxFit.cover
+                //   )
+                // ),
               ),
-              BackdropFilter(
-                filter: ImageFilter.blur( sigmaX: 15, sigmaY: 15 ),
-                child: Container(
+              // BackdropFilter(
+              //   filter: ImageFilter.blur( sigmaX: 15, sigmaY: 15 ),
+              //   child: Container(
+                Container(
                   height: ScreenUtil().setHeight(900),
                   width: ScreenUtil().setWidth(1080),
                   color: Colors.grey.withOpacity(0.4),
@@ -82,7 +86,7 @@ class SongListPageHeader extends StatelessWidget {
                     ],
                   ): null
                 ),
-              ),
+              // ),
             ],
           ),
           bottom: bottomPreferredSize()

@@ -3,20 +3,12 @@ import 'package:audioplayers/audioplayers.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'dart:io';
 
 
 import 'package:music/service/http.dart';
 import '../modal/playList.dart';
 import 'package:music/modal/lyric.dart';
-
-
-class MyTracks {
-  String name;
-}
-
-
-
-
 
 
 class PlayMusic with ChangeNotifier{
@@ -53,7 +45,7 @@ class PlayMusic with ChangeNotifier{
   bool isPlay = false;
 
   initplayer() async {
-    // audioPlayer.setReleaseMode( ReleaseMode.STOP );
+    audioPlayer.setReleaseMode( ReleaseMode.STOP );
     // audioPlayer.stop();
     prefs = await SharedPreferences.getInstance();
     await getListToLocal();
@@ -77,16 +69,18 @@ class PlayMusic with ChangeNotifier{
   }
   // 获取一首歌的信息
   getSongData(){
-    currentIndex = prefs.getInt( 'currentIndex' ) ?? 0 ;      // 获取歌曲的在列表中的index
+    currentIndex = prefs.getInt( 'currentIndex' ) ?? -1 ;      // 获取歌曲的在列表中的index
     duration = Duration( milliseconds: prefs.getInt( "duration" ) ?? 0 ); // 获取duration
     // playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
     playListId = prefs.getInt("playListId") ?? 0 ;        // 获取列表id
     // if( playUrl != "" ){
-      tracks = playlist.tracks[currentIndex];
+      if( currentIndex >= 0 ){
+        tracks = playlist.tracks[currentIndex];
+          requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
+          initLyricModel(onValue);
+        });
+      }
     //   // audioPlayer.setUrl(playUrl);                                                              // 设置url
-      requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
-        initLyricModel(onValue);
-      });
     // }
   }
   // 保存一首歌的信息
@@ -127,10 +121,12 @@ class PlayMusic with ChangeNotifier{
 
     playUrl = data;
     isPlay = true;
-    audioPlayer.release();
-    // audioPlayer.setUrl( data );
-    audioPlayer.play(data);
-    priresume();
+    // audioPlayer.release();
+    audioPlayer.setUrl( data );
+    // audioPlayer.play(data);
+    Timer( Duration( milliseconds: 600 ) , (){
+      priresume();
+    } );
     setSongData();
 
     notifyListeners();
@@ -170,7 +166,8 @@ class PlayMusic with ChangeNotifier{
   computed(){
     playerCompleteSubscription = audioPlayer.onPlayerStateChanged.listen((onData){
       if( onData == AudioPlayerState.COMPLETED ){
-        audioPlayer.release();
+        // audioPlayer.release();
+        print("----------------播放完成-----------------");
         position = Duration( seconds: 0 );
         nowLyricIndex = 0;
         nextPlay();
@@ -181,17 +178,19 @@ class PlayMusic with ChangeNotifier{
   priresume(){
     if( playUrl.length == 0 ){
       playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
-      print("--------歌曲url----------$playUrl----");
-      // audioPlayer.setUrl(playUrl);
-      audioPlayer.play( playUrl );
+      // print("--------歌曲url----------$playUrl----");
+      audioPlayer.setUrl(playUrl);
+      Timer( Duration( milliseconds: 600 ) , (){
+        audioPlayer.resume();
+      } );
+      // audioPlayer.play( playUrl );
     }else{
       audioPlayer.resume();
     }
-    // audioPlayer.resume();
     getDuration();
     getPosition();
     isPlay = true;
-    // computed();
+    computed(); 
     notifyListeners();
   }
   // 跳转
@@ -212,6 +211,7 @@ class PlayMusic with ChangeNotifier{
   }
   // 下一曲
   nextPlay() async {
+    audioPlayer.stop();
     if( ( currentIndex + 1 ) >= playlist.tracks.length ){
       currentIndex = 0;
     }else{
@@ -219,6 +219,7 @@ class PlayMusic with ChangeNotifier{
     }
     tracks = playlist.tracks[ currentIndex ];
     position = Duration( seconds: 0 );
+    notifyListeners();
     requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
       if( res1['success'] == true ){
         requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
@@ -234,6 +235,7 @@ class PlayMusic with ChangeNotifier{
   }
   // 上一曲
   forwardSong() async {
+    audioPlayer.stop();
     if( ( currentIndex - 1 ) < 0  ){
       currentIndex = playlist.tracks.length - 1 ;
     }else{
