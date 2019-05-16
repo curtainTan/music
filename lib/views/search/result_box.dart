@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provide/provide.dart';
+import 'package:music/component/myImage.dart';
+import 'package:music/provider/inPlayList.dart';
 
 
 import 'package:music/provider/play_music.dart';
@@ -33,10 +35,6 @@ class ResultBox extends StatelessWidget {
     );
   }
 }
-
-
-
-
 
 
 
@@ -213,6 +211,28 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
     );
   }
 
+  Widget _gedan( context, List data ){
+    return Container(
+      height: ScreenUtil().setHeight(700),
+      child: Column(
+        children: <Widget>[
+          headerBox( "歌单" ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: data.length,
+              itemBuilder: ( context, index ){
+                return OneMenu( 
+                  imageUrl: data[index]?.cover ?? "https://www.curtaintan.club/bg/m2.jpg",
+                  title: data[index]?.name ?? "name" , 
+                  id: data[index]?.id ?? 1223 );
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -223,13 +243,19 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
             padding: EdgeInsets.symmetric(
               horizontal: ScreenUtil().setWidth(20)
             ),
-            child: _singleSongBox( data.searchComplex.result.songs, context ),
+            child: Column(
+              children: <Widget>[
+                _singleSongBox( data.searchComplex.result.songs, context ),
+                _gedan( context , data.searchComplex.result.mvs )
+              ],
+            )
           );
         },
       )
     );
   }
 }
+
 
 
 
@@ -380,4 +406,99 @@ class _UserPageState extends State<UserPage> with AutomaticKeepAliveClientMixin 
 
 
 
+
+
+class OneMenu extends StatelessWidget {
+
+  String imageUrl, title;
+  int id;
+
+  OneMenu({Key key, this.imageUrl,this.title, this.id, }) : super(key: key);
+
+  Widget headImg( context, dd ){
+    return Container(
+      width: ScreenUtil().setHeight(140),
+      height: ScreenUtil().setHeight(140),
+      margin: EdgeInsets.only(
+        left: ScreenUtil().setWidth(20),
+        right: ScreenUtil().setWidth(20),
+      ),
+      child: MyImage(
+        h: ScreenUtil().setHeight(140),
+        w: ScreenUtil().setHeight(140),
+        shape: BoxShape.rectangle,
+        url: imageUrl,
+        b: BoxFit.cover,
+        br: ScreenUtil().setWidth(10),
+      ),
+    );
+  }
+  Widget midabout(){
+    return Container(
+      height: ScreenUtil().setHeight(160),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("${ title }", style: TextStyle( fontSize: ScreenUtil().setSp(38) ), maxLines: 1, overflow: TextOverflow.ellipsis, ),
+          Text("126首，已下载66首", style: TextStyle( fontSize: ScreenUtil().setSp(32), color: Colors.grey ), ),
+        ],
+      ),
+    );
+  }
+
+  Widget _left(){
+    return Container(
+      width: ScreenUtil().setWidth( 900 ),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide( width: 0.5, color: Colors.black12 )
+        )
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          midabout(),
+          _right()
+        ],
+      ),
+    );
+  }
+
+  Widget _right(){
+    return InkWell(
+      onTap: (){
+        print("更多.......");
+      },
+      child: Container(
+        width: ScreenUtil().setWidth( 100 ),
+        alignment: Alignment.center,
+        child: Icon( IconData( 0xe6bf, fontFamily: 'iconfont' ), size: ScreenUtil().setSp( 60 ), color: Colors.grey ),
+      )
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: (){
+
+        Provide.value<InPlayList>(context).setHeader( imageUrl, title, id);
+        Routes.router.navigateTo(context, '/songList/' + id.toString() ,  );
+        
+      },
+      child: Container(
+        width: ScreenUtil().setWidth(1080),
+        height: ScreenUtil().setHeight(160),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            headImg( context, 133953518 ),
+            _left()
+          ],
+        ),
+      )
+    );
+  }
+}
 

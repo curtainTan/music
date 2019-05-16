@@ -59,7 +59,7 @@ class InitSearchPage extends StatelessWidget {
           itemBuilder: ( context, index ){
             return Padding(
               padding: EdgeInsets.only(
-                right: ScreenUtil().setWidth(10)
+                right: ScreenUtil().setWidth(26)
               ),
               child: ActionChip(
                 onPressed: (){
