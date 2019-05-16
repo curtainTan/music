@@ -21,10 +21,31 @@ class SearchPageProvide with ChangeNotifier{
   SearchHot searchHot = null;
   SearchSuggestMul searchComplex = null;
 
+  SharedPreferences pref;
+
+  saveHistory( String data ){
+    if( historyList.length >= 10 ){
+      historyList.removeLast();
+    }
+    int hasData = historyList.indexOf( data );
+    if( hasData > 0 ){
+      historyList.removeAt(hasData);
+      historyList.insert(0, data );
+    }else{
+      historyList.insert( 0, data );
+    }
+    pref.setStringList("historySearch", historyList);
+  }
+
+  initHistory() async {
+    pref = await SharedPreferences.getInstance();
+    historyList = pref.getStringList("historySearch") ?? [];
+  }
 
   // 开始搜索
   searchStart( data ){
     searchInputData = data;
+    saveHistory( data );
     // searchComplex = null;
     // if( tabIndex == 0 ){                  // 综合
     //   getSearchComplex();

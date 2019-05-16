@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // 只执行一次 更新用户信息和cookie
   void onlyOne(){
     Provide.value<MeInfoProvide>(context).updateInfo();
-    // Provide.value<MeInfoProvide>(context).reSetCookie();
+    Provide.value<MeInfoProvide>(context).reSetCookie();
   }
 
   Widget topTabBar(){

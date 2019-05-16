@@ -121,9 +121,7 @@ class PlayMusic with ChangeNotifier{
 
     playUrl = data;
     isPlay = true;
-    // audioPlayer.release();
     audioPlayer.setUrl( data );
-    // audioPlayer.play(data);
     Timer( Duration( milliseconds: 600 ) , (){
       priresume();
     } );
@@ -167,7 +165,7 @@ class PlayMusic with ChangeNotifier{
     playerCompleteSubscription = audioPlayer.onPlayerStateChanged.listen((onData){
       if( onData == AudioPlayerState.COMPLETED ){
         // audioPlayer.release();
-        print("----------------播放完成-----------------");
+        // print("----------------播放完成-----------------");
         position = Duration( seconds: 0 );
         nowLyricIndex = 0;
         nextPlay();
@@ -221,6 +219,7 @@ class PlayMusic with ChangeNotifier{
     position = Duration( seconds: 0 );
     notifyListeners();
     requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
+      print("------------------请求下一曲${res1.toString()}");
       if( res1['success'] == true ){
         requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
           setPlayUrl( res['data'][0]['url'] );

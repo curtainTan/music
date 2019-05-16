@@ -49,12 +49,13 @@ class InitSearchPage extends StatelessWidget {
       );
     }
 
-    Widget historyList( context ){
+    Widget historyList( context, List historyList ){
       return Container(
         height: ScreenUtil().setHeight(100),
-        child: ListView.builder(
+        child: historyList.length == 0 ? Text( "暂无数据....." ) :
+        ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 12,
+          itemCount: historyList.length,
           itemBuilder: ( context, index ){
             return Padding(
               padding: EdgeInsets.only(
@@ -62,13 +63,13 @@ class InitSearchPage extends StatelessWidget {
               ),
               child: ActionChip(
                 onPressed: (){
-                  functionInput( "History--$index" );
+                  functionInput( historyList[index] );
                 },
                 padding: EdgeInsets.symmetric(
                   horizontal: ScreenUtil().setWidth(10)
                 ),
                 backgroundColor: Colors.black12.withOpacity(0.1),
-                label: Text("History--$index", style: TextStyle( fontSize: ScreenUtil().setSp( 30 ) ),),
+                label: Text( historyList[index] , style: TextStyle( fontSize: ScreenUtil().setSp( 30 ) ),),
               )
             );
           },
@@ -77,14 +78,18 @@ class InitSearchPage extends StatelessWidget {
     }
 
 
-    return Container(
-      height: ScreenUtil().setHeight(300),
-      child: Column(
-        children: <Widget>[
-          _topBox(),
-          historyList( context )
-        ],
-      ),
+    return Provide<SearchPageProvide>(
+      builder: ( context, child, data ){
+        return Container(
+          height: ScreenUtil().setHeight(300),
+          child: Column(
+            children: <Widget>[
+              _topBox(),
+              historyList( context, data.historyList )
+            ],
+          ),
+        );
+      },
     );
   }
 

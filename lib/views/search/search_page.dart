@@ -91,6 +91,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
 
   @override
   void didChangeDependencies() {
+    Provide.value<SearchPageProvide>(context).initHistory();
     Provide.value<SearchPageProvide>(context).getSearchHot();
     super.didChangeDependencies();
   }
@@ -176,43 +177,55 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Scaffold(
-          appBar: AppBar(
-            bottom: searchSubmit ? PreferredSize(
-              preferredSize: Size( double.infinity , ScreenUtil().setHeight(100) ),
-              child: Container(
-                height: ScreenUtil().setHeight(100),
-                // alignment: Alignment.center,
-                child: TabBar(
-                  isScrollable: true,
-                  controller: _tabController,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  tabs: tabBarList,
+    return WillPopScope(
+      onWillPop: () async {
+        if( searchSubmit ){
+          setState(() {
+            searchSubmit = false;
+          });
+        }else{
+          Navigator.pop(context, true);
+        }
+        return false;
+      },
+      child: Stack(
+        children: <Widget>[
+          Scaffold(
+            appBar: AppBar(
+              bottom: searchSubmit ? PreferredSize(
+                preferredSize: Size( double.infinity , ScreenUtil().setHeight(100) ),
+                child: Container(
+                  height: ScreenUtil().setHeight(100),
+                  // alignment: Alignment.center,
+                  child: TabBar(
+                    isScrollable: true,
+                    controller: _tabController,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    tabs: tabBarList,
+                  )
                 )
-              )
-            ) : PreferredSize(
-              preferredSize: Size( double.infinity , ScreenUtil().setHeight(0) ),
-              child: Container(),
-            ),
-            title: textBox(),
-            actions: <Widget>[
-              IconButton(
-                onPressed: (){
+              ) : PreferredSize(
+                preferredSize: Size( double.infinity , ScreenUtil().setHeight(0) ),
+                child: Container(),
+              ),
+              title: textBox(),
+              actions: <Widget>[
+                IconButton(
+                  onPressed: (){
 
-                },
-                padding: EdgeInsets.only(
-                  right: ScreenUtil().setWidth(40)
-                ),
-                icon: Icon( Icons.person ),
-              )
-            ],
+                  },
+                  padding: EdgeInsets.only(
+                    right: ScreenUtil().setWidth(40)
+                  ),
+                  icon: Icon( Icons.person ),
+                )
+              ],
+            ),
+            body: searchSubmit ? ResultBox( tabController: _tabController, ) : InitSearchPage( functionInput: tapChipMenu ),
           ),
-          body: searchSubmit ? ResultBox( tabController: _tabController, ) : InitSearchPage( functionInput: tapChipMenu ),
-        ),
-        showSuggest ? SearchSuggest( functionShow: controlerShow, functionInput: tapChipMenu ) : Container()
-      ],
+          showSuggest ? SearchSuggest( functionShow: controlerShow, functionInput: tapChipMenu ) : Container()
+        ],
+      ),
     );
   }
 }
