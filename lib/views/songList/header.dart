@@ -56,37 +56,39 @@ class SongListPageHeader extends StatelessWidget {
                 //   )
                 // ),
               ),
-              // BackdropFilter(
-              //   filter: ImageFilter.blur( sigmaX: 15, sigmaY: 15 ),
-              //   child: Container(
-                Container(
-                  height: ScreenUtil().setHeight(900),
-                  width: ScreenUtil().setWidth(1080),
-                  color: Colors.grey.withOpacity(0.4),
-                  child: show ? Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      midBox( data ),
-                      Container(
-                        height: ScreenUtil().setHeight(110),
-                        margin: EdgeInsets.only(
-                          bottom: ScreenUtil().setHeight(70),
-                          top: ScreenUtil().setHeight(60),
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            _oneTab( 0xe631, "评论" ),
-                            _oneTab( 0xe606, "分享" ),
-                            _oneTab( 0xe7ef, "下载" ),
-                            _oneTab( 0xec37, "多选" ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ): null
+              ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur( sigmaX: 15, sigmaY: 15 ),
+                  child: Container(
+                  // Container(
+                    height: ScreenUtil().setHeight(900),
+                    width: ScreenUtil().setWidth(1080),
+                    color: Colors.grey.withOpacity(0.4),
+                    child: show ? Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        midBox( data ),
+                        Container(
+                          height: ScreenUtil().setHeight(110),
+                          margin: EdgeInsets.only(
+                            bottom: ScreenUtil().setHeight(70),
+                            top: ScreenUtil().setHeight(60),
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              _oneTab( 0xe631, "评论" ),
+                              _oneTab( 0xe606, "分享" ),
+                              _oneTab( 0xe7ef, "下载" ),
+                              _oneTab( 0xec37, "多选" ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ): null
+                  ),
                 ),
-              // ),
+              ),
             ],
           ),
           bottom: bottomPreferredSize()
