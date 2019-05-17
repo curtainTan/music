@@ -105,7 +105,7 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
         );
         
         DateTime nowTime = DateTime.now();
-        Provide.value<MeInfoProvide>(context).saveNameAndPsw( phone, psw, nowTime, useAlittle.profile.userId );
+        Provide.value<MeInfoProvide>(context).saveNameAndPsw( phone.toString(), psw.toString(), nowTime.toString(), useAlittle.profile.userId );
 
         requestGet( "userDetail", formData: { "uid" : useAlittle.profile.userId } ).then( ( meInfoData ){
           Provide.value<MeInfoProvide>(context).setMeinfo(meInfoData);

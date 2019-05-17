@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'dart:async';
 
 // import '../modal/user_model.dart';
 import '../modal/gedan.dart';
@@ -27,12 +26,14 @@ class MeInfoProvide with ChangeNotifier{
 
   // 保存用户信息
   saveMeInfo(  ) async {
+    pref = await SharedPreferences.getInstance();
     pref.setString("meInfo", json.encode( meInfo ).toString()  );
     notifyListeners();
   }
 
   // 保存基础信息
-  saveNameAndPsw( phoner, psw, time, muid ){
+  saveNameAndPsw( phoner, psw, time, muid ) async{
+    pref = await SharedPreferences.getInstance();
     pref.setString("phone", phoner);
     pref.setString("psw", psw );
     pref.setString("time", time);
@@ -75,7 +76,8 @@ class MeInfoProvide with ChangeNotifier{
   }
 
   // 重置cookie
-  reSetCookie(){
+  reSetCookie() async {
+    pref = await SharedPreferences.getInstance();
     DateTime nowTime = DateTime.now();
     DateTime oldTime = DateTime.parse( pref.getString("time") ).add( Duration( days: 13 ) );
     if( nowTime.isBefore(oldTime) ){
