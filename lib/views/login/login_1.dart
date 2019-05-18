@@ -241,10 +241,6 @@ class ItemInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: ScreenUtil().setWidth(980),
-      height: ScreenUtil().setHeight(140),
-      margin: EdgeInsets.only(
-        bottom: ScreenUtil().setHeight(30)
-      ),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -263,7 +259,8 @@ class ItemInput extends StatelessWidget {
           icon: Icon( IconData( icon, fontFamily: 'iconfont' ), color: Colors.grey, ),
           labelText: text,
           prefixText: "$fretext",
-          border: InputBorder.none
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric( vertical: ScreenUtil().setHeight(20) )
         ),
       ),
     );
