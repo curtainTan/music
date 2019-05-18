@@ -4,7 +4,7 @@ import 'package:provide/provide.dart';
 
 import 'package:music/provider/searchPageProvide.dart';
 
-
+import 'package:music/component/bottomBar.dart';
 import './search_suggest.dart';
 import './init_page.dart';
 import './result_box.dart';
@@ -222,6 +222,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
               ],
             ),
             body: searchSubmit ? ResultBox( tabController: _tabController, ) : InitSearchPage( functionInput: tapChipMenu ),
+            bottomSheet: BottomBar(),
           ),
           showSuggest ? SearchSuggest( functionShow: controlerShow, functionInput: tapChipMenu ) : Container()
         ],

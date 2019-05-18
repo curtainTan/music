@@ -171,7 +171,9 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _singleSongBox( data, context ){
-    return Container(
+    return data == null ? Container(
+      child: Text("没有找到数据....."),
+    ) : Container(
       height: ScreenUtil().setHeight(800),
       padding: EdgeInsets.only(
         top: ScreenUtil().setHeight(40)
@@ -204,9 +206,11 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
       child: Row(
         children: <Widget>[
           Container(
+            height: ScreenUtil().setHeight(100),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(title, style: TextStyle( fontSize: ScreenUtil().setSp( 42 ), fontWeight: FontWeight.w500 ),),
+                Text(title, style: TextStyle( fontSize: ScreenUtil().setSp( 40 ), fontWeight: FontWeight.w500 ),),
                 Icon( Icons.keyboard_arrow_right, size: ScreenUtil().setSp( 45 ), )
               ],
             ),
@@ -217,7 +221,7 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _gedan( context, List data ){
-    return Container(
+    return data == null ? Container() :Container(
       height: ScreenUtil().setHeight( 100.0 + (data.length * 260) ),
       child: Column(
         children: <Widget>[
@@ -242,14 +246,14 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _artists( context, List data ){
-    return data.length == 0 ? Container() : Container(
+    return data == null ? Container() : Container(
       height: ScreenUtil().setHeight( 100.0 + (data.length * 200) ),
       child: Column(
         children: <Widget>[
           headerBox( "歌手" ),
           Expanded(
             child: ListView.builder(
-              itemCount: data.length,
+              itemCount: 1,
               itemExtent: ScreenUtil().setHeight(200),
               itemBuilder: ( context, index ){
                 return _asinger( data[index].picUrl, data[index].name );
@@ -270,6 +274,11 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
         child: Row(
           children: <Widget>[
             Container(
+              height: ScreenUtil().setHeight(200),
+              width: ScreenUtil().setHeight(200),
+              margin: EdgeInsets.only(
+                right: ScreenUtil().setWidth(40)
+              ),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage( img ),
@@ -289,7 +298,7 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
 
 
   Widget _mvs( context, List data ){
-    return data.length == 0 ? Container() : Container(
+    return data == null ? Container() : Container(
       height: ScreenUtil().setHeight( 100.0 + (data.length * 260) ),
       child: Column(
         children: <Widget>[
@@ -314,7 +323,7 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _albums( context, List data ){
-    return data.length == 0 ?
+    return data == null ?
       Container() : Container(
         height: ScreenUtil().setHeight( 100.0 + (data.length * 260) ),
         child: Column(
@@ -354,7 +363,10 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
                 _singleSongBox( data.searchComplex.result.songs, context ),
                 _gedan( context , data.searchComplex.result.playlists ),
                 _albums(context, data.searchComplex.result.albums),
-                _artists(context, data.searchComplex.result.artists)
+                _artists(context, data.searchComplex.result.artists),
+                SizedBox(
+                  height: ScreenUtil().setHeight(150),
+                )
               ],
             ) : Center(
               child: Text("没有找到相关数据......"),

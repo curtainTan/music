@@ -149,7 +149,6 @@ class SongArtist {
   int picId;
   String img1v1Url;
   int img1v1;
-  List<String> transNames;
   String trans;
 
   SongArtist(
@@ -160,7 +159,6 @@ class SongArtist {
       this.picId,
       this.img1v1Url,
       this.img1v1,
-      this.transNames,
       this.trans});
 
   SongArtist.fromJson(Map<String, dynamic> json) {
@@ -171,7 +169,6 @@ class SongArtist {
     picId = json['picId'];
     img1v1Url = json['img1v1Url'];
     img1v1 = json['img1v1'];
-    transNames = json['transNames'].cast<String>();
     trans = json['trans'];
   }
 
@@ -184,7 +181,6 @@ class SongArtist {
     data['picId'] = this.picId;
     data['img1v1Url'] = this.img1v1Url;
     data['img1v1'] = this.img1v1;
-    data['transNames'] = this.transNames;
     data['trans'] = this.trans;
     return data;
   }

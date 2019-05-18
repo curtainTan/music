@@ -210,7 +210,8 @@ class PlayMusic with ChangeNotifier{
   // 下一曲
   nextPlay() async {
     audioPlayer.stop();
-    if( ( currentIndex + 1 ) >= playlist.tracks.length ){
+    int mynowindex = currentIndex;
+    if( ( mynowindex + 1 ) >= playlist.tracks.length ){
       currentIndex = 0;
     }else{
       currentIndex = currentIndex + 1 ;
@@ -235,7 +236,8 @@ class PlayMusic with ChangeNotifier{
   // 上一曲
   forwardSong() async {
     audioPlayer.stop();
-    if( ( currentIndex - 1 ) < 0  ){
+    int mynowindex = currentIndex;
+    if( ( mynowindex - 1 ) < 0  ){
       currentIndex = playlist.tracks.length - 1 ;
     }else{
       currentIndex -= 1;
