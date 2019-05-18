@@ -115,8 +115,8 @@ class Albums {
   Albums.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    songArtist = json['songArtist'] != null
-        ? new SongArtist.fromJson(json['songArtist'])
+    songArtist = json['artist'] != null
+        ? new SongArtist.fromJson(json['artist'])
         : null;
     publishTime = json['publishTime'];
     size = json['size'];
@@ -366,8 +366,8 @@ class Album {
   Album.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    albumArtist = json['albumArtist'] != null
-        ? new AlbumArtist.fromJson(json['albumArtist'])
+    albumArtist = json['artist'] != null
+        ? new AlbumArtist.fromJson(json['artist'])
         : null;
     publishTime = json['publishTime'];
     size = json['size'];
@@ -520,9 +520,9 @@ class Mvs {
     artistId = json['artistId'];
     duration = json['duration'];
     mark = json['mark'];
-    if (json['mvArtists'] != null) {
+    if (json['artists'] != null) {
       mvArtists = new List<MvArtists>();
-      json['mvArtists'].forEach((v) {
+      json['artists'].forEach((v) {
         mvArtists.add(new MvArtists.fromJson(v));
       });
     }
@@ -542,7 +542,7 @@ class Mvs {
     data['duration'] = this.duration;
     data['mark'] = this.mark;
     if (this.mvArtists != null) {
-      data['mvArtists'] = this.mvArtists.map((v) => v.toJson()).toList();
+      data['artists'] = this.mvArtists.map((v) => v.toJson()).toList();
     }
     data['subed'] = this.subed;
     if (this.mv != null) {

@@ -111,7 +111,7 @@ class PlayMusic with ChangeNotifier{
   // 只设置单曲信息，不加入循环播放
   onlySetTrack( data ){
 
-    tracks = Tracks.fromJson( data['songs'][1] );
+    tracks = Tracks.fromJson( data['songs'][0] );
 
     notifyListeners();
   }
@@ -213,7 +213,7 @@ class PlayMusic with ChangeNotifier{
     if( ( currentIndex + 1 ) >= playlist.tracks.length ){
       currentIndex = 0;
     }else{
-      currentIndex += 1 ;
+      currentIndex = currentIndex + 1 ;
     }
     tracks = playlist.tracks[ currentIndex ];
     position = Duration( seconds: 0 );
@@ -227,8 +227,8 @@ class PlayMusic with ChangeNotifier{
         requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
           initLyricModel(onValue);
         });
-        } else {
-          nextPlay();
+      } else {
+        nextPlay();
       }
     });
   }

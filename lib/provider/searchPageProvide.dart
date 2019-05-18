@@ -68,11 +68,8 @@ class SearchPageProvide with ChangeNotifier{
   getSearchComplex( { page = 0, searchType = 33 } ){
     if( searchType == 33 ){
       requestGet( "searchsuggest", formData: { "keywords" : searchInputData } ).then((onValue){
-        // print("--------请求成功------${onValue.toString()}--");
         searchComplex = SearchSuggestMul.fromJson( onValue );
-        // print("--------请求单独的结果>>>>------${searchComplex.result.songs.length}--");
-        print("--------请求单独的结果>>>>------${searchComplex.result.songs[1].songArtistsss[0].toString()}--");
-        // print("--------请求单独的结果>>>>------${searchComplex.result.songs[1].songArtistsss[0].name}--");
+        // print("--------请求单独的结果>>>>------${searchComplex.result.songs[1].songArtistsss[0].toString()}--");
         notifyListeners();
       });
     } else {
