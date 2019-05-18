@@ -41,6 +41,8 @@ class PlayMusic with ChangeNotifier{
   StreamSubscription positionSubscription;          // 获取歌曲播放位置的流
   StreamSubscription playerCompleteSubscription;    // 获取播放完成的流
 
+  Timer atimer;
+
 
   bool isPlay = false;
 
@@ -160,15 +162,20 @@ class PlayMusic with ChangeNotifier{
     isPlay = false;
     notifyListeners();
   }
-  // 播放完成
+  // 播放完成              //只触发一次
   computed(){
     playerCompleteSubscription = audioPlayer.onPlayerStateChanged.listen((onData){
       if( onData == AudioPlayerState.COMPLETED ){
-        // audioPlayer.release();
-        // print("----------------播放完成-----------------");
-        position = Duration( seconds: 0 );
-        nowLyricIndex = 0;
-        nextPlay();
+        if( atimer == null ){
+          print("-------我要看看到底播放完成后，这里执行了几遍---------播放完成------------");
+          position = Duration( seconds: 0 );
+          nowLyricIndex = 0;
+          nextPlay();
+          atimer = Timer( Duration(milliseconds: 600), (){
+            atimer.cancel();
+            atimer = null;
+          });
+        }
       }
     });
   }
@@ -188,7 +195,7 @@ class PlayMusic with ChangeNotifier{
     getDuration();
     getPosition();
     isPlay = true;
-    computed(); 
+    computed();
     notifyListeners();
   }
   // 跳转
@@ -210,12 +217,14 @@ class PlayMusic with ChangeNotifier{
   // 下一曲
   nextPlay() async {
     audioPlayer.stop();
+    print("----------------------即将播放下一曲，此时的index是-----------$currentIndex---");
     int mynowindex = currentIndex;
     if( ( mynowindex + 1 ) >= playlist.tracks.length ){
       currentIndex = 0;
     }else{
       currentIndex = currentIndex + 1 ;
     }
+    print("----------------------设置好了下一曲，此时的index是-----------$currentIndex---");
     tracks = playlist.tracks[ currentIndex ];
     position = Duration( seconds: 0 );
     notifyListeners();

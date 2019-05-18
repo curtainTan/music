@@ -92,12 +92,15 @@ class SearchPageProvide with ChangeNotifier{
       atimer = Timer( Duration( milliseconds: 600 ) , (){
         getSuggestRequest( data );
         atimer.cancel();
+        atimer = null;
       });
     } else {
       atimer.cancel();
+      atimer = null;
       atimer = Timer( Duration( milliseconds: 600 ) , (){
         getSuggestRequest( data );
         atimer.cancel();
+        atimer = null;
       });
     }
   }
