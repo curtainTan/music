@@ -7,6 +7,7 @@ import 'package:music/modal/search.dart';
 import 'package:music/modal/search_sug_mobile.dart';
 import 'package:music/modal/searchHot.dart';
 import 'package:music/modal/search_suggest.dart';
+import 'package:music/modal/search-type1.dart';
 
 
 class SearchPageProvide with ChangeNotifier{
@@ -18,11 +19,15 @@ class SearchPageProvide with ChangeNotifier{
   List<String> searchHotList = [];
   Timer atimer = null;
 
+  
+  List<SearchType1Songs> type1Song = [];
+  
+
   SearchHot searchHot = null;
   SearchSuggestMul searchComplex = null;
 
   SharedPreferences pref;
-
+  // 保存历史记录
   saveHistory( String data ){
     if( historyList.length >= 10 ){
       historyList.removeLast();
@@ -36,7 +41,7 @@ class SearchPageProvide with ChangeNotifier{
     }
     pref.setStringList("historySearch", historyList);
   }
-
+  // 初始化历史记录
   initHistory() async {
     pref = await SharedPreferences.getInstance();
     historyList = pref.getStringList("historySearch") ?? [];
@@ -83,6 +88,14 @@ class SearchPageProvide with ChangeNotifier{
 
       });
     }
+  }
+  // type1结果
+  setType1Song( data ){
+
+    List<SearchType1Songs> nowSongList = SearchType1.fromJson(data).result.songs;
+    type1Song..addAll( nowSongList );
+    notifyListeners();
+
   }
   // 获取搜索建议     节流
   getSearchSugMobile( data ){

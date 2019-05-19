@@ -389,19 +389,67 @@ class SingleSong extends StatefulWidget {
 }
 
 class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMixin {
+
+  int page = 1;
+  int limit = 20;
   
-  @override 
+  @override
   bool get wantKeepAlive => true;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    getSongListData();
+  }
+
+  void getSongListData(  ) async {
+    String keywords = Provide.value<SearchPageProvide>(context).searchInputData;
+    requestGet("search", formData: { "keywords" : keywords, "limit" : limit, "offset" : page }).then((onValue){
+      
+    });
+
+
+  }
+
+  Widget loading(){
+    return Container(
+      alignment: Alignment.topCenter,
+      child: Container(
+        margin: EdgeInsets.only(
+          top: ScreenUtil().setHeight(300)
+        ),
+        width: double.infinity,
+        height: ScreenUtil().setWidth(100),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(
+                right: ScreenUtil().setWidth(40)
+              ),
+              height: ScreenUtil().setWidth(70),
+              width: ScreenUtil().setWidth(70),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              )
+            ),
+            Text("加载中...", style: TextStyle( color: Colors.red ), )
+          ], 
+        )
+      )
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("SingleSong"),
+    return SingleChildScrollView(
+      child: Provide<SearchPageProvide>(
+        builder: ( context, child, data ){
+          return data.type1Song.length == 0 ? Container() : Container(
+
+          );
+        },
+      ),
     );
   }
 }

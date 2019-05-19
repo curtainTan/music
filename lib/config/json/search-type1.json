@@ -1,0 +1,54 @@
+{
+    "result": {
+        "songs": [
+            {
+                "id": 1350629176,
+                "name": "Rise",
+                "artists": [
+                    {
+                        "id": 1192069,
+                        "name": "Jonas Blue",
+                        "albumSize": 0,
+                        "picId": 0,
+                        "img1v1Url": "https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                        "img1v1": 0
+                    },
+                    {
+                        "id": 29490548,
+                        "name": "IZ*ONE",
+                        "albumSize": 0,
+                        "picId": 0,
+                        "img1v1Url": "https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                        "img1v1": 0
+                    }
+                ],
+                "album": {
+                    "id": 75796914,
+                    "name": "Rise",
+                    "artist": {
+                        "id": 0,
+                        "name": "",
+                        "albumSize": 0,
+                        "picId": 0,
+                        "img1v1Url": "https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                        "img1v1": 0
+                    },
+                    "publishTime": 1551974400000,
+                    "size": 1,
+                    "copyrightId": 7003,
+                    "status": 3,
+                    "picId": 109951163910707600
+                },
+                "duration": 192783,
+                "copyrightId": 7003,
+                "status": 0,
+                "rtype": 0,
+                "ftype": 0,
+                "mvid": 0,
+                "fee": 8
+            }
+        ],
+        "songCount": 600
+    },
+    "code": 200
+}

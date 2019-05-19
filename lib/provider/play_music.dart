@@ -56,8 +56,8 @@ class PlayMusic with ChangeNotifier{
     // tracks = playlist.tracks[currentIndex];
     // print("${ tracks.name }----------${ tracks.al.name }");
     // computed();
-    // getDuration();
-    // getPosition();
+    getDuration();
+    getPosition();
     notifyListeners();
   }
   // 保存歌曲列表
@@ -192,8 +192,8 @@ class PlayMusic with ChangeNotifier{
     }else{
       audioPlayer.resume();
     }
-    getDuration();
-    getPosition();
+    // getDuration();
+    // getPosition();
     isPlay = true;
     computed();
     notifyListeners();
@@ -217,19 +217,17 @@ class PlayMusic with ChangeNotifier{
   // 下一曲
   nextPlay() async {
     audioPlayer.stop();
-    print("----------------------即将播放下一曲，此时的index是-----------$currentIndex---");
     int mynowindex = currentIndex;
     if( ( mynowindex + 1 ) >= playlist.tracks.length ){
       currentIndex = 0;
     }else{
       currentIndex = currentIndex + 1 ;
     }
-    print("----------------------设置好了下一曲，此时的index是-----------$currentIndex---");
     tracks = playlist.tracks[ currentIndex ];
     position = Duration( seconds: 0 );
     notifyListeners();
     requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
-      print("------------------请求下一曲${res1.toString()}");
+      // print("------------------请求下一曲${res1.toString()}");
       if( res1['success'] == true ){
         requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
           setPlayUrl( res['data'][0]['url'] );
