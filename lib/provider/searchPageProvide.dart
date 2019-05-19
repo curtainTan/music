@@ -55,13 +55,18 @@ class SearchPageProvide with ChangeNotifier{
   searchStart( data ){
     searchInputData = data;
     saveHistory( data );
-    // searchComplex = null;
-    // if( tabIndex == 0 ){                  // 综合
-    //   getSearchComplex();
-    // }
-    // if( tabIndex == 1 ){                  // 单曲
-    //   getSearchComplex( searchType: 1 );
-    // }
+    // 全部数据置空
+    searchComplex = null;
+    type1Song = [];
+
+    if( tabIndex == 0 ){                  // 综合
+      getSearchComplex();
+    }
+    if( tabIndex == 1 ){                  // 单曲
+      requestGet("search", formData: { "keywords" : searchInputData, "limit" : 20, "offset" : 1 }).then( (resData){
+        setType1Song(resData);
+      });
+    }
     // if( tabIndex == 3 ){                  // 歌手
     //   getSearchComplex( searchType: 100 );
     // }
@@ -98,7 +103,7 @@ class SearchPageProvide with ChangeNotifier{
 
     List<SearchType1Songs> nowSongList = SearchType1.fromJson(data).result.songs;
     type1Song..addAll( nowSongList );
-    print("------------数据长度为----${type1Song.length}----------${nowSongList.length}--");
+    // print("------------数据长度为----${type1Song.length}----------${nowSongList.length}--");
     notifyListeners();
 
   }

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:music/service/http.dart';
 import 'package:provide/provide.dart';
 import 'package:music/component/myImage.dart';
@@ -53,10 +52,13 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
   bool get wantKeepAlive => true;
 
   @override
-  void didChangeDependencies() {
-    Provide.value<SearchPageProvide>(context).getSearchComplex(searchType: 33);
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+    Timer(Duration( seconds: 0 ), (){
+      Provide.value<SearchPageProvide>(context).getSearchComplex(searchType: 33);
+    });
   }
+
 
   Widget loading(){
     return Container(

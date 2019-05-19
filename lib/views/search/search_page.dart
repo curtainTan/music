@@ -4,12 +4,11 @@ import 'package:provide/provide.dart';
 
 import 'package:music/provider/searchPageProvide.dart';
 
+import 'package:music/service/http.dart';
 import 'package:music/component/bottomBar.dart';
 import './search_suggest.dart';
 import './init_page.dart';
 import './result_box.dart';
-
-
 
 
 class SearchPage extends StatefulWidget {
@@ -83,6 +82,18 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
     _tabController = TabController( length: 8, vsync: this );
     _tabController.addListener( (){
       if( _tabController.index.toDouble() == _tabController.animation.value ){
+        if( _tabController.index == 0 ){
+          if( Provide.value<SearchPageProvide>(context).searchComplex == null ){
+            Provide.value<SearchPageProvide>(context).getSearchComplex(searchType: 33);
+          }
+        }
+        if( _tabController.index == 1 ){
+          if( Provide.value<SearchPageProvide>(context).type1Song.length == 0 ){
+            requestGet("search", formData: { "keywords" : searchText, "limit" : 20, "offset" : 1 }).then((onValue){
+              Provide.value<SearchPageProvide>(context).setType1Song(onValue);
+            });
+          }
+        }
         Provide.value<SearchPageProvide>(context).changeTabIndex( _tabController.index );
       }
     } );
@@ -109,15 +120,20 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       searchSubmit = true;
       showSuggest = false;
     });
-    Provide.value<SearchPageProvide>(context).searchStart( data );
+    if( data != Provide.value<SearchPageProvide>(context).searchInputData ){
+      Provide.value<SearchPageProvide>(context).searchStart( data );
+    }
+    
   }
 
   void inputOnSubmit( String data ){
-    setState(() {
-      searchText = data;
-      searchSubmit = true;
-      showSuggest = false;
-    });
+    if( data != Provide.value<SearchPageProvide>(context).searchInputData ){
+      setState(() {
+        searchText = data;
+        searchSubmit = true;
+        showSuggest = false;
+      });
+    }
   }
 
 
