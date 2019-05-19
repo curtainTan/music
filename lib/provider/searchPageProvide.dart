@@ -94,6 +94,7 @@ class SearchPageProvide with ChangeNotifier{
 
     List<SearchType1Songs> nowSongList = SearchType1.fromJson(data).result.songs;
     type1Song..addAll( nowSongList );
+    print("------------数据长度为----${type1Song.length}----------${nowSongList.length}--");
     notifyListeners();
 
   }

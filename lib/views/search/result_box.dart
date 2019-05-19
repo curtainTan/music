@@ -388,10 +388,24 @@ class SingleSong extends StatefulWidget {
   _SingleSongState createState() => _SingleSongState();
 }
 
-class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMixin {
+class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMixin{
 
   int page = 1;
   int limit = 20;
+  ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener((){
+      if( _scrollController.position.pixels == _scrollController.position.maxScrollExtent ){
+        setState(() {
+          print("------------------------->>>>>>>>触底，即将发送请求..");
+        });
+      }
+    });
+  }
   
   @override
   bool get wantKeepAlive => true;
@@ -405,10 +419,9 @@ class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMi
   void getSongListData(  ) async {
     String keywords = Provide.value<SearchPageProvide>(context).searchInputData;
     requestGet("search", formData: { "keywords" : keywords, "limit" : limit, "offset" : page }).then((onValue){
-      
+      print("------------type1请求成功--------------");
+      Provide.value<SearchPageProvide>(context).setType1Song(onValue);
     });
-
-
   }
 
   Widget loading(){
@@ -440,13 +453,139 @@ class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMi
     );
   }
 
+
+  Widget oneItem( int index, context, String songname, String auth, int id ){
+    return InkWell(
+      onTap: () async {
+
+        requestGet( "checkmusic", formData: { "id" : id } ).then((res1){
+          if( res1['success'] != true ){
+            print("-------------没有权限----------");
+          }else{
+            // 获取歌曲信息，并复制到tracks上面
+            requestGet("songdetail", formData: { "ids" : id } ).then((onValue){
+              Provide.value<PlayMusic>(context).onlySetTrack( onValue );
+            });
+            // 获取歌曲url
+            requestGet("songurl", formData: { "id" : id } ).then( ( res ){
+
+              Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
+
+            } );
+            requestGet("lyric", formData: { "id" : id }).then((onValue){
+              Provide.value<PlayMusic>(context).initLyricModel(onValue);
+            });
+          }
+        });
+      },
+      onDoubleTap: (){
+        Routes.router.navigateTo(context, Routes.playpage);
+      },
+      child: Container(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            aboutBox( songname, auth ),
+            sub()
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget aboutBox( String songname, String auth ){
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            child: Text("$songname", style: TextStyle( fontSize: ScreenUtil().setSp( 40 )), ),
+          ),
+          Text( auth, style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), color: Colors.grey ),)
+        ],
+      ),
+    );
+  }
+
+  Widget sub(){
+    return Container(
+      height: ScreenUtil().setHeight(170),
+      child: Row(
+        children: <Widget>[
+          InkWell(
+            onTap: (){},
+            child: Container(
+              height: ScreenUtil().setHeight(170),
+              width: ScreenUtil().setWidth(100),
+              alignment: Alignment.center,
+              child: Icon( IconData( 0xe61e, fontFamily: 'iconfont' ), color: Colors.grey, ),
+            )
+          ),
+          InkWell(
+            onTap: (){},
+            child: Container(
+              height: ScreenUtil().setHeight(170),
+              width: ScreenUtil().setWidth(100),
+              padding: EdgeInsets.only(
+                right: ScreenUtil().setWidth(50)
+              ),
+              alignment: Alignment.center,
+              child: Icon( IconData( 0xe6bf, fontFamily: 'iconfont' ), color: Colors.grey, ),
+            )
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            RefreshProgressIndicator(
+              valueColor: AlwaysStoppedAnimation( Colors.red )
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+              child: new Text('正在加载中...'))
+          ],
+        )
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(
+        horizontal: ScreenUtil().setWidth(20)
+      ),
+      // controller: _scrollController,
       child: Provide<SearchPageProvide>(
         builder: ( context, child, data ){
-          return data.type1Song.length == 0 ? Container() : Container(
-
+          return data.type1Song.length == 0 ? loading() : Container(
+            height: ScreenUtil().setHeight( 3000.0 ),
+            child: ListView.builder(
+              itemCount: data.type1Song.length,
+              itemBuilder: ( context, index ){
+                if( index == data.type1Song.length ){
+                  return _buildProgressIndicator();
+                }else{
+                  return oneItem(
+                    index, context,
+                    data.type1Song[index].name,
+                    data.type1Song[index].artists[0].name,
+                    data.type1Song[index].id,
+                  );
+                }
+              },
+            ),
           );
         },
       ),
