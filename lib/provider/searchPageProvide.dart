@@ -112,7 +112,7 @@ class SearchPageProvide with ChangeNotifier{
     searchSugMobileList = [];
     searchSugMobileList..add( data );
     if( atimer == null ){
-      atimer = Timer( Duration( milliseconds: 600 ) , (){
+      atimer = Timer( Duration( milliseconds: 1000 ) , (){
         getSuggestRequest( data );
         atimer.cancel();
         atimer = null;
@@ -120,7 +120,7 @@ class SearchPageProvide with ChangeNotifier{
     } else {
       atimer.cancel();
       atimer = null;
-      atimer = Timer( Duration( milliseconds: 600 ) , (){
+      atimer = Timer( Duration( milliseconds: 1000 ) , (){
         getSuggestRequest( data );
         atimer.cancel();
         atimer = null;
