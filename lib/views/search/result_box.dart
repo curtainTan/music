@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -402,24 +404,22 @@ class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMi
       if( _scrollController.position.pixels == _scrollController.position.maxScrollExtent ){
         setState(() {
           print("------------------------->>>>>>>>触底，即将发送请求..");
+          page++;
         });
+        getSongListData();
       }
+    });
+    Timer( Duration( seconds: 0 ) , (){
+      getSongListData();
     });
   }
   
   @override
   bool get wantKeepAlive => true;
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    getSongListData();
-  }
-
-  void getSongListData(  ) async {
+  void getSongListData(  ) {
     String keywords = Provide.value<SearchPageProvide>(context).searchInputData;
     requestGet("search", formData: { "keywords" : keywords, "limit" : limit, "offset" : page }).then((onValue){
-      print("------------type1请求成功--------------");
       Provide.value<SearchPageProvide>(context).setType1Song(onValue);
     });
   }
@@ -482,6 +482,9 @@ class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMi
         Routes.router.navigateTo(context, Routes.playpage);
       },
       child: Container(
+        padding: EdgeInsets.only(
+          left: ScreenUtil().setWidth(20)
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -540,20 +543,27 @@ class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMi
   }
 
   Widget _buildProgressIndicator() {
-    return new Padding(
-      padding: const EdgeInsets.all(8.0),
+    return new Container(
+      height: ScreenUtil().setHeight(100),
+      margin: EdgeInsets.only(
+        bottom: ScreenUtil().setHeight(30)
+      ),
       child: new Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            RefreshProgressIndicator(
-              valueColor: AlwaysStoppedAnimation( Colors.red )
+            Container(
+              height: ScreenUtil().setHeight(50),
+              width: ScreenUtil().setHeight(50),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-              child: new Text('正在加载中...'))
+              child: new Text('即将加载更多...'))
           ],
         )
       ),
@@ -562,33 +572,37 @@ class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMi
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(
-        horizontal: ScreenUtil().setWidth(20)
-      ),
-      // controller: _scrollController,
-      child: Provide<SearchPageProvide>(
-        builder: ( context, child, data ){
-          return data.type1Song.length == 0 ? loading() : Container(
-            height: ScreenUtil().setHeight( 3000.0 ),
-            child: ListView.builder(
-              itemCount: data.type1Song.length,
-              itemBuilder: ( context, index ){
-                if( index == data.type1Song.length ){
-                  return _buildProgressIndicator();
-                }else{
-                  return oneItem(
-                    index, context,
-                    data.type1Song[index].name,
-                    data.type1Song[index].artists[0].name,
-                    data.type1Song[index].id,
-                  );
-                }
-              },
-            ),
-          );
-        },
-      ),
+    return Provide<SearchPageProvide>(
+      builder: ( context, child, data ){
+        return data.type1Song.length == 0 ? loading() : Container(
+          height: ScreenUtil().setHeight( 200.0 * data.type1Song.length ),
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: data.type1Song.length,
+                  itemBuilder: ( context, index ){
+                    if( (index + 1) == data.type1Song.length ){
+                      return _buildProgressIndicator();
+                    }else{
+                      return oneItem(
+                        index, context,
+                        data.type1Song[index].name,
+                        data.type1Song[index].artists[0].name,
+                        data.type1Song[index].id,
+                      );
+                    }
+                  },
+                )
+              ),
+              SizedBox(
+                height: ScreenUtil().setHeight(150),
+              )
+            ],
+          )
+        );
+      },
     );
   }
 }
@@ -607,7 +621,26 @@ class _VoidPageState extends State<VoidPage> with AutomaticKeepAliveClientMixin 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("VoidPage"),
+      child: ListView(
+        children: <Widget>[
+          Container(
+            height: ScreenUtil().setHeight(900),
+            color: Colors.cyan,
+          ),
+          Container(
+            height: ScreenUtil().setHeight(900),
+            color: Colors.deepPurple,
+          ),
+          Container(
+            height: ScreenUtil().setHeight(900),
+            color: Colors.red,
+          ),
+          Container(
+            height: ScreenUtil().setHeight(900),
+            color: Colors.redAccent,
+          ),
+        ],
+      ),
     );
   }
 }

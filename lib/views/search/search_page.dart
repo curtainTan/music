@@ -184,6 +184,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
             searchSubmit = false;
           });
         }else{
+          Provide.value<SearchPageProvide>(context).clearData();
           Navigator.pop(context, true);
         }
         return false;
@@ -192,6 +193,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
         children: <Widget>[
           Scaffold(
             appBar: AppBar(
+              elevation: 0,
               bottom: searchSubmit ? PreferredSize(
                 preferredSize: Size( double.infinity , ScreenUtil().setHeight(100) ),
                 child: Container(

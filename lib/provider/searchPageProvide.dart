@@ -18,7 +18,6 @@ class SearchPageProvide with ChangeNotifier{
   List<String> historyList = [];
   List<String> searchHotList = [];
   Timer atimer = null;
-
   
   List<SearchType1Songs> type1Song = [];
   
@@ -40,6 +39,11 @@ class SearchPageProvide with ChangeNotifier{
       historyList.insert( 0, data );
     }
     pref.setStringList("historySearch", historyList);
+  }
+  clearData(){
+    type1Song = [];
+    searchComplex = null;
+    notifyListeners();
   }
   // 初始化历史记录
   initHistory() async {
