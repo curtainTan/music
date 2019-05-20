@@ -168,7 +168,6 @@ class PlayMusic with ChangeNotifier{
     playerCompleteSubscription = audioPlayer.onPlayerStateChanged.listen((onData){
       if( onData == AudioPlayerState.COMPLETED ){
         if( atimer == null ){
-          print("-------我要看看到底播放完成后，这里执行了几遍---------播放完成------------");
           position = Duration( seconds: 0 );
           nowLyricIndex = 0;
           nextPlay();

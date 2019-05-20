@@ -68,9 +68,6 @@ class _UserMainState extends State<UserMain> with TickerProviderStateMixin {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    print("---------用户id-------${widget.uid}");
-
-
     _getInfoData( widget.uid );
     _getuserPlayList( widget.uid );
   }
@@ -90,7 +87,6 @@ class _UserMainState extends State<UserMain> with TickerProviderStateMixin {
   void _getuserPlayList( id ) async {
     await requestGet("userPlaylist", formData: { "uid": id.toString() }).then((res){
       Provide.value<UserDataProvide>(context).setUserPlayList(res);
-      print("-----此目录lib\\views\\user\\main.dart----------------数据获取成功--------");
     });
   }
 
