@@ -183,17 +183,13 @@ class PlayMusic with ChangeNotifier{
   priresume(){
     if( playUrl.length == 0 ){
       playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
-      // print("--------歌曲url----------$playUrl----");
       audioPlayer.setUrl(playUrl);
       Timer( Duration( milliseconds: 600 ) , (){
         audioPlayer.resume();
       } );
-      // audioPlayer.play( playUrl );
     }else{
       audioPlayer.resume();
     }
-    // getDuration();
-    // getPosition();
     isPlay = true;
     computed();
     notifyListeners();
@@ -217,7 +213,6 @@ class PlayMusic with ChangeNotifier{
   // 下一曲
   nextPlay() async {
     if( playlist == null ){
-      // setPlayUrl(playUrl);
       seek( 0 );
     }else{
       audioPlayer.stop();
@@ -234,6 +229,7 @@ class PlayMusic with ChangeNotifier{
         if( res1['success'] == true ){
           requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
             setPlayUrl( res['data'][0]['url'] );
+            setSongData();
           });
           requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
             initLyricModel(onValue);
@@ -250,7 +246,6 @@ class PlayMusic with ChangeNotifier{
   // 上一曲
   forwardSong() async {
     if( playlist == null ){
-      // setPlayUrl(playUrl);
       seek( 0 );
     }else{
       audioPlayer.stop();
@@ -266,6 +261,7 @@ class PlayMusic with ChangeNotifier{
         if( res1['success'] == true ){
           requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
             setPlayUrl( res['data'][0]['url'] );
+            setSongData();
           });
           requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
             initLyricModel(onValue);
