@@ -3,7 +3,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'dart:io';
 
 
 import 'package:music/service/http.dart';
@@ -75,21 +74,23 @@ class PlayMusic with ChangeNotifier{
     duration = Duration( milliseconds: prefs.getInt( "duration" ) ?? 0 ); // 获取duration
     // playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
     playListId = prefs.getInt("playListId") ?? 0 ;        // 获取列表id
-    // if( playUrl != "" ){
-      if( currentIndex >= 0 ){
-        tracks = playlist.tracks[currentIndex];
-          requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
-          initLyricModel(onValue);
-        });
-      }
-    //   // audioPlayer.setUrl(playUrl);                                                              // 设置url
-    // }
+
+    var nowtracks = prefs.getString("tracks");
+
+    tracks = nowtracks == null ? null :  Tracks.fromJson( json.decode( nowtracks ) );
+    if( tracks != null ){
+      requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
+        initLyricModel(onValue);
+      });
+    }
+
   }
   // 保存一首歌的信息
   setSongData(){
     prefs.setInt( 'currentIndex', currentIndex );  // 保存歌曲的在列表中的index
     prefs.setString("playUrl", playUrl);           // 保存歌曲url
     prefs.setInt("duration", duration.inMilliseconds ); // 保存歌曲时长
+    prefs.setString("onetracks", tracks.toString());    // 保存一首歌的信息
   }
   // 设置列表id
   saveListId(){
@@ -216,55 +217,67 @@ class PlayMusic with ChangeNotifier{
   }
   // 下一曲
   nextPlay() async {
-    audioPlayer.stop();
-    int mynowindex = currentIndex;
-    if( ( mynowindex + 1 ) >= playlist.tracks.length ){
-      currentIndex = 0;
+    if( playlist == null ){
+      setPlayUrl(playUrl);
     }else{
-      currentIndex = currentIndex + 1 ;
+      audioPlayer.stop();
+      int mynowindex = currentIndex;
+      if( ( mynowindex + 1 ) >= playlist.tracks.length ){
+        currentIndex = 0;
+      }else{
+        currentIndex = currentIndex + 1 ;
+      }
+      tracks = playlist.tracks[ currentIndex ];
+      notifyListeners();
+      requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
+        // print("------------------请求下一曲${res1.toString()}");
+        if( res1['success'] == true ){
+          requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
+            setPlayUrl( res['data'][0]['url'] );
+          });
+          requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
+            initLyricModel(onValue);
+          });
+        } else {
+          nextPlay();
+        }
+      });
     }
-    tracks = playlist.tracks[ currentIndex ];
     position = Duration( seconds: 0 );
     notifyListeners();
-    requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
-      // print("------------------请求下一曲${res1.toString()}");
-      if( res1['success'] == true ){
-        requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
-          setPlayUrl( res['data'][0]['url'] );
-        });
-        requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
-          initLyricModel(onValue);
-        });
-      } else {
-        nextPlay();
-      }
-    });
+    
   }
   // 上一曲
   forwardSong() async {
-    audioPlayer.stop();
-    int mynowindex = currentIndex;
-    if( ( mynowindex - 1 ) < 0  ){
-      currentIndex = playlist.tracks.length - 1 ;
+    if( playlist == null ){
+      setPlayUrl(playUrl);
     }else{
-      currentIndex -= 1;
+      audioPlayer.stop();
+      int mynowindex = currentIndex;
+      if( ( mynowindex - 1 ) < 0  ){
+        currentIndex = playlist.tracks.length - 1 ;
+      }else{
+        currentIndex -= 1;
+      }
+      tracks = playlist.tracks[ currentIndex ];
+      notifyListeners();
+      requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
+        if( res1['success'] == true ){
+          requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
+            setPlayUrl( res['data'][0]['url'] );
+          });
+          requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
+            initLyricModel(onValue);
+          });
+          } else {
+          forwardSong();
+        }
+        notifyListeners();
+      });
     }
-    tracks = playlist.tracks[ currentIndex ];
     position = Duration( seconds: 0 );
     notifyListeners();
-    requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
-      if( res1['success'] == true ){
-        requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
-          setPlayUrl( res['data'][0]['url'] );
-        });
-        requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
-          initLyricModel(onValue);
-        });
-        } else {
-        forwardSong();
-      }
-      notifyListeners();
-    });
+    
   }
 
   // 初始化歌词modal
