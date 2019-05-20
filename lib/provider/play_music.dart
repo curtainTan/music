@@ -28,7 +28,6 @@ class PlayMusic with ChangeNotifier{
   List<int> lyricTimes = [];                        // 歌词时间列表
   int nowLyricIndex = 2;                            // 当前歌词的index
 
-
   String playUrl = "";                              // 歌曲的url
   AudioPlayer audioPlayer = AudioPlayer();
   SharedPreferences prefs;
@@ -75,10 +74,10 @@ class PlayMusic with ChangeNotifier{
     // playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
     playListId = prefs.getInt("playListId") ?? 0 ;        // 获取列表id
 
-    var nowtracks = prefs.getString("tracks");
+    var mynowtracks = prefs.getString("onetracks");
 
-    tracks = nowtracks == null ? null :  Tracks.fromJson( json.decode( nowtracks ) );
-    if( tracks != null ){
+    if( mynowtracks != null ){
+      tracks = Tracks.fromJson( json.decode( mynowtracks ) );
       requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
         initLyricModel(onValue);
       });
@@ -90,7 +89,7 @@ class PlayMusic with ChangeNotifier{
     prefs.setInt( 'currentIndex', currentIndex );  // 保存歌曲的在列表中的index
     prefs.setString("playUrl", playUrl);           // 保存歌曲url
     prefs.setInt("duration", duration.inMilliseconds ); // 保存歌曲时长
-    prefs.setString("onetracks", tracks.toString());    // 保存一首歌的信息
+    prefs.setString("onetracks", json.encode( tracks ).toString() );    // 保存一首歌的信息
   }
   // 设置列表id
   saveListId(){
@@ -109,12 +108,14 @@ class PlayMusic with ChangeNotifier{
   setTrack( index ){
     currentIndex = index;
     tracks = playlist.tracks[index];
+    setSongData();
     notifyListeners();
   }
   // 只设置单曲信息，不加入循环播放
   onlySetTrack( data ){
 
     tracks = Tracks.fromJson( data['songs'][0] );
+    setSongData();
 
     notifyListeners();
   }
@@ -128,7 +129,6 @@ class PlayMusic with ChangeNotifier{
     Timer( Duration( milliseconds: 600 ) , (){
       priresume();
     } );
-    setSongData();
 
     notifyListeners();
   }
@@ -218,7 +218,8 @@ class PlayMusic with ChangeNotifier{
   // 下一曲
   nextPlay() async {
     if( playlist == null ){
-      setPlayUrl(playUrl);
+      // setPlayUrl(playUrl);
+      seek( 0 );
     }else{
       audioPlayer.stop();
       int mynowindex = currentIndex;
@@ -250,7 +251,8 @@ class PlayMusic with ChangeNotifier{
   // 上一曲
   forwardSong() async {
     if( playlist == null ){
-      setPlayUrl(playUrl);
+      // setPlayUrl(playUrl);
+      seek( 0 );
     }else{
       audioPlayer.stop();
       int mynowindex = currentIndex;

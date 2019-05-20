@@ -19,7 +19,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Provide<PlayMusic>(
       builder: ( context, child, data ){
-        return data.playlist == null ? Container(
+        return data.tracks == null ? Container(
           height: ScreenUtil().setHeight(1),
         ) : GestureDetector(
           onTap: (){

@@ -65,6 +65,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   void initPlay( context ){
     Provide.value<PlayMusic>(context).initplayer();
   }
+  
   void initUserData( context ) async {
     pref = await SharedPreferences.getInstance();
     var loged = pref.getInt("userId");
