@@ -133,6 +133,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
         searchSubmit = true;
         showSuggest = false;
       });
+      Provide.value<SearchPageProvide>(context).searchStart( data );
     }
   }
 
