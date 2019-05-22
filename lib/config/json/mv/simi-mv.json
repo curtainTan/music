@@ -1,0 +1,109 @@
+{
+    "mvs": [
+        {
+            "id": 5324103,
+            "cover": "http://p4.music.126.net/0EA_iFAPhj5b8iF38wu1uw==/1374389542612593.jpg",
+            "name": "他不爱我",
+            "playCount": 1130572,
+            "artistName": "莫文蔚",
+            "artistId": 8926,
+            "duration": 233000,
+            "mark": 0,
+            "artists": [
+                {
+                    "id": 8926,
+                    "name": "莫文蔚",
+                    "alias": [
+                        "Karen Mok"
+                    ]
+                }
+            ],
+            "alg": "itembased"
+        },
+        {
+            "id": 5307104,
+            "cover": "http://p3.music.126.net/elj6qhUR80PbYylfr__YNA==/1402976840850230.jpg",
+            "name": "外面的世界",
+            "playCount": 727259,
+            "artistName": "莫文蔚",
+            "artistId": 8926,
+            "duration": 275000,
+            "mark": 0,
+            "artists": [
+                {
+                    "id": 8926,
+                    "name": "莫文蔚",
+                    "alias": [
+                        "Karen Mok"
+                    ]
+                }
+            ],
+            "alg": "itembased"
+        },
+        {
+            "id": 5436053,
+            "cover": "http://p3.music.126.net/ZP0Yq-WpeRSKGHTSOlEKSg==/18512477278575512.jpg",
+            "name": "红豆",
+            "playCount": 1320227,
+            "artistName": "王菲",
+            "artistId": 9621,
+            "duration": 253000,
+            "mark": 0,
+            "artists": [
+                {
+                    "id": 9621,
+                    "name": "王菲",
+                    "alias": [
+                        "王靖雯",
+                        "Faye Wong"
+                    ]
+                }
+            ],
+            "alg": "itembased"
+        },
+        {
+            "id": 5330369,
+            "cover": "http://p4.music.126.net/gxdVQ_K3oW1ZCxRaUxjuOA==/2946691174147104.jpg",
+            "name": "听海",
+            "playCount": 895867,
+            "artistName": "张惠妹",
+            "artistId": 10559,
+            "duration": 316000,
+            "mark": 0,
+            "artists": [
+                {
+                    "id": 10559,
+                    "name": "张惠妹",
+                    "alias": [
+                        "阿mei",
+                        "阿密特",
+                        "A Mei",
+                        "aMEI"
+                    ]
+                }
+            ],
+            "alg": "itembased"
+        },
+        {
+            "id": 5468233,
+            "cover": "http://p3.music.126.net/bJl1aeeYDLGNH-69_YSeSA==/18872017579206368.jpg",
+            "name": "你最珍贵",
+            "playCount": 471218,
+            "artistName": "张学友",
+            "artistId": 6460,
+            "duration": 286000,
+            "mark": 0,
+            "artists": [
+                {
+                    "id": 6460,
+                    "name": "张学友",
+                    "alias": [
+                        "Jacky Cheung"
+                    ]
+                }
+            ],
+            "alg": "itembased"
+        }
+    ],
+    "code": 200
+}
