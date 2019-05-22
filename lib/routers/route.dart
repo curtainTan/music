@@ -23,7 +23,7 @@ class Routes {
   static String songList = '/songList/:id';
   static String playpage = '/playpage';
   static String searchpage = "/searchpage";
-  static String mvPage = "/mvs/:id";
+  static String mvPage = "/mvs";
 
 
   static void configurRoute( Router router ){
