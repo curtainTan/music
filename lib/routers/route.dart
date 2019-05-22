@@ -9,7 +9,7 @@ import '../views/user/main.dart';
 import '../views/songList/songList.dart';
 import '../views/play/play_page.dart';
 import 'package:music/views/search/search_page.dart';
-
+import '../views/mv/mv_main.dart';
 
 
 
@@ -23,8 +23,7 @@ class Routes {
   static String songList = '/songList/:id';
   static String playpage = '/playpage';
   static String searchpage = "/searchpage";
-
-
+  static String mvPage = "/mvs/:id";
 
 
   static void configurRoute( Router router ){
@@ -51,6 +50,9 @@ class Routes {
     );
     router.define(
       searchpage, handler: Handler( handlerFunc: ( context, params ) => SearchPage() ), transitionType: TransitionType.inFromRight
+    );
+    router.define(
+      mvPage, handler: Handler( handlerFunc: ( context, params ) => MvPage() ), transitionType: TransitionType.inFromRight
     );
 
 
