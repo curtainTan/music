@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:music/service/http.dart';
 import 'package:provide/provide.dart';
 import 'package:music/component/myImage.dart';
 import 'package:music/provider/inPlayList.dart';
@@ -9,7 +11,6 @@ import 'package:music/provider/inPlayList.dart';
 import 'package:music/provider/play_music.dart';
 import 'package:music/provider/searchPageProvide.dart';
 import 'package:music/routers/route.dart';
-import 'package:music/service/http.dart';
 
 
 class ResultBox extends StatelessWidget {
@@ -51,11 +52,13 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
   bool get wantKeepAlive => true;
 
   @override
-  void didChangeDependencies() {
-    Provide.value<SearchPageProvide>(context).getSearchComplex(searchType: 33);
-    print("-----------------这里只渲染一次吗？？------------------------");
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+    Timer(Duration( seconds: 0 ), (){
+      Provide.value<SearchPageProvide>(context).getSearchComplex(searchType: 33);
+    });
   }
+
 
   Widget loading(){
     return Container(
@@ -94,6 +97,11 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
           if( res1['success'] != true ){
             print("-------------没有权限----------");
           }else{
+            // 获取歌曲信息，并复制到tracks上面
+            requestGet("songdetail", formData: { "ids" : id } ).then((onValue){
+              Provide.value<PlayMusic>(context).onlySetTrack( onValue );
+            });
+            // 获取歌曲url
             requestGet("songurl", formData: { "id" : id } ).then( ( res ){
 
               Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
@@ -109,7 +117,6 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
         Routes.router.navigateTo(context, Routes.playpage);
       },
       child: Container(
-        height: ScreenUtil().setHeight(170),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -168,8 +175,10 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _singleSongBox( data, context ){
-    return Container(
-      height: ScreenUtil().setHeight(1200),
+    return data == null ? Container(
+      child: Text("没有找到数据....."),
+    ) : Container(
+      height: ScreenUtil().setHeight(800),
       padding: EdgeInsets.only(
         top: ScreenUtil().setHeight(40)
       ),
@@ -178,6 +187,8 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
           headerBox( "单曲" ),
           Expanded(
             child: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemExtent: ScreenUtil().setHeight(170),
               itemCount: data.length,
               itemBuilder: ( context, index ){
                 return oneItem( 
@@ -199,10 +210,12 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
       child: Row(
         children: <Widget>[
           Container(
+            height: ScreenUtil().setHeight(100),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text(title, style: TextStyle( fontSize: ScreenUtil().setSp( 46 ), fontWeight: FontWeight.w500 ),),
-                Icon( Icons.keyboard_arrow_right )
+                Text(title, style: TextStyle( fontSize: ScreenUtil().setSp( 40 ), fontWeight: FontWeight.w500 ),),
+                Icon( Icons.keyboard_arrow_right, size: ScreenUtil().setSp( 45 ), )
               ],
             ),
           )
@@ -212,18 +225,21 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _gedan( context, List data ){
-    return Container(
-      height: ScreenUtil().setHeight(700),
+    return data == null ? Container() :Container(
+      height: ScreenUtil().setHeight( 100.0 + (data.length * 260) ),
       child: Column(
         children: <Widget>[
           headerBox( "歌单" ),
           Expanded(
             child: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
               itemCount: data.length,
               itemBuilder: ( context, index ){
                 return OneMenu( 
-                  imageUrl: data[index]?.cover ?? "https://www.curtaintan.club/bg/m2.jpg",
+                  imageUrl: data[index]?.coverImgUrl ?? "https://www.curtaintan.club/bg/m2.jpg",
                   title: data[index]?.name ?? "name" , 
+                  playCount: data[index]?.playCount ?? 44,
+                  trackCount: data[index]?.trackCount ?? 56,
                   id: data[index]?.id ?? 1223 );
               },
             ),
@@ -231,6 +247,109 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
         ],
       ),
     );
+  }
+
+  Widget _artists( context, List data ){
+    return data == null ? Container() : Container(
+      height: ScreenUtil().setHeight( 100.0 + (data.length * 200) ),
+      child: Column(
+        children: <Widget>[
+          headerBox( "歌手" ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 1,
+              itemExtent: ScreenUtil().setHeight(200),
+              itemBuilder: ( context, index ){
+                return _asinger( data[index].picUrl, data[index].name );
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _asinger( img, name ){
+    return InkWell(
+      onTap: (){
+
+      },
+      child: Container(
+        child: Row(
+          children: <Widget>[
+            Container(
+              height: ScreenUtil().setHeight(200),
+              width: ScreenUtil().setHeight(200),
+              margin: EdgeInsets.only(
+                right: ScreenUtil().setWidth(40)
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage( img ),
+                  fit: BoxFit.cover
+                ),
+                shape: BoxShape.circle
+              ),
+            ),
+            Container(
+              child: Text( name ),
+            )
+          ],
+        ),
+      )
+    );
+  } 
+
+
+  Widget _mvs( context, List data ){
+    return data == null ? Container() : Container(
+      height: ScreenUtil().setHeight( 100.0 + (data.length * 260) ),
+      child: Column(
+        children: <Widget>[
+          headerBox( "视频" ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: data.length,
+              itemExtent: ScreenUtil().setHeight(200),
+              itemBuilder: ( context, index ){
+                return OneMenu( 
+                  imageUrl: data[index]?.cover ?? "https://www.curtaintan.club/bg/m2.jpg",
+                  title: data[index]?.name ?? "name" , 
+                  playCount: data[index]?.playCount ?? 44,
+                  trackCount: data[index]?.trackCount ?? 56,
+                  id: data[index]?.id ?? 1223 );
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _albums( context, List data ){
+    return data == null ?
+      Container() : Container(
+        height: ScreenUtil().setHeight( 100.0 + (data.length * 260) ),
+        child: Column(
+          children: <Widget>[
+            headerBox( "专辑" ),
+            Expanded(
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: data.length,
+                itemBuilder: ( context, index ){
+                  return OneMenu( 
+                    imageUrl: data[index]?.songArtist?.picUrl ?? "https://www.curtaintan.club/bg/m2.jpg",
+                    title: data[index]?.name ?? "name" ,
+                    playCount: data[index]?.size ?? 1,
+                    trackCount: data[index]?.size ?? 56,
+                    id: data[index]?.id ?? 1223 );
+                },
+              ),
+            )
+          ],
+        ),
+      );
   }
 
   @override
@@ -243,11 +362,18 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
             padding: EdgeInsets.symmetric(
               horizontal: ScreenUtil().setWidth(20)
             ),
-            child: Column(
+            child: data.searchComplex.result != null ? Column(
               children: <Widget>[
                 _singleSongBox( data.searchComplex.result.songs, context ),
-                _gedan( context , data.searchComplex.result.mvs )
+                _gedan( context , data.searchComplex.result.playlists ),
+                _albums(context, data.searchComplex.result.albums),
+                _artists(context, data.searchComplex.result.artists),
+                SizedBox(
+                  height: ScreenUtil().setHeight(150),
+                )
               ],
+            ) : Center(
+              child: Text("没有找到相关数据......"),
             )
           );
         },
@@ -266,15 +392,219 @@ class SingleSong extends StatefulWidget {
   _SingleSongState createState() => _SingleSongState();
 }
 
-class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMixin {
+class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMixin{
+
+  int page = 1;
+  int limit = 20;
+  ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener((){
+      if( _scrollController.position.pixels == _scrollController.position.maxScrollExtent ){
+        setState(() {
+          print("------------------------->>>>>>>>触底，即将发送请求..");
+          page++;
+        });
+        getSongListData();
+      }
+    });
+    Timer( Duration( seconds: 0 ) , (){
+      getSongListData();
+    });
+  }
   
-  @override 
+  @override
   bool get wantKeepAlive => true;
+
+  void getSongListData(  ) {
+    String keywords = Provide.value<SearchPageProvide>(context).searchInputData;
+    requestGet("search", formData: { "keywords" : keywords, "limit" : limit, "offset" : page }).then((onValue){
+      Provide.value<SearchPageProvide>(context).setType1Song(onValue);
+    });
+  }
+
+  Widget loading(){
+    return Container(
+      alignment: Alignment.topCenter,
+      child: Container(
+        margin: EdgeInsets.only(
+          top: ScreenUtil().setHeight(300)
+        ),
+        width: double.infinity,
+        height: ScreenUtil().setWidth(100),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(
+                right: ScreenUtil().setWidth(40)
+              ),
+              height: ScreenUtil().setWidth(70),
+              width: ScreenUtil().setWidth(70),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              )
+            ),
+            Text("加载中...", style: TextStyle( color: Colors.red ), )
+          ], 
+        )
+      )
+    );
+  }
+
+
+  Widget oneItem( int index, context, String songname, String auth, int id ){
+    return InkWell(
+      onTap: () async {
+
+        requestGet( "checkmusic", formData: { "id" : id } ).then((res1){
+          if( res1['success'] != true ){
+            print("-------------没有权限----------");
+          }else{
+            // 获取歌曲信息，并复制到tracks上面
+            requestGet("songdetail", formData: { "ids" : id } ).then((onValue){
+              Provide.value<PlayMusic>(context).onlySetTrack( onValue );
+            });
+            // 获取歌曲url
+            requestGet("songurl", formData: { "id" : id } ).then( ( res ){
+
+              Provide.value<PlayMusic>(context).setPlayUrl( res['data'][0]['url'] );
+
+            } );
+            requestGet("lyric", formData: { "id" : id }).then((onValue){
+              Provide.value<PlayMusic>(context).initLyricModel(onValue);
+            });
+          }
+        });
+      },
+      onDoubleTap: (){
+        Routes.router.navigateTo(context, Routes.playpage);
+      },
+      child: Container(
+        padding: EdgeInsets.only(
+          left: ScreenUtil().setWidth(20)
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            aboutBox( songname, auth ),
+            sub()
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget aboutBox( String songname, String auth ){
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            child: Text("$songname", style: TextStyle( fontSize: ScreenUtil().setSp( 40 )), ),
+          ),
+          Text( auth, style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), color: Colors.grey ),)
+        ],
+      ),
+    );
+  }
+
+  Widget sub(){
+    return Container(
+      height: ScreenUtil().setHeight(170),
+      child: Row(
+        children: <Widget>[
+          InkWell(
+            onTap: (){},
+            child: Container(
+              height: ScreenUtil().setHeight(170),
+              width: ScreenUtil().setWidth(100),
+              alignment: Alignment.center,
+              child: Icon( IconData( 0xe61e, fontFamily: 'iconfont' ), color: Colors.grey, ),
+            )
+          ),
+          InkWell(
+            onTap: (){},
+            child: Container(
+              height: ScreenUtil().setHeight(170),
+              width: ScreenUtil().setWidth(100),
+              padding: EdgeInsets.only(
+                right: ScreenUtil().setWidth(50)
+              ),
+              alignment: Alignment.center,
+              child: Icon( IconData( 0xe6bf, fontFamily: 'iconfont' ), color: Colors.grey, ),
+            )
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProgressIndicator() {
+    return new Container(
+      height: ScreenUtil().setHeight(100),
+      margin: EdgeInsets.only(
+        bottom: ScreenUtil().setHeight(30)
+      ),
+      child: new Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: ScreenUtil().setHeight(50),
+              width: ScreenUtil().setHeight(50),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+              child: new Text('即将加载更多...'))
+          ],
+        )
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("SingleSong"),
+    return Provide<SearchPageProvide>(
+      builder: ( context, child, data ){
+        return data.type1Song.length == 0 ? loading() : Container(
+          height: ScreenUtil().setHeight( 200.0 * data.type1Song.length ),
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: data.type1Song.length,
+                  itemBuilder: ( context, index ){
+                    if( (index + 1) == data.type1Song.length ){
+                      return _buildProgressIndicator();
+                    }else{
+                      return oneItem(
+                        index, context,
+                        data.type1Song[index].name,
+                        data.type1Song[index].artists[0].name,
+                        data.type1Song[index].id,
+                      );
+                    }
+                  },
+                )
+              ),
+              SizedBox(
+                height: ScreenUtil().setHeight(150),
+              )
+            ],
+          )
+        );
+      },
     );
   }
 }
@@ -293,7 +623,26 @@ class _VoidPageState extends State<VoidPage> with AutomaticKeepAliveClientMixin 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("VoidPage"),
+      child: ListView(
+        children: <Widget>[
+          Container(
+            height: ScreenUtil().setHeight(900),
+            color: Colors.cyan,
+          ),
+          Container(
+            height: ScreenUtil().setHeight(900),
+            color: Colors.deepPurple,
+          ),
+          Container(
+            height: ScreenUtil().setHeight(900),
+            color: Colors.red,
+          ),
+          Container(
+            height: ScreenUtil().setHeight(900),
+            color: Colors.redAccent,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -411,21 +760,21 @@ class _UserPageState extends State<UserPage> with AutomaticKeepAliveClientMixin 
 class OneMenu extends StatelessWidget {
 
   String imageUrl, title;
-  int id;
+  int id, playCount, trackCount;
 
-  OneMenu({Key key, this.imageUrl,this.title, this.id, }) : super(key: key);
+  OneMenu({Key key, this.imageUrl,this.title, this.id, this.playCount, this.trackCount }) : super(key: key);
 
   Widget headImg( context, dd ){
     return Container(
-      width: ScreenUtil().setHeight(140),
-      height: ScreenUtil().setHeight(140),
+      width: ScreenUtil().setHeight(230),
+      height: ScreenUtil().setHeight(230),
       margin: EdgeInsets.only(
         left: ScreenUtil().setWidth(20),
         right: ScreenUtil().setWidth(20),
       ),
       child: MyImage(
-        h: ScreenUtil().setHeight(140),
-        w: ScreenUtil().setHeight(140),
+        h: ScreenUtil().setHeight(230),
+        w: ScreenUtil().setHeight(230),
         shape: BoxShape.rectangle,
         url: imageUrl,
         b: BoxFit.cover,
@@ -440,8 +789,8 @@ class OneMenu extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("${ title }", style: TextStyle( fontSize: ScreenUtil().setSp(38) ), maxLines: 1, overflow: TextOverflow.ellipsis, ),
-          Text("126首，已下载66首", style: TextStyle( fontSize: ScreenUtil().setSp(32), color: Colors.grey ), ),
+          Text("${ title }", style: TextStyle( fontSize: ScreenUtil().setSp(38) ), maxLines: 2, overflow: TextOverflow.ellipsis, ),
+          Text("${ trackCount }首，播放${ (playCount / 10000).ceil() }万次", style: TextStyle( fontSize: ScreenUtil().setSp(32), color: Colors.grey ), ),
         ],
       ),
     );
@@ -449,32 +798,7 @@ class OneMenu extends StatelessWidget {
 
   Widget _left(){
     return Container(
-      width: ScreenUtil().setWidth( 900 ),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide( width: 0.5, color: Colors.black12 )
-        )
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          midabout(),
-          _right()
-        ],
-      ),
-    );
-  }
-
-  Widget _right(){
-    return InkWell(
-      onTap: (){
-        print("更多.......");
-      },
-      child: Container(
-        width: ScreenUtil().setWidth( 100 ),
-        alignment: Alignment.center,
-        child: Icon( IconData( 0xe6bf, fontFamily: 'iconfont' ), size: ScreenUtil().setSp( 60 ), color: Colors.grey ),
-      )
+      child: midabout(),
     );
   }
 
@@ -488,10 +812,8 @@ class OneMenu extends StatelessWidget {
         
       },
       child: Container(
-        width: ScreenUtil().setWidth(1080),
-        height: ScreenUtil().setHeight(160),
+        height: ScreenUtil().setHeight(260),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             headImg( context, 133953518 ),
             _left()

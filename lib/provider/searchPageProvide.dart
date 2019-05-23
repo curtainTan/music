@@ -7,6 +7,7 @@ import 'package:music/modal/search.dart';
 import 'package:music/modal/search_sug_mobile.dart';
 import 'package:music/modal/searchHot.dart';
 import 'package:music/modal/search_suggest.dart';
+import 'package:music/modal/search-type1.dart';
 
 
 class SearchPageProvide with ChangeNotifier{
@@ -17,12 +18,15 @@ class SearchPageProvide with ChangeNotifier{
   List<String> historyList = [];
   List<String> searchHotList = [];
   Timer atimer = null;
+  
+  List<SearchType1Songs> type1Song = [];
+  
 
   SearchHot searchHot = null;
   SearchSuggestMul searchComplex = null;
 
   SharedPreferences pref;
-
+  // 保存历史记录
   saveHistory( String data ){
     if( historyList.length >= 10 ){
       historyList.removeLast();
@@ -36,7 +40,12 @@ class SearchPageProvide with ChangeNotifier{
     }
     pref.setStringList("historySearch", historyList);
   }
-
+  clearData(){
+    type1Song = [];
+    searchComplex = null;
+    notifyListeners();
+  }
+  // 初始化历史记录
   initHistory() async {
     pref = await SharedPreferences.getInstance();
     historyList = pref.getStringList("historySearch") ?? [];
@@ -46,13 +55,18 @@ class SearchPageProvide with ChangeNotifier{
   searchStart( data ){
     searchInputData = data;
     saveHistory( data );
-    // searchComplex = null;
-    // if( tabIndex == 0 ){                  // 综合
-    //   getSearchComplex();
-    // }
-    // if( tabIndex == 1 ){                  // 单曲
-    //   getSearchComplex( searchType: 1 );
-    // }
+    // 全部数据置空
+    searchComplex = null;
+    type1Song = [];
+
+    if( tabIndex == 0 ){                  // 综合
+      getSearchComplex();
+    }
+    if( tabIndex == 1 ){                  // 单曲
+      requestGet("search", formData: { "keywords" : searchInputData, "limit" : 20, "offset" : 1 }).then( (resData){
+        setType1Song(resData);
+      });
+    }
     // if( tabIndex == 3 ){                  // 歌手
     //   getSearchComplex( searchType: 100 );
     // }
@@ -68,11 +82,8 @@ class SearchPageProvide with ChangeNotifier{
   getSearchComplex( { page = 0, searchType = 33 } ){
     if( searchType == 33 ){
       requestGet( "searchsuggest", formData: { "keywords" : searchInputData } ).then((onValue){
-        // print("--------请求成功------${onValue.toString()}--");
         searchComplex = SearchSuggestMul.fromJson( onValue );
-        // print("--------请求单独的结果>>>>------${searchComplex.result.songs.length}--");
-        print("--------请求单独的结果>>>>------${searchComplex.result.songs[1].songArtistsss[0].toString()}--");
-        // print("--------请求单独的结果>>>>------${searchComplex.result.songs[1].songArtistsss[0].name}--");
+        // print("--------请求单独的结果>>>>------${searchComplex.result.songs[1].songArtistsss[0].toString()}--");
         notifyListeners();
       });
     } else {
@@ -87,20 +98,32 @@ class SearchPageProvide with ChangeNotifier{
       });
     }
   }
+  // type1结果
+  setType1Song( data ){
+
+    List<SearchType1Songs> nowSongList = SearchType1.fromJson(data).result.songs;
+    type1Song..addAll( nowSongList );
+    // print("------------数据长度为----${type1Song.length}----------${nowSongList.length}--");
+    notifyListeners();
+
+  }
   // 获取搜索建议     节流
   getSearchSugMobile( data ){
     searchSugMobileList = [];
     searchSugMobileList..add( data );
     if( atimer == null ){
-      atimer = Timer( Duration( milliseconds: 600 ) , (){
+      atimer = Timer( Duration( milliseconds: 1000 ) , (){
         getSuggestRequest( data );
         atimer.cancel();
+        atimer = null;
       });
     } else {
       atimer.cancel();
-      atimer = Timer( Duration( milliseconds: 600 ) , (){
+      atimer = null;
+      atimer = Timer( Duration( milliseconds: 1000 ) , (){
         getSuggestRequest( data );
         atimer.cancel();
+        atimer = null;
       });
     }
   }

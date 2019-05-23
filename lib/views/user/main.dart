@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
@@ -61,18 +63,12 @@ class _UserMainState extends State<UserMain> with TickerProviderStateMixin {
 
       }
     );
+
+    Timer( Duration( seconds: 0 ) , (){
+      _getInfoData( widget.uid );
+      _getuserPlayList( widget.uid );
+    } );
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    print("---------用户id-------${widget.uid}");
-
-
-    _getInfoData( widget.uid );
-    _getuserPlayList( widget.uid );
   }
 
   @override
@@ -82,15 +78,14 @@ class _UserMainState extends State<UserMain> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void _getInfoData( id ) async {
-    await requestGet("userDetail", formData: { "uid": id.toString() }).then((res){
+  void _getInfoData( id ) {
+    requestGet("userDetail", formData: { "uid": id.toString() }).then((res){
       Provide.value<UserDataProvide>(context).setUserdata(res);
     });
   }
-  void _getuserPlayList( id ) async {
-    await requestGet("userPlaylist", formData: { "uid": id.toString() }).then((res){
+  void _getuserPlayList( id ) {
+    requestGet("userPlaylist", formData: { "uid": id.toString() }).then((res){
       Provide.value<UserDataProvide>(context).setUserPlayList(res);
-      print("-----此目录lib\\views\\user\\main.dart----------------数据获取成功--------");
     });
   }
 

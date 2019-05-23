@@ -1,0 +1,88 @@
+{
+    "isMusician": false,
+    "userId": -1,
+    "moreHot": false,
+    "hotComments": [
+        {
+            "user": {
+                "userType": 0,
+                "nickname": "Y0M0Y",
+                "vipRights": {
+                    "associator": {
+                        "vipCode": 100,
+                        "rights": true
+                    },
+                    "redVipAnnualCount": 1
+                },
+                "vipType": 11,
+                "authStatus": 0,
+                "avatarUrl": "https://p3.music.126.net/JfbLQWBcXvVXBdxOwc9FDg==/7883498371528408.jpg",
+                "userId": 26212463
+            },
+            "beReplied": [
+                {
+                    "user": {
+                        "userType": 0,
+                        "nickname": "我在乐色桶前闻到了花香",
+                        "vipType": 0,
+                        "authStatus": 0,
+                        "avatarUrl": "https://p4.music.126.net/hfPUNQpFCLIfJq9NtxYi8g==/109951163224138883.jpg",
+                        "userId": 38794007
+                    },
+                    "beRepliedCommentId": 1192222175,
+                    "content": "我在陕西 我们该讨论一下合唱的事情",
+                    "status": 0
+                }
+            ],
+            "status": 0,
+            "commentLocationType": 0,
+            "parentCommentId": 0,
+            "repliedMark": false,
+            "liked": false,
+            "commentId": 424936280,
+            "time": 1496282691629,
+            "likedCount": 94,
+            "content": "刚刚看了《广岛之恋》。讲的就是一个法国女人和一个日本男人的。是一夜情，也是敌我恋。喜欢上一个人，只是那个人恰好是我的敌人而已，从此所有轨迹都改变了，步步都是错。"
+        }
+    ],
+    "code": 200,
+    "comments": [
+        {
+            "user": {
+                "userType": 0,
+                "nickname": "你好吗zj",
+                "vipType": 0,
+                "authStatus": 0,
+                "avatarUrl": "https://p4.music.126.net/uhpOQaux2oy5pv6wcfKQ9g==/109951163156113138.jpg",
+                "userId": 69189022
+            },
+            "beReplied": [
+                {
+                    "user": {
+                        "userType": 0,
+                        "nickname": "我在乐色桶前闻到了花香",
+                        "vipType": 0,
+                        "authStatus": 0,
+                        "avatarUrl": "https://p4.music.126.net/hfPUNQpFCLIfJq9NtxYi8g==/109951163224138883.jpg",
+                        "userId": 38794007
+                    },
+                    "beRepliedCommentId": 1192222175,
+                    "content": "我在陕西 我们该讨论一下合唱的事情",
+                    "status": 0
+                }
+            ],
+            "status": 0,
+            "commentLocationType": 0,
+            "parentCommentId": 370570963,
+            "repliedMark": false,
+            "liked": false,
+            "commentId": 1457201536,
+            "time": 1555667288133,
+            "likedCount": 0,
+            "content": "我要赞[大哭][大哭]顶你上去[吐舌][吐舌]",
+            "isRemoveHotComment": false
+        }
+    ],
+    "total": 319,
+    "more": true
+}

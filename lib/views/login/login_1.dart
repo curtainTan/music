@@ -105,7 +105,7 @@ class _Login1State extends State<Login1> with SingleTickerProviderStateMixin {
         );
         
         DateTime nowTime = DateTime.now();
-        Provide.value<MeInfoProvide>(context).saveNameAndPsw( phone, psw, nowTime, useAlittle.profile.userId );
+        Provide.value<MeInfoProvide>(context).saveNameAndPsw( phone.toString(), psw.toString(), nowTime.toString(), useAlittle.profile.userId );
 
         requestGet( "userDetail", formData: { "uid" : useAlittle.profile.userId } ).then( ( meInfoData ){
           Provide.value<MeInfoProvide>(context).setMeinfo(meInfoData);
@@ -241,10 +241,6 @@ class ItemInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: ScreenUtil().setWidth(980),
-      height: ScreenUtil().setHeight(140),
-      margin: EdgeInsets.only(
-        bottom: ScreenUtil().setHeight(30)
-      ),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -263,7 +259,8 @@ class ItemInput extends StatelessWidget {
           icon: Icon( IconData( icon, fontFamily: 'iconfont' ), color: Colors.grey, ),
           labelText: text,
           prefixText: "$fretext",
-          border: InputBorder.none
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric( vertical: ScreenUtil().setHeight(20) )
         ),
       ),
     );

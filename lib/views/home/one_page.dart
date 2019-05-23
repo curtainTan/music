@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,15 +22,12 @@ class _OnePageState extends State<OnePage> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
+    Timer(Duration( seconds: 0 ), (){
+      yyy(  );
+    });
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    yyy( context );
-  }
-
-  void yyy( context ) async {
+  void yyy( ) async {
     int uid = Provide.value<MeInfoProvide>(context).uid;
     await requestGet( "userPlaylist", formData: { "uid" : uid } ).then( (res){
       Provide.value<MeInfoProvide>(context).setPlayList(res);
