@@ -185,7 +185,7 @@ class MyDrawer extends StatelessWidget {
                         child: FlatButton(
                           onPressed: (){
                             print("签到");
-                            Routes.router.navigateTo(context, "/mvs");
+                            Routes.router.navigateTo(context, "/mvs/5436712");
                           },
                           textColor: Colors.white,
                           shape: RoundedRectangleBorder(
