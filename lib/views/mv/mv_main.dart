@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:chewie/chewie.dart';
@@ -33,7 +34,6 @@ class _MvPageState extends State<MvPage> {
   @override
   void initState() {
     super.initState();
-    print("-----------------------传过来的参数----${ widget.mvid }--");
     getMvDetail();
   }
 
@@ -46,8 +46,19 @@ class _MvPageState extends State<MvPage> {
           videoPlayerController: _videoPlayerController,
           aspectRatio: 3 / 2,
           autoPlay: true,
-          looping: true
+          looping: true,
+          placeholder: Container(
+            child: Text("这里是placeholder"),
+          ),
+          overlay: Container(
+            child: Text("----这里是overlay----", style: TextStyle( color: Colors.white ),),
+          )
         );
+        _chewieController.addListener( (){
+          if( _chewieController.isFullScreen ){
+
+          }
+        } );
       });
     });
   }
@@ -63,14 +74,10 @@ class _MvPageState extends State<MvPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("视频测试"),
-      ),
       body: Column(
         children: <Widget>[
+          Text("------------------------>>>>>>>>>>>>>>一些数据"),
           Container(
-            height: ScreenUtil().setHeight(900),
-            width: double.infinity,
             child: _mvDetailModal != null ?
             Chewie(
               controller: _chewieController,
