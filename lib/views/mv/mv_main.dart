@@ -82,52 +82,63 @@ class _MvPageState extends State<MvPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            floating: true,
-            pinned: true,
-            elevation: 0,
-            expandedHeight: ScreenUtil().setHeight(900),
-            flexibleSpace: _mvDetailModal != null ?
+      body: Column(
+        children: <Widget>[
+          Container(
+            height: ScreenUtil().setHeight(600),
+            width: double.infinity,
+            color: Colors.orange,
+            child: _mvDetailModal != null ?
               Chewie(
                 key: _myKey,
                 controller: _chewieController,
               ) : Container()
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              height: ScreenUtil().setHeight(800),
-              width: double.infinity,
-              color: Colors.red,
-              child: FlatButton(
-                onPressed: () {
-                  print("-----------获取元素的信息-----");
-                  print("---->>>>>>>>>>----${_myKey.currentContext.size}----------");
-                  print("---->>>>>>>>>>----${_myKey.currentContext.widget.key}----------");
-                  print("---->>>>>>>>>>----${_myKey.currentContext.size.height}----------");
-                  print("---->>>>>>>>>>----${_myKey.currentContext.owner}----------");
-                },
-                child: Text('Fullscreen'),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Container(
-              height: ScreenUtil().setHeight(800),
-              width: double.infinity,
-              color: Colors.cyan,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Container(
-              height: ScreenUtil().setHeight(800),
-              width: double.infinity,
-              color: Colors.green,
+          Expanded(
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  floating: true,
+                  pinned: true,
+                  elevation: 0,
+                  expandedHeight: ScreenUtil().setHeight(900)
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    height: ScreenUtil().setHeight(800),
+                    width: double.infinity,
+                    color: Colors.red,
+                    child: FlatButton(
+                      onPressed: () {
+                        print("-----------获取元素的信息-----");
+                        print("---->>>>>>>>>>----${_myKey.currentContext.size}----------");
+                        print("---->>>>>>>>>>----${_myKey.currentContext.widget.key}----------");
+                        print("---->>>>>>>>>>----${_myKey.currentContext.size.height}----------");
+                        print("---->>>>>>>>>>----${_myKey.currentContext.owner}----------");
+                      },
+                      child: Text('Fullscreen'),
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    height: ScreenUtil().setHeight(800),
+                    width: double.infinity,
+                    color: Colors.cyan,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    height: ScreenUtil().setHeight(800),
+                    width: double.infinity,
+                    color: Colors.green,
+                  ),
+                )
+              ],
             ),
           )
         ],
-      ),
+      )
       // body: NestedScrollView(
 
       // ),
