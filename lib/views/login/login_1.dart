@@ -252,7 +252,7 @@ class ItemInput extends StatelessWidget {
       child: TextField(
         style: TextStyle( fontSize: ScreenUtil().setSp( 40 ), color: Colors.grey ),
         controller: textcontroller,
-        keyboardType: inputtype == 0?TextInputType.number:TextInputType.text,
+        keyboardType: inputtype == 0?TextInputType.numberWithOptions(decimal: true):TextInputType.text,
         obscureText: ob,
         inputFormatters: regexp[regexpIndex],
         decoration: InputDecoration(
