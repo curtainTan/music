@@ -88,7 +88,7 @@ class _MvPageState extends State<MvPage> {
         padding: EdgeInsets.symmetric(
           horizontal: ScreenUtil().setWidth(20)
         ),
-        height: ScreenUtil().setHeight(600),
+        height: ScreenUtil().setHeight(300),
         child: Column(
           children: <Widget>[
             Row(
@@ -106,40 +106,52 @@ class _MvPageState extends State<MvPage> {
                 )
               ],
             ),
-            Row(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(
-                    right: ScreenUtil().setWidth(20)
+            Container(
+              height: ScreenUtil().setHeight( 70 ),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(
+                      right: ScreenUtil().setWidth(20)
+                    ),
+                    child: Text("80万次观看"),
                   ),
-                  child: Text("80万次观看"),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: 4,
-                    itemBuilder: ( context, index ){
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: ScreenUtil().setWidth( 10 ),
-                          vertical: ScreenUtil().setHeight( 8 )
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity( 0.2 ),
-                          shape: BoxShape.circle
-                        ),
-                        child: Text( label[index], style: TextStyle( fontSize: ScreenUtil().setSp( 42 ) ), ),
-                      );
-                    },
-                  ),
-                )
-              ],
+                  Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 4,
+                      itemBuilder: ( context, index ){
+                        return Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth( 30 ),
+                            vertical: ScreenUtil().setHeight( 8 )
+                          ),
+                          margin: EdgeInsets.only( 
+                            right: ScreenUtil().setWidth(18)
+                           ),
+                          decoration: BoxDecoration(
+                            color: Colors.black12.withOpacity( 0.2 ),
+                            borderRadius: BorderRadius.circular( 20 )
+                          ),
+                          child: Text( label[index], style: TextStyle( fontSize: ScreenUtil().setSp( 38 ) ), ),
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
-            Text("2017-1-11 发布", style: TextStyle( fontSize: ScreenUtil().setSp( 38 ) ),)
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text("2017-1-11 发布", style: TextStyle( fontSize: ScreenUtil().setSp( 38 ) ),),
+            )
           ],
         ),
       ),
     );
   }
+  
 
 
   @override
@@ -185,8 +197,12 @@ class _MvPageState extends State<MvPage> {
                 SliverAppBar(
                   floating: true,
                   pinned: true,
-                  automaticallyImplyLeading: true,
+                  automaticallyImplyLeading: false,
                   title: Text( "12345" ),
+                  expandedHeight: ScreenUtil().setHeight(100),
+                ),
+                SliverPersistentHeader(
+
                 ),
                 SliverToBoxAdapter(
                   child: Container(
