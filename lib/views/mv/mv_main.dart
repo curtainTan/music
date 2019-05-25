@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,19 +30,27 @@ class MvPage extends StatefulWidget {
 class _MvPageState extends State<MvPage> {
 
   MvDetailModal _mvDetailModal = null;
-
-  GlobalKey _myKey = GlobalKey();
+  GlobalKey myKey = GlobalKey();
 
   VideoPlayerController _videoPlayerController;
   ChewieController _chewieController;
   String mvurl = "http://vodkgeyttp8.vod.126.net/cloudmusic/MjQ3NDQ3MjUw/89a6a279dc2acfcd068b45ce72b1f560/533e4183a709699d566180ed0cd9abe9.mp4?wsSecret=631fbe072415240217962ad5b7e0c119&wsTime=1558538796";
-  bool isOverlay = true;
+  
+  double boxHeight = 792;
+  bool showMore = false;
 
   @override
   void initState() {
     super.initState();
     getMvDetail();
+    // Timer( Duration( seconds: 0 ) , (){
+    //   getMvDetail();
+    // });
+    // WidgetsBinding.instance.addPostFrameCallback( (_) => getHeight() );
+
   }
+
+  
 
   getMvDetail(){
     requestGet( "mvDetail", formData: { "mvid" : widget.mvid } ).then((onValue){
@@ -51,21 +61,13 @@ class _MvPageState extends State<MvPage> {
       });
       _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController,
-        // aspectRatio: 3 / 2,
+        aspectRatio: 3 / 2,
         autoPlay: true,
         looping: true,
-        overlay: isOverlay ? Container(
-          child: Text("----这里是overlay----", style: TextStyle( color: Colors.white ),),
-        ) : Container(
-          child: Text("----000000000000000000----", style: TextStyle( color: Colors.white ),),
-        )
       );
       _chewieController.addListener( (){
         if( _chewieController.isFullScreen ){
           print("---------全屏了---------");
-          setState(() {
-            isOverlay = false; 
-          });
         }
       } );
     });
@@ -78,6 +80,53 @@ class _MvPageState extends State<MvPage> {
     super.dispose();
   }
 
+  Widget aboutBox( context ){
+    return SliverToBoxAdapter(
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: ScreenUtil().setWidth(20)
+        ),
+        height: ScreenUtil().setHeight(600),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text("这里是标题------", maxLines: 2, overflow: TextOverflow.ellipsis, 
+                style: TextStyle( fontSize: ScreenUtil().setSp(42), fontWeight: FontWeight.bold ),),
+                IconButton(
+                  onPressed: (){
+                    setState(() {
+                      showMore = !showMore;
+                    });
+                  },
+                  icon: Icon( showMore ? Icons.expand_less : Icons.expand_more, size: ScreenUtil().setSp( 60 ), )
+                )
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(
+                    right: ScreenUtil().setWidth(20)
+                  ),
+                  child: Text("80万次观看"),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemBuilder: ( context, index ){
+                      return Container();
+                    },
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,24 +134,22 @@ class _MvPageState extends State<MvPage> {
       body: Column(
         children: <Widget>[
           Container(
-            height: ScreenUtil().setHeight(600),
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top
+            ),
+            height: ScreenUtil().setHeight( boxHeight ),
             width: double.infinity,
-            color: Colors.orange,
+            color: Colors.red,
             child: _mvDetailModal != null ?
               Chewie(
-                key: _myKey,
+                key: myKey,
                 controller: _chewieController,
               ) : Container()
           ),
           Expanded(
             child: CustomScrollView(
               slivers: <Widget>[
-                SliverAppBar(
-                  floating: true,
-                  pinned: true,
-                  elevation: 0,
-                  expandedHeight: ScreenUtil().setHeight(900)
-                ),
+                
                 SliverToBoxAdapter(
                   child: Container(
                     height: ScreenUtil().setHeight(800),
@@ -111,10 +158,11 @@ class _MvPageState extends State<MvPage> {
                     child: FlatButton(
                       onPressed: () {
                         print("-----------获取元素的信息-----");
-                        print("---->>>>>>>>>>----${_myKey.currentContext.size}----------");
-                        print("---->>>>>>>>>>----${_myKey.currentContext.widget.key}----------");
-                        print("---->>>>>>>>>>----${_myKey.currentContext.size.height}----------");
-                        print("---->>>>>>>>>>----${_myKey.currentContext.owner}----------");
+                        print("---->>>>>>>>>>----${myKey.currentContext.size}----------");
+                        print("---->>>>>>>>>>----${myKey.currentContext.widget.key}----------");
+                        print("---->>>>>>>>>>----${myKey.currentContext.size.height}----------");
+                        print("---->>>>>>>>>>----${myKey.currentContext.owner}----------");
+                        print("---->>>>>>>>>>----${MediaQuery.of(context).padding.top}----------");
                       },
                       child: Text('Fullscreen'),
                     ),
@@ -139,36 +187,6 @@ class _MvPageState extends State<MvPage> {
           )
         ],
       )
-      // body: NestedScrollView(
-
-      // ),
-      // Stack(
-      //   children: <Widget>[
-      //     SingleChildScrollView(
-      //       child: Column(
-      //         children: <Widget>[
-      //           SizedBox(
-      //             height: ScreenUtil().setHeight(400),
-      //           ),
-      //           Text("data-----"),
-      //           FlatButton(
-      //             onPressed: () {
-      //               _chewieController.enterFullScreen();
-      //             },
-      //             child: Text('Fullscreen'),
-      //           ),
-      //         ],
-      //       )
-      //     ),
-      //     Container(
-      //       height: ScreenUtil().setHeight(400),
-      //       child: _mvDetailModal != null ?
-      //         Chewie(
-      //           controller: _chewieController,
-      //         ) : Container()
-      //     ),
-      //   ],
-      // )
     );
   }
 }
