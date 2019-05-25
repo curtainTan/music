@@ -39,6 +39,8 @@ class _MvPageState extends State<MvPage> {
   double boxHeight = 792;
   bool showMore = false;
 
+  List<String> label = [ "MV", "流行", "音乐", "Showtime" ];
+
   @override
   void initState() {
     super.initState();
@@ -114,13 +116,25 @@ class _MvPageState extends State<MvPage> {
                 ),
                 Expanded(
                   child: ListView.builder(
+                    itemCount: 4,
                     itemBuilder: ( context, index ){
-                      return Container();
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: ScreenUtil().setWidth( 10 ),
+                          vertical: ScreenUtil().setHeight( 8 )
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity( 0.2 ),
+                          shape: BoxShape.circle
+                        ),
+                        child: Text( label[index], style: TextStyle( fontSize: ScreenUtil().setSp( 42 ) ), ),
+                      );
                     },
                   ),
                 )
               ],
-            )
+            ),
+            Text("2017-1-11 发布", style: TextStyle( fontSize: ScreenUtil().setSp( 38 ) ),)
           ],
         ),
       ),
@@ -149,7 +163,7 @@ class _MvPageState extends State<MvPage> {
           Expanded(
             child: CustomScrollView(
               slivers: <Widget>[
-                
+                aboutBox( context ),
                 SliverToBoxAdapter(
                   child: Container(
                     height: ScreenUtil().setHeight(800),
@@ -168,6 +182,12 @@ class _MvPageState extends State<MvPage> {
                     ),
                   ),
                 ),
+                SliverAppBar(
+                  floating: true,
+                  pinned: true,
+                  automaticallyImplyLeading: true,
+                  title: Text( "12345" ),
+                ),
                 SliverToBoxAdapter(
                   child: Container(
                     height: ScreenUtil().setHeight(800),
@@ -180,6 +200,13 @@ class _MvPageState extends State<MvPage> {
                     height: ScreenUtil().setHeight(800),
                     width: double.infinity,
                     color: Colors.green,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    height: ScreenUtil().setHeight(800),
+                    width: double.infinity,
+                    color: Colors.deepOrangeAccent,
                   ),
                 )
               ],
