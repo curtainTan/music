@@ -16,6 +16,7 @@ import 'package:music/modal/mv/mv_detail.dart';
 import 'package:music/modal/mv/simi_mv.dart';
 import 'package:music/modal/mv/comment_mv.dart';
 
+import './delegate.dart';
 
 
 class MvPage extends StatefulWidget {
@@ -202,7 +203,13 @@ class _MvPageState extends State<MvPage> {
                   expandedHeight: ScreenUtil().setHeight(100),
                 ),
                 SliverPersistentHeader(
-
+                  delegate: MySliverAppBarDelegate(
+                    minHeight: ScreenUtil().setHeight(100),
+                    maxHeight: ScreenUtil().setHeight(100),
+                    child: Container(
+                      child: Text("data"),
+                    )
+                  ),
                 ),
                 SliverToBoxAdapter(
                   child: Container(
