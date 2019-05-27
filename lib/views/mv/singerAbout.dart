@@ -7,10 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SingerAbout extends StatelessWidget {
 
-  String img;
+  String headImg, mvUser;
 
-
-  SingerAbout({ this.img });
+  SingerAbout({ this.headImg, this.mvUser });
 
 
   @override
@@ -33,14 +32,19 @@ class SingerAbout extends StatelessWidget {
           Container(
             child: Row(
               children: <Widget>[
-                ClipOval(
-                  child: Image.network( img ?? "http://curtaintan.club/headImg/1549358122065.jpg" ),
-                ),
+                // Container(
+                //   height: ScreenUtil().setHeight( 100 ),
+                //   width: ScreenUtil().setHeight( 100 ),
+                  // child: 
+                  ClipOval(
+                    child: Image.network( headImg ?? "http://curtaintan.club/headImg/1549358122065.jpg" ),
+                  ),
+                // ),
                 Container(
                   margin: EdgeInsets.symmetric(
                     horizontal: ScreenUtil().setWidth( 20 )
                   ),
-                  child: Text("这里是作者", style: TextStyle( fontSize: ScreenUtil().setSp( 40 ) ),),
+                  child: Text( mvUser , style: TextStyle( fontSize: ScreenUtil().setSp( 40 ) ),),
                 )
               ],
             ),

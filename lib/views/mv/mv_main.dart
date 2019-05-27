@@ -94,6 +94,19 @@ class _MvPageState extends State<MvPage> {
     });
   }
 
+  Widget someTitle( String title ){
+    return SliverToBoxAdapter(
+      child: Container(
+        height: ScreenUtil().setHeight( 90 ),
+        padding: EdgeInsets.symmetric(
+          horizontal: ScreenUtil().setWidth(40)
+        ),
+        alignment: Alignment.centerLeft,
+        child: Text( title , style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), fontWeight: FontWeight.bold ),),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,29 +128,36 @@ class _MvPageState extends State<MvPage> {
           Expanded(
             child: CustomScrollView(
               slivers: <Widget>[
-                TopAboutBox(showMore: showMore, changeFunc: changeShowMore, ),
+                TopAboutBox(
+                  showMore: showMore, 
+                  changeFunc: changeShowMore,
+                  mvTitle: _mvDetailModal?.data?.name ?? "-" ,
+                  playcount: _mvDetailModal?.data?.playCount ?? 0,
+                  pubTime: _mvDetailModal?.data?.publishTime ?? "-",
+                ),
                 SliverPersistentHeader(
                   pinned: true,
                   delegate: MySliverAppBarDelegate(
                     minHeight: ScreenUtil().setHeight(150),
                     maxHeight: ScreenUtil().setHeight(150),
-                    child: SingerAbout()
+                    child: SingerAbout(
+                      headImg: _mvDetailModal?.data?.cover,
+                      mvUser: _mvDetailModal?.data?.artistName ?? "-",
+                    )
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: Container(
-                    height: ScreenUtil().setHeight( 90 ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: ScreenUtil().setWidth(40)
-                    ),
-                    alignment: Alignment.centerLeft,
-                    child: Text("相关视频", style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), fontWeight: FontWeight.bold ),),
-                  ),
-                ),
+                someTitle( "相关视频" ),
                 _simiMvModal != null ? SliverFixedExtentList(
                   delegate: SliverChildBuilderDelegate(
                     ( context, index ){
-                      return OneSimiMv();
+                      return OneSimiMv(
+                        mvCover: _simiMvModal.mvs[index].cover,
+                        mvTitle: _simiMvModal.mvs[index].name,
+                        mvUser: _simiMvModal.mvs[index].artistName,
+                        playCount: _simiMvModal.mvs[index].playCount,
+                        time: _simiMvModal.mvs[index].duration,
+                        mvId: _simiMvModal.mvs[index].id,
+                      );
                     },
                     childCount: _simiMvModal.mvs.length
                   ),
@@ -148,6 +168,7 @@ class _MvPageState extends State<MvPage> {
                     child: Text("暂无相似视频...."),
                   ),
                 ),
+                someTitle( "精彩评论" ),
                 SliverToBoxAdapter(
                   child: Container(
                     height: ScreenUtil().setHeight(800),

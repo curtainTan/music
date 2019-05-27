@@ -5,15 +5,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 
-
-
-
-
 class OneSimiMv extends StatelessWidget {
 
+  String mvCover, mvTitle, mvUser;
+  int playCount, time, mvId;
 
-  String mvCover;
-  OneSimiMv({ this.mvCover });
+  OneSimiMv({ 
+    this.mvCover, 
+    this.mvTitle, 
+    this.mvUser, 
+    this.playCount, 
+    this.time, 
+    this.mvId });
 
 
   @override
@@ -43,8 +46,9 @@ class OneSimiMv extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Icon( Icons.play_circle_outline, size: ScreenUtil().setSp( 28 ), color: Colors.white, ),
-                Text("  播放量", style: TextStyle( color: Colors.white, fontSize: ScreenUtil().setSp(30) ), )
+                Icon( Icons.play_circle_outline, size: ScreenUtil().setSp( 34 ), color: Colors.white, ),
+                Text( ( playCount > 10000 ) ? " ${ (playCount / 10000).ceil() }万" : "$playCount",
+                style: TextStyle( color: Colors.white, fontSize: ScreenUtil().setSp(30) ), )
               ],
             ),
           ),
@@ -55,14 +59,16 @@ class OneSimiMv extends StatelessWidget {
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "这里是标题", 
+                  mvTitle,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle( fontSize: ScreenUtil().setSp( 36 ), fontWeight: FontWeight.bold ),
                 ),
-                Text("时间  by  作者", style: TextStyle( color: Colors.grey, fontSize: ScreenUtil().setSp( 28 ) ),)
+                Text("0${ (time / 60000).floor() }:${ (((time % 60000 ).ceil()) / 1000).ceil() }  by  $mvUser",
+                style: TextStyle( color: Colors.grey, fontSize: ScreenUtil().setSp( 28 ) ),)
               ],
             ),
           )

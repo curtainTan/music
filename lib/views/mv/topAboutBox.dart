@@ -7,10 +7,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class TopAboutBox extends StatelessWidget {
 
   bool showMore;
+  String mvTitle, pubTime;
+  int playcount;
   final changeFunc;
   List<String> label = [ "MV", "流行", "音乐", "Showtime" ];
 
-  TopAboutBox({ this.showMore, this.changeFunc });
+  TopAboutBox({ 
+    this.showMore, 
+    this.changeFunc,
+    this.mvTitle,
+    this.playcount,
+    this.pubTime
+  });
   
 
   @override
@@ -26,7 +34,7 @@ class TopAboutBox extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("这里是标题------", maxLines: 2, overflow: TextOverflow.ellipsis, 
+                Text( mvTitle ?? "-" , maxLines: 2, overflow: TextOverflow.ellipsis, 
                 style: TextStyle( fontSize: ScreenUtil().setSp(42), fontWeight: FontWeight.bold ),),
                 IconButton(
                   onPressed: changeFunc,
@@ -42,7 +50,7 @@ class TopAboutBox extends StatelessWidget {
                     margin: EdgeInsets.only(
                       right: ScreenUtil().setWidth(20)
                     ),
-                    child: Text("80万次观看"),
+                    child: Text( playcount > 10000 ? " ${ (playcount / 10000).ceil() }万次观看" : "$playcount 次观看"  ),
                   ),
                   Expanded(
                     child: ListView.builder(
@@ -72,7 +80,7 @@ class TopAboutBox extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              child: Text("2017-1-11 发布", style: TextStyle( fontSize: ScreenUtil().setSp( 38 ) ),),
+              child: Text("$pubTime 发布", style: TextStyle( fontSize: ScreenUtil().setSp( 38 ) ),),
             )
           ],
         ),
