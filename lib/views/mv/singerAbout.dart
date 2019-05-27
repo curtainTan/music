@@ -18,7 +18,7 @@ class SingerAbout extends StatelessWidget {
     return Container(
       height: ScreenUtil().setHeight(120),
       padding: EdgeInsets.symmetric(
-        horizontal: ScreenUtil().setWidth(20),
+        horizontal: ScreenUtil().setWidth(40),
         vertical: ScreenUtil().setHeight( 15 )
       ),
       decoration: BoxDecoration(
@@ -58,9 +58,9 @@ class SingerAbout extends StatelessWidget {
               color: Colors.red,
               onPressed: (){},
               child: Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Icon( Icons.add, color: Colors.white, size: ScreenUtil().setSp( 40 ), ),
+                  Icon( Icons.add, color: Colors.white, size: ScreenUtil().setSp( 38 ), ),
                   Text("关注", style: TextStyle( color: Colors.white, fontSize: ScreenUtil().setSp( 32 ) ),)
                 ],
               ),

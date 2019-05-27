@@ -34,6 +34,8 @@ class MvPage extends StatefulWidget {
 class _MvPageState extends State<MvPage> {
 
   MvDetailModal _mvDetailModal = null;
+  SimiMvModal _simiMvModal = null;
+
   GlobalKey myKey = GlobalKey();
 
   VideoPlayerController _videoPlayerController;
@@ -48,17 +50,24 @@ class _MvPageState extends State<MvPage> {
   @override
   void initState() {
     super.initState();
-    getMvDetail();
-    // Timer( Duration( seconds: 0 ) , (){
-    //   getMvDetail();
-    // });
-    // WidgetsBinding.instance.addPostFrameCallback( (_) => getHeight() );
+    // getMvDetail();
+    Timer( Duration( seconds: 0 ) , (){
+      getMvDetail();
+    });
 
+  }
+
+  void getSimiMv(){
+    requestGet( "simiMv", formData: { "mvid" : widget.mvid } ).then( ( res ){
+      setState(() {
+        _simiMvModal = SimiMvModal.fromJson( res );
+      });
+    });
   }
 
   
 
-  getMvDetail(){
+  void getMvDetail(){
     requestGet( "mvDetail", formData: { "mvid" : widget.mvid } ).then((onValue){
       Provide.value<PlayMusic>(context).setPause();
       setState(() {
@@ -71,11 +80,6 @@ class _MvPageState extends State<MvPage> {
         autoPlay: true,
         looping: true,
       );
-      _chewieController.addListener( (){
-        if( _chewieController.isFullScreen ){
-          print("---------全屏了---------");
-        }
-      } );
     });
   }
 
@@ -90,7 +94,7 @@ class _MvPageState extends State<MvPage> {
     return SliverToBoxAdapter(
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: ScreenUtil().setWidth(20)
+          horizontal: ScreenUtil().setWidth(40)
         ),
         height: ScreenUtil().setHeight(300),
         child: Column(
@@ -111,7 +115,7 @@ class _MvPageState extends State<MvPage> {
               ],
             ),
             Container(
-              height: ScreenUtil().setHeight( 70 ),
+              height: ScreenUtil().setHeight( 80 ),
               child: Row(
                 children: <Widget>[
                   Container(
@@ -128,8 +132,8 @@ class _MvPageState extends State<MvPage> {
                         return Container(
                           alignment: Alignment.center,
                           padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth( 30 ),
-                            vertical: ScreenUtil().setHeight( 8 )
+                            horizontal: ScreenUtil().setWidth( 38 ),
+                            // vertical: ScreenUtil().setHeight( 16 )
                           ),
                           margin: EdgeInsets.only( 
                             right: ScreenUtil().setWidth(18)
@@ -138,7 +142,7 @@ class _MvPageState extends State<MvPage> {
                             color: Colors.black12.withOpacity( 0.2 ),
                             borderRadius: BorderRadius.circular( 20 )
                           ),
-                          child: Text( label[index], style: TextStyle( fontSize: ScreenUtil().setSp( 38 ) ), ),
+                          child: Text( label[index], style: TextStyle( fontSize: ScreenUtil().setSp( 34 ) ), ),
                         );
                       },
                     ),
@@ -180,24 +184,6 @@ class _MvPageState extends State<MvPage> {
             child: CustomScrollView(
               slivers: <Widget>[
                 aboutBox( context ),
-                SliverToBoxAdapter(
-                  child: Container(
-                    height: ScreenUtil().setHeight(800),
-                    width: double.infinity,
-                    color: Colors.red,
-                    child: FlatButton(
-                      onPressed: () {
-                        print("-----------获取元素的信息-----");
-                        print("---->>>>>>>>>>----${myKey.currentContext.size}----------");
-                        print("---->>>>>>>>>>----${myKey.currentContext.widget.key}----------");
-                        print("---->>>>>>>>>>----${myKey.currentContext.size.height}----------");
-                        print("---->>>>>>>>>>----${myKey.currentContext.owner}----------");
-                        print("---->>>>>>>>>>----${MediaQuery.of(context).padding.top}----------");
-                      },
-                      child: Text('Fullscreen'),
-                    ),
-                  ),
-                ),
                 SliverPersistentHeader(
                   pinned: true,
                   delegate: MySliverAppBarDelegate(
@@ -211,6 +197,19 @@ class _MvPageState extends State<MvPage> {
                     height: ScreenUtil().setHeight(800),
                     width: double.infinity,
                     color: Colors.cyan,
+                  ),
+                ),
+                _simiMvModal != null ? SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    ( context, index ){
+                      
+                    },
+                    childCount: 5
+                  ),
+                ) : SliverToBoxAdapter(
+                  child: Container(
+                    height: ScreenUtil().setHeight(200),
+                    child: Text("暂无相似视频...."),
                   ),
                 ),
                 SliverToBoxAdapter(
