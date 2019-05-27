@@ -19,8 +19,8 @@ import 'package:music/modal/mv/comment_mv.dart';
 
 import './delegate.dart';
 import './singerAbout.dart';
-
-
+import './topAboutBox.dart';
+import './oneSimiMv.dart';
 
 class MvPage extends StatefulWidget {
 
@@ -45,17 +45,17 @@ class _MvPageState extends State<MvPage> {
   double boxHeight = 792;
   bool showMore = false;
 
-  List<String> label = [ "MV", "流行", "音乐", "Showtime" ];
-
   @override
   void initState() {
     super.initState();
     // getMvDetail();
     Timer( Duration( seconds: 0 ) , (){
       getMvDetail();
+      getSimiMv();
     });
 
   }
+
 
   void getSimiMv(){
     requestGet( "simiMv", formData: { "mvid" : widget.mvid } ).then( ( res ){
@@ -64,8 +64,6 @@ class _MvPageState extends State<MvPage> {
       });
     });
   }
-
-  
 
   void getMvDetail(){
     requestGet( "mvDetail", formData: { "mvid" : widget.mvid } ).then((onValue){
@@ -90,77 +88,11 @@ class _MvPageState extends State<MvPage> {
     super.dispose();
   }
 
-  Widget aboutBox( context ){
-    return SliverToBoxAdapter(
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: ScreenUtil().setWidth(40)
-        ),
-        height: ScreenUtil().setHeight(300),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text("这里是标题------", maxLines: 2, overflow: TextOverflow.ellipsis, 
-                style: TextStyle( fontSize: ScreenUtil().setSp(42), fontWeight: FontWeight.bold ),),
-                IconButton(
-                  onPressed: (){
-                    setState(() {
-                      showMore = !showMore;
-                    });
-                  },
-                  icon: Icon( showMore ? Icons.expand_less : Icons.expand_more, size: ScreenUtil().setSp( 60 ), )
-                )
-              ],
-            ),
-            Container(
-              height: ScreenUtil().setHeight( 80 ),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(
-                      right: ScreenUtil().setWidth(20)
-                    ),
-                    child: Text("80万次观看"),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: ( context, index ){
-                        return Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth( 38 ),
-                            // vertical: ScreenUtil().setHeight( 16 )
-                          ),
-                          margin: EdgeInsets.only( 
-                            right: ScreenUtil().setWidth(18)
-                           ),
-                          decoration: BoxDecoration(
-                            color: Colors.black12.withOpacity( 0.2 ),
-                            borderRadius: BorderRadius.circular( 20 )
-                          ),
-                          child: Text( label[index], style: TextStyle( fontSize: ScreenUtil().setSp( 34 ) ), ),
-                        );
-                      },
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Text("2017-1-11 发布", style: TextStyle( fontSize: ScreenUtil().setSp( 38 ) ),),
-            )
-          ],
-        ),
-      ),
-    );
+  void changeShowMore(){
+    setState(() {
+     showMore = !showMore;
+    });
   }
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +115,7 @@ class _MvPageState extends State<MvPage> {
           Expanded(
             child: CustomScrollView(
               slivers: <Widget>[
-                aboutBox( context ),
+                TopAboutBox(showMore: showMore, changeFunc: changeShowMore, ),
                 SliverPersistentHeader(
                   pinned: true,
                   delegate: MySliverAppBarDelegate(
@@ -194,18 +126,22 @@ class _MvPageState extends State<MvPage> {
                 ),
                 SliverToBoxAdapter(
                   child: Container(
-                    height: ScreenUtil().setHeight(800),
-                    width: double.infinity,
-                    color: Colors.cyan,
+                    height: ScreenUtil().setHeight( 90 ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: ScreenUtil().setWidth(40)
+                    ),
+                    alignment: Alignment.centerLeft,
+                    child: Text("相关视频", style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), fontWeight: FontWeight.bold ),),
                   ),
                 ),
-                _simiMvModal != null ? SliverList(
+                _simiMvModal != null ? SliverFixedExtentList(
                   delegate: SliverChildBuilderDelegate(
                     ( context, index ){
-                      
+                      return OneSimiMv();
                     },
-                    childCount: 5
+                    childCount: _simiMvModal.mvs.length
                   ),
+                  itemExtent: ScreenUtil().setHeight( 280 ),
                 ) : SliverToBoxAdapter(
                   child: Container(
                     height: ScreenUtil().setHeight(200),
@@ -234,12 +170,6 @@ class _MvPageState extends State<MvPage> {
     );
   }
 }
-
-
-
-
-
-
 
 
 
