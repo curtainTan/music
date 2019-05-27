@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
 
-
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 
@@ -16,7 +15,11 @@ import 'package:music/modal/mv/mv_detail.dart';
 import 'package:music/modal/mv/simi_mv.dart';
 import 'package:music/modal/mv/comment_mv.dart';
 
+
+
 import './delegate.dart';
+import './singerAbout.dart';
+
 
 
 class MvPage extends StatefulWidget {
@@ -195,20 +198,12 @@ class _MvPageState extends State<MvPage> {
                     ),
                   ),
                 ),
-                SliverAppBar(
-                  floating: true,
-                  pinned: true,
-                  automaticallyImplyLeading: false,
-                  title: Text( "12345" ),
-                  expandedHeight: ScreenUtil().setHeight(100),
-                ),
                 SliverPersistentHeader(
+                  pinned: true,
                   delegate: MySliverAppBarDelegate(
-                    minHeight: ScreenUtil().setHeight(100),
-                    maxHeight: ScreenUtil().setHeight(100),
-                    child: Container(
-                      child: Text("data"),
-                    )
+                    minHeight: ScreenUtil().setHeight(150),
+                    maxHeight: ScreenUtil().setHeight(150),
+                    child: SingerAbout()
                   ),
                 ),
                 SliverToBoxAdapter(
