@@ -3,6 +3,8 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
+import 'package:music/routers/route.dart';
+
 
 
 class OneSimiMv extends StatelessWidget {
@@ -22,7 +24,9 @@ class OneSimiMv extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){},
+      onTap: (){
+        Routes.router.navigateTo(context, "/mvs/" + mvId.toString() );
+      },
       child: Row(
         children: <Widget>[
           Container(
