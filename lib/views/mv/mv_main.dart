@@ -21,6 +21,8 @@ import './delegate.dart';
 import './singerAbout.dart';
 import './topAboutBox.dart';
 import './oneSimiMv.dart';
+import './oneComment.dart';
+
 
 class MvPage extends StatefulWidget {
 
@@ -35,6 +37,7 @@ class _MvPageState extends State<MvPage> {
 
   MvDetailModal _mvDetailModal = null;
   SimiMvModal _simiMvModal = null;
+  MvComment _mvComment = null;
 
   GlobalKey myKey = GlobalKey();
 
@@ -48,10 +51,10 @@ class _MvPageState extends State<MvPage> {
   @override
   void initState() {
     super.initState();
-    // getMvDetail();
+    getSimiMv();
+    getMvComment();
     Timer( Duration( seconds: 0 ) , (){
       getMvDetail();
-      getSimiMv();
     });
 
   }
@@ -61,6 +64,14 @@ class _MvPageState extends State<MvPage> {
     requestGet( "simiMv", formData: { "mvid" : widget.mvid } ).then( ( res ){
       setState(() {
         _simiMvModal = SimiMvModal.fromJson( res );
+      });
+    });
+  }
+
+  void getMvComment(){
+    requestGet( "commentMv", formData: { "id" : widget.mvid } ).then( ( res ){
+      setState(() {
+        _mvComment = MvComment.fromJson( res );
       });
     });
   }
@@ -92,6 +103,35 @@ class _MvPageState extends State<MvPage> {
     setState(() {
      showMore = !showMore;
     });
+  }
+
+  Widget loading(){
+    return Container(
+      alignment: Alignment.topCenter,
+      child: Container(
+        margin: EdgeInsets.only(
+          top: ScreenUtil().setHeight(300)
+        ),
+        width: double.infinity,
+        height: ScreenUtil().setWidth(100),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(
+                right: ScreenUtil().setWidth(40)
+              ),
+              height: ScreenUtil().setWidth(70),
+              width: ScreenUtil().setWidth(70),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              )
+            ),
+            Text("加载中...", style: TextStyle( color: Colors.red ), )
+          ], 
+        )
+      )
+    );
   }
 
   Widget someTitle( String title ){
@@ -141,7 +181,6 @@ class _MvPageState extends State<MvPage> {
                     minHeight: ScreenUtil().setHeight(150),
                     maxHeight: ScreenUtil().setHeight(150),
                     child: SingerAbout(
-                      headImg: _mvDetailModal?.data?.cover,
                       mvUser: _mvDetailModal?.data?.artistName ?? "-",
                     )
                   ),
@@ -169,6 +208,52 @@ class _MvPageState extends State<MvPage> {
                   ),
                 ),
                 someTitle( "精彩评论" ),
+                _mvComment != null ? SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    ( context, index ){
+                      return OneComment(
+                        headImg: _mvComment.hotComments[index]?.user?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
+                        commentContext: _mvComment.hotComments[index]?.content ?? "-",
+                        likeCount: _mvComment.hotComments[index]?.likedCount ?? 0,
+                        time: _mvComment.hotComments[index]?.time ?? 0,
+                        commentId: _mvComment.hotComments[index]?.commentId,
+                        userId: _mvComment.hotComments[index]?.user?.userId,
+                        userName: _mvComment.hotComments[index]?.user?.nickname ?? "-",
+                      );
+                    },
+                    childCount: _mvComment.hotComments.length
+                  ),
+                ) : SliverToBoxAdapter(
+                  child: loading(),
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    child: Divider(
+                      height: ScreenUtil().setHeight(100),
+                      indent: ScreenUtil().setWidth(40),
+                      color: Colors.grey,
+                    ),
+                  )
+                ),
+                someTitle( "最新评论" ),
+                _mvComment != null ? SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    ( context, index ){
+                      return OneComment(
+                        headImg: _mvComment.comments[index]?.user?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
+                        commentContext: _mvComment.comments[index]?.content ?? "-",
+                        likeCount: _mvComment.comments[index]?.likedCount ?? 0,
+                        time: _mvComment.comments[index]?.time ?? 0,
+                        commentId: _mvComment.comments[index]?.commentId,
+                        userId: _mvComment.comments[index]?.user?.userId,
+                        userName: _mvComment.comments[index]?.user?.nickname ?? "-",
+                      );
+                    },
+                    childCount: _mvComment.comments.length
+                  ),
+                ) : SliverToBoxAdapter(
+                  child: loading(),
+                ),
                 SliverToBoxAdapter(
                   child: Container(
                     height: ScreenUtil().setHeight(800),
