@@ -37,6 +37,9 @@ const servicePath = {
   "videoUrl" : serviceUrl + "/video/url",                     // 调用此接口 , 传入视频 id,可获取视频播放地址      必选参数 : id: 视频 的 id
   "commentMv" : serviceUrl + "/comment/mv",                   // 调用此接口 , 传入音乐 id 和 limit 参数 , 可获得该 mv 的所有评论 ( 不需要 登录 )
                                                               // limit: 取出评论数量 , 默认为 20   offset: 偏移数量 , 用于分页 , 如 :( 评论页数 -1)*20, 其中 20 为 limit 的值
+  "commentHot" : serviceUrl + "/comment/hot",                 // 说明 : 调用此接口 , 传入 type, 资源 id 可获得对应资源热门评论 
+                                                              // id : 资源 idtpye: 数字 , 资源类型 , 对应歌曲 , mv, 专辑 , 歌单 , 电台, 视频对应以下类型
+                                                              // 0: 歌曲   1: mv 2: 歌单 3: 专辑 4: 电台 5: 视频
   "simiMv" : serviceUrl + "/simi/mv",                         // 相似 mv    ~说明 : 调用此接口 , 传入 mvid 可获取相似 mv   ~必选参数 : mvid: mv id   ~/simi/mv?mvid=5436712
  
 

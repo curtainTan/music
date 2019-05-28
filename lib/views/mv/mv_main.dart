@@ -39,6 +39,8 @@ class _MvPageState extends State<MvPage>{
   MvDetailModal _mvDetailModal = null;
   SimiMvModal _simiMvModal = null;
   MvComment _mvComment = null;
+  List<Comments> commentList = [];
+  int  commentPage = 2;
 
   ScrollController _scrollController = null;
 
@@ -48,7 +50,7 @@ class _MvPageState extends State<MvPage>{
   ChewieController _chewieController;
   String mvurl = "http://vodkgeyttp8.vod.126.net/cloudmusic/MjQ3NDQ3MjUw/89a6a279dc2acfcd068b45ce72b1f560/533e4183a709699d566180ed0cd9abe9.mp4?wsSecret=631fbe072415240217962ad5b7e0c119&wsTime=1558538796";
   
-  double boxHeight = 792;
+  double boxHeight = 612;
   bool showMore = false;
 
   @override
@@ -62,7 +64,7 @@ class _MvPageState extends State<MvPage>{
     _scrollController = ScrollController();
     _scrollController.addListener( (){
       if( _scrollController.position.pixels == _scrollController.position.maxScrollExtent ){
-        print("------触底了，即将发起第二次请求------");
+        addComment();
       }
     } );
   }
@@ -76,10 +78,21 @@ class _MvPageState extends State<MvPage>{
     });
   }
 
+  void addComment(){
+    requestGet( "commentMv", formData: { "id" : widget.mvid, "offset" : commentPage } ).then( ( res ){
+      MvComment nowData = MvComment.fromJson( res );
+      setState(() {
+        commentList..addAll( nowData.comments );
+        commentPage ++;
+      });
+    });
+  }
+
   void getMvComment(){
     requestGet( "commentMv", formData: { "id" : widget.mvid } ).then( ( res ){
       setState(() {
         _mvComment = MvComment.fromJson( res );
+        commentList..addAll( _mvComment.comments );
       });
     });
   }
@@ -93,7 +106,7 @@ class _MvPageState extends State<MvPage>{
       });
       _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController,
-        aspectRatio: 3 / 2,
+        aspectRatio: 2 / 1,
         autoPlay: true,
         looping: true,
       );
@@ -273,24 +286,24 @@ class _MvPageState extends State<MvPage>{
                   )
                 ),
                 someTitle( "最新评论" ),
-                _mvComment != null ? SliverList(
+                commentList.length != 0 ? SliverList(
                   delegate: SliverChildBuilderDelegate(
                     ( context, index ){
-                      if( index + 1 == _mvComment.comments.length ){
+                      if( index + 1 == commentList.length ){
                         return _buildProgressIndicator();
                       }else{
                         return OneComment(
-                          headImg: _mvComment.comments[index]?.user?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
-                          commentContext: _mvComment.comments[index]?.content ?? "-",
-                          likeCount: _mvComment.comments[index]?.likedCount ?? 0,
-                          time: _mvComment.comments[index]?.time ?? 0,
-                          commentId: _mvComment.comments[index]?.commentId,
-                          userId: _mvComment.comments[index]?.user?.userId,
-                          userName: _mvComment.comments[index]?.user?.nickname ?? "-",
+                          headImg: commentList[index]?.user?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
+                          commentContext: commentList[index]?.content ?? "-",
+                          likeCount: commentList[index]?.likedCount ?? 0,
+                          time: commentList[index]?.time ?? 0,
+                          commentId: commentList[index]?.commentId,
+                          userId: commentList[index]?.user?.userId,
+                          userName: commentList[index]?.user?.nickname ?? "-",
                         );
                       }
                     },
-                    childCount: _mvComment.comments.length
+                    childCount: commentList.length
                   ),
                 ) : SliverToBoxAdapter(
                   child: loading(),
@@ -305,7 +318,7 @@ class _MvPageState extends State<MvPage>{
           )
         ],
       ),
-      bottomSheet: CommentBottomBox(),
+      // bottomSheet: CommentBottomBox(),
     );
   }
 }

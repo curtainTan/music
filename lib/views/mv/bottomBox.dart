@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
+import 'package:extended_text_field/extended_text_field.dart';
 
 
 class CommentBottomBox extends StatelessWidget {
@@ -13,8 +13,8 @@ class CommentBottomBox extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-            child: TextField(
-
+            child: ExtendedTextField(
+              
             ),
           ),
           Container(
