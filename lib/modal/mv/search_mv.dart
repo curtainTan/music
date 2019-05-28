@@ -117,21 +117,18 @@ class OnlyMvs {
 class MvArtists {
   int id;
   String name;
-  List<String> alias;
 
-  MvArtists({this.id, this.name, this.alias});
+  MvArtists({this.id, this.name});
 
   MvArtists.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    alias = json['alias'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
-    data['alias'] = this.alias;
     return data;
   }
 }

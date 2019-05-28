@@ -12,6 +12,8 @@ import 'package:music/provider/play_music.dart';
 import 'package:music/provider/searchPageProvide.dart';
 import 'package:music/routers/route.dart';
 
+import 'package:music/views/mv/oneSimiMv.dart';
+
 
 class ResultBox extends StatelessWidget {
 
@@ -385,8 +387,6 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
 
 
 
-
-
 class SingleSong extends StatefulWidget {
   @override
   _SingleSongState createState() => _SingleSongState();
@@ -629,6 +629,16 @@ class _VoidPageState extends State<VoidPage> with AutomaticKeepAliveClientMixin 
     Timer( Duration( seconds: 0 ) , (){
       getMvListData();
     });
+    _scrollController = ScrollController();
+    _scrollController.addListener((){
+      if( _scrollController.position.pixels == _scrollController.position.maxScrollExtent ){
+        setState(() {
+          page++;
+        });
+        print("-------------页面--$page");
+        getMvListData();
+      }
+    });
   }
 
   void getMvListData(  ) {
@@ -638,12 +648,95 @@ class _VoidPageState extends State<VoidPage> with AutomaticKeepAliveClientMixin 
     });
   }
 
+  Widget _buildProgressIndicator() {
+    return new Container(
+      height: ScreenUtil().setHeight(100),
+      margin: EdgeInsets.only(
+        bottom: ScreenUtil().setHeight(30)
+      ),
+      child: new Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: ScreenUtil().setHeight(50),
+              width: ScreenUtil().setHeight(50),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+              child: new Text('即将加载更多...'))
+          ],
+        )
+      ),
+    );
+  }
+
+  Widget loading(){
+    return Container(
+      alignment: Alignment.topCenter,
+      child: Container(
+        margin: EdgeInsets.only(
+          top: ScreenUtil().setHeight(80)
+        ),
+        width: double.infinity,
+        height: ScreenUtil().setWidth(100),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(
+                right: ScreenUtil().setWidth(40)
+              ),
+              height: ScreenUtil().setWidth(70),
+              width: ScreenUtil().setWidth(70),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              )
+            ),
+            Text("加载中...", style: TextStyle( color: Colors.red ), )
+          ], 
+        )
+      )
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Provide<SearchPageProvide>(
       builder: ( context, child, data ){
-        if( data.onlyMvList.length == 0 ){
-          return Container();
+        if( data.onlyMvList.length != 0 ){
+          return ListView.builder(
+            controller: _scrollController,
+            itemBuilder: ( context, index ){
+              if( index == data.onlyMvList.length ){
+                return _buildProgressIndicator();
+              }else{
+                if( index == data.onlyMvList.length + 1 ){
+                  return Container(
+                    height: ScreenUtil().setHeight(200),
+                  );
+                }
+                return OneSimiMv(
+                  mvCover: data.onlyMvList[index].cover,
+                  mvTitle: data.onlyMvList[index].name,
+                  mvId: data.onlyMvList[index].id,
+                  mvUser: data.onlyMvList[index].artistName,
+                  playCount: data.onlyMvList[index].playCount,
+                  time: data.onlyMvList[index].duration
+                );
+              }
+            },
+            itemCount: data.onlyMvList.length + 1 ,
+            itemExtent: ScreenUtil().setHeight( 280 ),
+          );
+        }else{
+          return loading();
         }
       },
     );

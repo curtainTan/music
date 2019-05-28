@@ -45,6 +45,7 @@ class SearchPageProvide with ChangeNotifier{
   clearData(){
     type1Song = [];
     searchComplex = null;
+    onlyMvList = [];
     notifyListeners();
   }
   // 初始化历史记录
@@ -58,9 +59,7 @@ class SearchPageProvide with ChangeNotifier{
     searchInputData = data;
     saveHistory( data );
     // 全部数据置空
-    searchComplex = null;
-    type1Song = [];
-    onlyMvList = [];
+    clearData();
 
     if( tabIndex == 0 ){                  // 综合
       getSearchComplex();
@@ -82,7 +81,6 @@ class SearchPageProvide with ChangeNotifier{
   }
   // 改变tab的index
   changeTabIndex( index ){
-    // print("--------page改变了$index----------");
     tabIndex = index;
     notifyListeners();
   }
@@ -119,7 +117,8 @@ class SearchPageProvide with ChangeNotifier{
   setMvs( data ){
 
     SearchMvModal searchMvModal = SearchMvModal.fromJson( data );
-    onlyMvList..addAll( searchMvModal.result.mvs );
+    List<OnlyMvs> ooooo = searchMvModal.result.mvs;
+    onlyMvList..addAll( ooooo );
     notifyListeners();
 
   }

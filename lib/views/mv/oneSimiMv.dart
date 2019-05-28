@@ -54,6 +54,7 @@ class OneSimiMv extends StatelessWidget {
           ),
           Container(
             height: ScreenUtil().setHeight(280),
+            width: ScreenUtil().setWidth( 500 ),
             margin: EdgeInsets.only(
               left: ScreenUtil().setWidth( 20 )
             ),
