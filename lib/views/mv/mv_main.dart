@@ -106,7 +106,7 @@ class _MvPageState extends State<MvPage>{
       });
       _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController,
-        // aspectRatio: 2 / 1,
+        aspectRatio: 2 / 1,
         autoPlay: true,
         looping: true,
       );
@@ -205,9 +205,9 @@ class _MvPageState extends State<MvPage>{
             padding: EdgeInsets.only(
               top: MediaQuery.of(context).padding.top
             ),
-            // height: ScreenUtil().setHeight( boxHeight ),
+            height: ScreenUtil().setHeight( boxHeight ),
             width: double.infinity,
-            color: Colors.red,
+            color: Colors.black,
             child: _mvDetailModal != null ?
               Chewie(
                 key: myKey,
