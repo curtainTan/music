@@ -38,7 +38,7 @@ dependencies:
   event_bus: ^1.1.0
   fluttertoast: ^3.0.4
   chewie: ^0.9.7
-
+  extended_text_field: ^0.3.0
 
 
 
@@ -73,15 +73,7 @@ flutter:
    - asset/image/ap.png
    - asset/image/m1.jpg
    - asset/image/m2.jpg
-   - asset/image/m3.jpg
-   - asset/image/head/n1.jpg
-   - asset/image/head/n2.jpg
-   - asset/image/head/n3.jpg
-   - asset/image/head/n4.jpg
-   - asset/image/head/o1.jpg
    - asset/image/head/o2.jpg
-   - asset/image/loading/loding1.gif
-   - asset/image/loading/loding2.gif
    - asset/image/loading/loding3.gif
    - asset/image/sp.png
 

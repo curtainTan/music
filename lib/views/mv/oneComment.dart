@@ -110,7 +110,7 @@ class OneComment extends StatelessWidget {
                       ),
                       width: ScreenUtil().setWidth( 800 ),
                       child: Text( 
-                        commentContext ?? "-\n-\n" ,
+                        commentContext ?? "---" ,
                         textDirection: TextDirection.ltr,
                         softWrap: true,
                         maxLines: 20, 

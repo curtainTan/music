@@ -15,13 +15,14 @@ import 'package:music/modal/mv/mv_detail.dart';
 import 'package:music/modal/mv/simi_mv.dart';
 import 'package:music/modal/mv/comment_mv.dart';
 
-
-
 import './delegate.dart';
 import './singerAbout.dart';
 import './topAboutBox.dart';
 import './oneSimiMv.dart';
 import './oneComment.dart';
+import './bottomBox.dart';
+
+
 
 
 class MvPage extends StatefulWidget {
@@ -33,13 +34,15 @@ class MvPage extends StatefulWidget {
   _MvPageState createState() => _MvPageState();
 }
 
-class _MvPageState extends State<MvPage> {
+class _MvPageState extends State<MvPage>{
 
   MvDetailModal _mvDetailModal = null;
   SimiMvModal _simiMvModal = null;
   MvComment _mvComment = null;
 
-  GlobalKey myKey = GlobalKey();
+  ScrollController _scrollController = null;
+
+  // GlobalKey myKey = GlobalKey();
 
   VideoPlayerController _videoPlayerController;
   ChewieController _chewieController;
@@ -56,7 +59,12 @@ class _MvPageState extends State<MvPage> {
     Timer( Duration( seconds: 0 ) , (){
       getMvDetail();
     });
-
+    _scrollController = ScrollController();
+    _scrollController.addListener( (){
+      if( _scrollController.position.pixels == _scrollController.position.maxScrollExtent ){
+        print("------触底了，即将发起第二次请求------");
+      }
+    } );
   }
 
 
@@ -134,6 +142,34 @@ class _MvPageState extends State<MvPage> {
     );
   }
 
+  Widget _buildProgressIndicator() {
+    return new Container(
+      height: ScreenUtil().setHeight(100),
+      margin: EdgeInsets.only(
+        bottom: ScreenUtil().setHeight(30)
+      ),
+      child: new Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: ScreenUtil().setHeight(50),
+              width: ScreenUtil().setHeight(50),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+              child: new Text('即将加载更多...'))
+          ],
+        )
+      ),
+    );
+  }
+
   Widget someTitle( String title ){
     return SliverToBoxAdapter(
       child: Container(
@@ -161,12 +197,13 @@ class _MvPageState extends State<MvPage> {
             color: Colors.red,
             child: _mvDetailModal != null ?
               Chewie(
-                key: myKey,
+                // key: myKey,
                 controller: _chewieController,
               ) : Container()
           ),
           Expanded(
             child: CustomScrollView(
+              controller: _scrollController,
               slivers: <Widget>[
                 TopAboutBox(
                   showMore: showMore, 
@@ -239,15 +276,19 @@ class _MvPageState extends State<MvPage> {
                 _mvComment != null ? SliverList(
                   delegate: SliverChildBuilderDelegate(
                     ( context, index ){
-                      return OneComment(
-                        headImg: _mvComment.comments[index]?.user?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
-                        commentContext: _mvComment.comments[index]?.content ?? "-",
-                        likeCount: _mvComment.comments[index]?.likedCount ?? 0,
-                        time: _mvComment.comments[index]?.time ?? 0,
-                        commentId: _mvComment.comments[index]?.commentId,
-                        userId: _mvComment.comments[index]?.user?.userId,
-                        userName: _mvComment.comments[index]?.user?.nickname ?? "-",
-                      );
+                      if( index + 1 == _mvComment.comments.length ){
+                        return _buildProgressIndicator();
+                      }else{
+                        return OneComment(
+                          headImg: _mvComment.comments[index]?.user?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
+                          commentContext: _mvComment.comments[index]?.content ?? "-",
+                          likeCount: _mvComment.comments[index]?.likedCount ?? 0,
+                          time: _mvComment.comments[index]?.time ?? 0,
+                          commentId: _mvComment.comments[index]?.commentId,
+                          userId: _mvComment.comments[index]?.user?.userId,
+                          userName: _mvComment.comments[index]?.user?.nickname ?? "-",
+                        );
+                      }
                     },
                     childCount: _mvComment.comments.length
                   ),
@@ -255,24 +296,16 @@ class _MvPageState extends State<MvPage> {
                   child: loading(),
                 ),
                 SliverToBoxAdapter(
-                  child: Container(
-                    height: ScreenUtil().setHeight(800),
-                    width: double.infinity,
-                    color: Colors.green,
-                  ),
+                  child: SizedBox(
+                    height: ScreenUtil().setHeight(150),
+                  )
                 ),
-                SliverToBoxAdapter(
-                  child: Container(
-                    height: ScreenUtil().setHeight(800),
-                    width: double.infinity,
-                    color: Colors.deepOrangeAccent,
-                  ),
-                )
               ],
             ),
           )
         ],
-      )
+      ),
+      bottomSheet: CommentBottomBox(),
     );
   }
 }
