@@ -1,0 +1,908 @@
+{
+    "result": {
+        "mvCount": 186,
+        "mvs": [
+            {
+                "id": 5392140,
+                "cover": "http://p4.music.126.net/HpdchSibIMxKKPnbodacJA==/3432675316284844.jpg",
+                "name": "Rise",
+                "playCount": 1851874,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "John Dreamer",
+                "artistId": 896177,
+                "duration": 137000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 896177,
+                        "name": "John Dreamer",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5958035,
+                "cover": "http://p4.music.126.net/6OVoxRlEcnsRHh_8bLHiDw==/109951163365362498.jpg",
+                "name": "Rise",
+                "playCount": 229660,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Jonas Blue",
+                "artistId": 1192069,
+                "duration": 218000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 1192069,
+                        "name": "Jonas Blue",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    },
+                    {
+                        "id": 647673,
+                        "name": "Jack & Jack",
+                        "alias": [
+                            "Jack and Jack"
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 10769116,
+                "cover": "http://p4.music.126.net/sWh15pbQry_RMnreFeoocA==/109951163525662862.jpg",
+                "name": "触摸未来(Rise) Live版",
+                "playCount": 388364,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "钱正昊",
+                "artistId": 12118230,
+                "duration": 256000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 12118230,
+                        "name": "钱正昊",
+                        "alias": null,
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 10847313,
+                "cover": "http://p4.music.126.net/GXryMhbKW3I0yHoWGygHNA==/109951163788348969.jpg",
+                "name": "RISE",
+                "playCount": 132244,
+                "briefDesc": "组合MADKID新单《RISE》MV公开！",
+                "desc": null,
+                "artistName": "MADKID",
+                "artistId": 510882,
+                "duration": 214000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 510882,
+                        "name": "MADKID",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 10798487,
+                "cover": "http://p4.music.126.net/4mJTA6CyzxwERSJ-KqHPHA==/109951163573107393.jpg",
+                "name": "RISE 登峰造极境",
+                "playCount": 8529445,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "英雄联盟",
+                "artistId": 1047337,
+                "duration": 210000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 1047337,
+                        "name": "英雄联盟",
+                        "alias": [
+                            "英雄联盟"
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": [
+                    "2018《英雄联盟》S8全球总决赛主题曲MV"
+                ],
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5350026,
+                "cover": "http://p3.music.126.net/flzqSGK7Q0WZp1iSkwBUOA==/3252355408653829.jpg",
+                "name": "Rise",
+                "playCount": 789602,
+                "briefDesc": "水果姐新版MV越挫越勇",
+                "desc": null,
+                "artistName": "Katy Perry",
+                "artistId": 62888,
+                "duration": 197000,
+                "mark": 0,
+                "arTransName": "凯蒂.佩里",
+                "artists": [
+                    {
+                        "id": 62888,
+                        "name": "Katy Perry",
+                        "alias": [
+                            "凯蒂.佩里",
+                            "水果姐",
+                            "Katy Hudson",
+                            "果子狸",
+                            "凯蒂·派瑞"
+                        ],
+                        "transNames": [
+                            "凯蒂.佩里"
+                        ]
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 10829269,
+                "cover": "http://p3.music.126.net/A8SCZffIXDFs-jCHcu2KRw==/109951163648007738.jpg",
+                "name": "rise (Live At The MTV EMA 2018)",
+                "playCount": 16095,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Jack & Jack",
+                "artistId": 647673,
+                "duration": 209000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 647673,
+                        "name": "Jack & Jack",
+                        "alias": [
+                            "Jack and Jack"
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 10741108,
+                "cover": "http://p3.music.126.net/8W3mFfGvtuPS0XDoF-m8nQ==/109951163414357490.jpg",
+                "name": "Rise  (Acoustic) ",
+                "playCount": 16907,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Jack & Jack",
+                "artistId": 647673,
+                "duration": 227000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 647673,
+                        "name": "Jack & Jack",
+                        "alias": [
+                            "Jack and Jack"
+                        ],
+                        "transNames": null
+                    },
+                    {
+                        "id": 1192069,
+                        "name": "Jonas Blue",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 10822055,
+                "cover": "http://p4.music.126.net/wpfLtcrjsSlsniHQgtHvyA==/109951163620890465.jpg",
+                "name": "Rise (Live at Radio 1's Teen Awards 2018)",
+                "playCount": 7681,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Jonas Blue",
+                "artistId": 1192069,
+                "duration": 195000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 1192069,
+                        "name": "Jonas Blue",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    },
+                    {
+                        "id": 647673,
+                        "name": "Jack & Jack",
+                        "alias": [
+                            "Jack and Jack"
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5359361,
+                "cover": "http://p4.music.126.net/oi0OPnh2w1x7LzzgUPwKbA==/3394192421965114.jpg",
+                "name": "RISE (Katy Perry Cover)",
+                "playCount": 20478,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "SUPERFRUIT",
+                "artistId": 12108680,
+                "duration": 196000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 12108680,
+                        "name": "SUPERFRUIT",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    },
+                    {
+                        "id": 813306,
+                        "name": "Mary Lambert",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5267279,
+                "cover": "http://p3.music.126.net/35CAlOSbjU16ymPloWPLAw==/3296335867706063.jpg",
+                "name": "Rise",
+                "playCount": 21899,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Kap Bambino",
+                "artistId": 63278,
+                "duration": 147000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 63278,
+                        "name": "Kap Bambino",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5391174,
+                "cover": "http://p3.music.126.net/hxT3tVPPK35i9lDSn9zSWA==/3417282157904866.jpg",
+                "name": "Rise",
+                "playCount": 22199,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Boyce Avenue",
+                "artistId": 29709,
+                "duration": 196000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 29709,
+                        "name": "Boyce Avenue",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5952117,
+                "cover": "http://p3.music.126.net/6dXvxInPBM0NPpBME8z7-A==/109951163349357262.jpg",
+                "name": "Rise (live at Capital’s Summertime Ball 2018)",
+                "playCount": 4440,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Jonas Blue",
+                "artistId": 1192069,
+                "duration": 205000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 1192069,
+                        "name": "Jonas Blue",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    },
+                    {
+                        "id": 647673,
+                        "name": "Jack & Jack",
+                        "alias": [
+                            "Jack and Jack"
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 335135,
+                "cover": "http://p4.music.126.net/jgB274BPnbbQKk_BeoIUlQ==/6644348767037593.jpg",
+                "name": "All Rise",
+                "playCount": 748539,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Blue",
+                "artistId": 88145,
+                "duration": 231000,
+                "mark": 0,
+                "arTransName": "蓝乐团",
+                "artists": [
+                    {
+                        "id": 88145,
+                        "name": "Blue",
+                        "alias": [
+                            "蓝乐团"
+                        ],
+                        "transNames": [
+                            "蓝乐团"
+                        ]
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 10785398,
+                "cover": "http://p3.music.126.net/ikktttyK9WqIlOntggoNEQ==/109951163721475280.jpg",
+                "name": "Rise (Live at Capital’s Jingle Bell Ball 2018)",
+                "playCount": 1804,
+                "briefDesc": null,
+                "desc": null,
+                "artistName": "Jack & Jack",
+                "artistId": 647673,
+                "duration": 206000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 647673,
+                        "name": "Jack & Jack",
+                        "alias": [
+                            "Jack and Jack"
+                        ],
+                        "transNames": null
+                    },
+                    {
+                        "id": 1192069,
+                        "name": "Jonas Blue",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5433137,
+                "cover": "http://p4.music.126.net/dpjLWlvTKkE46_lqlD79Xw==/18719185464599505.jpg",
+                "name": "Rise",
+                "playCount": 4099,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Danny Gokey",
+                "artistId": 32054,
+                "duration": 220000,
+                "mark": 0,
+                "arTransName": "丹尼.高基",
+                "artists": [
+                    {
+                        "id": 32054,
+                        "name": "Danny Gokey",
+                        "alias": [
+                            "丹尼.高基"
+                        ],
+                        "transNames": [
+                            "丹尼.高基"
+                        ]
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5450583,
+                "cover": "http://p3.music.126.net/eEGkiemlY8EtcGf0Pxq0dg==/19094118927989730.jpg",
+                "name": "rise (Steve Aoki Remix)",
+                "playCount": 7061,
+                "briefDesc": null,
+                "desc": null,
+                "artistName": "FACT",
+                "artistId": 19417,
+                "duration": 0,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 19417,
+                        "name": "FACT",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": [
+                    "rise (Steve Aoki Remix)"
+                ],
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 10833526,
+                "cover": "http://p4.music.126.net/lRnQaeiJ0Ra-lkA4wZWypQ==/109951163681391436.jpg",
+                "name": "Rise (Live)",
+                "playCount": 1199,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Jack & Jack",
+                "artistId": 647673,
+                "duration": 184000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 647673,
+                        "name": "Jack & Jack",
+                        "alias": [
+                            "Jack and Jack"
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5356028,
+                "cover": "http://p3.music.126.net/BJZju9DcdoEcx6ENRsdEbQ==/18607035276895949.jpg",
+                "name": "Rise (幕后花絮)",
+                "playCount": 13408,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Katy Perry",
+                "artistId": 62888,
+                "duration": 275000,
+                "mark": 0,
+                "arTransName": "凯蒂.佩里",
+                "artists": [
+                    {
+                        "id": 62888,
+                        "name": "Katy Perry",
+                        "alias": [
+                            "凯蒂.佩里",
+                            "水果姐",
+                            "Katy Hudson",
+                            "果子狸",
+                            "凯蒂·派瑞"
+                        ],
+                        "transNames": [
+                            "凯蒂.佩里"
+                        ]
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5500042,
+                "cover": "http://p4.music.126.net/H3UVf8pAZ1IoGYC54ZleLQ==/18828037115920697.jpg",
+                "name": "Rise and Shine",
+                "playCount": 152344,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Deorro",
+                "artistId": 366358,
+                "duration": 194000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 366358,
+                        "name": "Deorro",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5342268,
+                "cover": "http://p4.music.126.net/shr0ywGYwwRsgLS6hVKX2w==/3399689960568363.jpg",
+                "name": "Rise 奥运版",
+                "playCount": 599567,
+                "briefDesc": "巴西里约热内卢奥运会宣传曲",
+                "desc": null,
+                "artistName": "Katy Perry",
+                "artistId": 62888,
+                "duration": 200000,
+                "mark": 0,
+                "arTransName": "凯蒂.佩里",
+                "artists": [
+                    {
+                        "id": 62888,
+                        "name": "Katy Perry",
+                        "alias": [
+                            "凯蒂.佩里",
+                            "水果姐",
+                            "Katy Hudson",
+                            "果子狸",
+                            "凯蒂·派瑞"
+                        ],
+                        "transNames": [
+                            "凯蒂.佩里"
+                        ]
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5346043,
+                "cover": "http://p4.music.126.net/YMLOMXPilHikmsXoRTjoOA==/3416182637297729.jpg",
+                "name": "Rise (预告2)",
+                "playCount": 8066,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Katy Perry",
+                "artistId": 62888,
+                "duration": 27000,
+                "mark": 0,
+                "arTransName": "凯蒂.佩里",
+                "artists": [
+                    {
+                        "id": 62888,
+                        "name": "Katy Perry",
+                        "alias": [
+                            "凯蒂.佩里",
+                            "水果姐",
+                            "Katy Hudson",
+                            "果子狸",
+                            "凯蒂·派瑞"
+                        ],
+                        "transNames": [
+                            "凯蒂.佩里"
+                        ]
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5343685,
+                "cover": "http://p3.music.126.net/O4QBNcVY42TruVAHITZB8A==/2946691207315331.jpg",
+                "name": "Live to Rise",
+                "playCount": 113099,
+                "briefDesc": null,
+                "desc": null,
+                "artistName": "Soundgarden",
+                "artistId": 42991,
+                "duration": 286000,
+                "mark": 0,
+                "arTransName": "声音花园乐队",
+                "artists": [
+                    {
+                        "id": 42991,
+                        "name": "Soundgarden",
+                        "alias": [
+                            "声音花园乐队"
+                        ],
+                        "transNames": [
+                            "声音花园乐队"
+                        ]
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 389238,
+                "cover": "http://p4.music.126.net/hdOzpf1bXlf53BHpJrMYag==/7840617418238259.jpg",
+                "name": "BODY (Short Ver.) SOL JAPAN TOUR [RISE] 2014",
+                "playCount": 91592,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "太阳",
+                "artistId": 124831,
+                "duration": 87000,
+                "mark": 0,
+                "arTransName": "태양",
+                "artists": [
+                    {
+                        "id": 124831,
+                        "name": "太阳",
+                        "alias": [
+                            "태양",
+                            "东永裴",
+                            "Taeyang",
+                            "Taeyang of Big Bang",
+                            "SOL (from BIGBANG)"
+                        ],
+                        "transNames": [
+                            "태양"
+                        ]
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5347473,
+                "cover": "http://p4.music.126.net/IvujSbY14dKO6EmF528n9w==/3312828539795877.jpg",
+                "name": "Rise Of The Ascended",
+                "playCount": 36091,
+                "briefDesc": null,
+                "desc": null,
+                "artistName": "League of Legends",
+                "artistId": 1047337,
+                "duration": 210000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 1047337,
+                        "name": "英雄联盟",
+                        "alias": [
+                            "英雄联盟"
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5346044,
+                "cover": "http://p3.music.126.net/XSVaMEavNkIPid4iesKKKw==/3416182637297731.jpg",
+                "name": "Rise (预告1)",
+                "playCount": 3785,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Katy Perry",
+                "artistId": 62888,
+                "duration": 26000,
+                "mark": 0,
+                "arTransName": "凯蒂.佩里",
+                "artists": [
+                    {
+                        "id": 62888,
+                        "name": "Katy Perry",
+                        "alias": [
+                            "凯蒂.佩里",
+                            "水果姐",
+                            "Katy Hudson",
+                            "果子狸",
+                            "凯蒂·派瑞"
+                        ],
+                        "transNames": [
+                            "凯蒂.佩里"
+                        ]
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 10830273,
+                "cover": "http://p4.music.126.net/IhK3gKkH_O-SANJD0b8eZw==/109951163647666473.jpg",
+                "name": "[直拍]RISE | 2018 FANTASIA SUPER CONCERT",
+                "playCount": 14783,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Bobby",
+                "artistId": 986043,
+                "duration": 192000,
+                "mark": 0,
+                "arTransName": "바비 Of iKON",
+                "artists": [
+                    {
+                        "id": 986043,
+                        "name": "Bobby",
+                        "alias": [
+                            "바비",
+                            "金知元",
+                            "김지원",
+                            "Kim Ji Won",
+                            "바비 Of iKON"
+                        ],
+                        "transNames": [
+                            "바비 Of iKON"
+                        ]
+                    },
+                    {
+                        "id": 1011143,
+                        "name": "iKON",
+                        "alias": [
+                            "아이콘",
+                            "TEAM B",
+                            "YG Family"
+                        ],
+                        "transNames": [
+                            "아이콘"
+                        ]
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 385229,
+                "cover": "http://p4.music.126.net/GEYXgdpo-UBussJE_Q9R0A==/7809831092287861.jpg",
+                "name": "Rise Like a Phoenix",
+                "playCount": 29682,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Conchita Wurst",
+                "artistId": 932047,
+                "duration": 192000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 932047,
+                        "name": "Conchita Wurst",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 470188,
+                "cover": "http://p3.music.126.net/4GcUYYzbdqXI7nh5Eg6dgA==/3307330976916017.jpg",
+                "name": " Rise Up [Live Acoustic Video]",
+                "playCount": 13187,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Andra Day",
+                "artistId": 1115131,
+                "duration": 328000,
+                "mark": 0,
+                "arTransName": "",
+                "artists": [
+                    {
+                        "id": 1115131,
+                        "name": "Andra Day",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            },
+            {
+                "id": 5360498,
+                "cover": "http://p3.music.126.net/XN0eElks10dMleeE_SP7ow==/3420580731192287.jpg",
+                "name": "Rise Up",
+                "playCount": 56015,
+                "briefDesc": "",
+                "desc": null,
+                "artistName": "Jasmine Thompson",
+                "artistId": 863042,
+                "duration": 183000,
+                "mark": 0,
+                "arTransName": "贾思敏·汤普森",
+                "artists": [
+                    {
+                        "id": 863042,
+                        "name": "Jasmine Thompson",
+                        "alias": [
+                            "贾思敏·汤普森"
+                        ],
+                        "transNames": [
+                            "贾思敏·汤普森"
+                        ]
+                    },
+                    {
+                        "id": 1081407,
+                        "name": "Thomas Jack",
+                        "alias": [
+                            
+                        ],
+                        "transNames": null
+                    }
+                ],
+                "transNames": null,
+                "alias": null,
+                "alg": "alg_mv_basic_a"
+            }
+        ]
+    },
+    "code": 200
+}

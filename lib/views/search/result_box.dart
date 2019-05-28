@@ -405,7 +405,6 @@ class _SingleSongState extends State<SingleSong> with AutomaticKeepAliveClientMi
     _scrollController.addListener((){
       if( _scrollController.position.pixels == _scrollController.position.maxScrollExtent ){
         setState(() {
-          print("------------------------->>>>>>>>触底，即将发送请求..");
           page++;
         });
         getSongListData();
@@ -616,33 +615,37 @@ class VoidPage extends StatefulWidget {
 }
 
 class _VoidPageState extends State<VoidPage> with AutomaticKeepAliveClientMixin {
+
+  int page = 1;
+  int limit = 10;
+  ScrollController _scrollController;
   
   @override 
   bool get wantKeepAlive => true;
 
   @override
+  void initState() {
+    super.initState();
+    Timer( Duration( seconds: 0 ) , (){
+      getMvListData();
+    });
+  }
+
+  void getMvListData(  ) {
+    String keywords = Provide.value<SearchPageProvide>(context).searchInputData;
+    requestGet("search", formData: { "keywords" : keywords, "limit" : limit, "offset" : page, "type": 1004 }).then((onValue){
+      Provide.value<SearchPageProvide>(context).setMvs(onValue);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        children: <Widget>[
-          Container(
-            height: ScreenUtil().setHeight(900),
-            color: Colors.cyan,
-          ),
-          Container(
-            height: ScreenUtil().setHeight(900),
-            color: Colors.deepPurple,
-          ),
-          Container(
-            height: ScreenUtil().setHeight(900),
-            color: Colors.red,
-          ),
-          Container(
-            height: ScreenUtil().setHeight(900),
-            color: Colors.redAccent,
-          ),
-        ],
-      ),
+    return Provide<SearchPageProvide>(
+      builder: ( context, child, data ){
+        if( data.onlyMvList.length == 0 ){
+          return Container();
+        }
+      },
     );
   }
 }
