@@ -23,7 +23,7 @@ class Routes {
   static String songList = '/songList/:id';
   static String playpage = '/playpage';
   static String searchpage = "/searchpage";
-  static String mvPage = "/mvs/:mvid";
+  static String mvPage = "/mvs/:mvid/:video";
 
 
   static void configurRoute( Router router ){
@@ -52,7 +52,9 @@ class Routes {
       searchpage, handler: Handler( handlerFunc: ( context, params ) => SearchPage() ), transitionType: TransitionType.inFromRight
     );
     router.define(
-      mvPage, handler: Handler( handlerFunc: ( context, params ) => MvPage( mvid: int.parse( params['mvid'][0] ), ) ), transitionType: TransitionType.inFromRight
+      mvPage, handler: Handler( handlerFunc: ( context, params ){
+        return MvPage( mvid: int.parse( params['mvid'][0] ), videoId: params['video'][0], );
+      } ), transitionType: TransitionType.native
     );
 
 

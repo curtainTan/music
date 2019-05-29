@@ -28,7 +28,8 @@ import './bottomBox.dart';
 class MvPage extends StatefulWidget {
 
   int mvid;
-  MvPage( { this.mvid } );
+  String videoId;
+  MvPage( { this.mvid, this.videoId } );
 
   @override
   _MvPageState createState() => _MvPageState();
