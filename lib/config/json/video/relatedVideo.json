@@ -1,0 +1,21 @@
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "type": 1,
+            "title": "娱乐圈的潜规则被拍成了电影，女演员为此假戏真做",
+            "durationms": 276320,
+            "creator": [
+                {
+                    "userId": 121159150,
+                    "userName": "晓敏讲故事"
+                }
+            ],
+            "playTime": 1477228,
+            "coverUrl": "http://p1.music.126.net/ajbxX2FloyIcqZH6hbjEow==/109951163919330873.jpg",
+            "vid": "D180C990FA8E4B9B6F83A8494963787A",
+            "alg": "icf3"
+        }
+    ]
+}

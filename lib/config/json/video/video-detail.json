@@ -1,0 +1,76 @@
+{
+    "code": 200,
+    "data": {
+        "vid": "E5B09D6E25951186030DC1AD32E5D907",
+        "creator": {
+            "authStatus": 0,
+            "followed": false,
+            "accountStatus": 0,
+            "userId": 35672686,
+            "userType": 201,
+            "nickname": "Kpop现场舞台",
+            "avatarUrl": "http://p1.music.126.net/PfAjGOrYTepLWBELSrhSWg==/109951163981832642.jpg",
+            "experts": {
+                "1": "舞蹈视频达人"
+            }
+        },
+        "coverUrl": "http://p1.music.126.net/gXzIdxKNR8yzOhrd8xrKxQ==/109951163745712055.jpg",
+        "title": "女团Stellar拍19禁NV的心酸历程",
+        "description": "女团Stellar拍19禁NV的心酸历程",
+        "durationms": 82478,
+        "threadId": "R_VI_62_E5B09D6E25951186030DC1AD32E5D907",
+        "playTime": 2520814,
+        "praisedCount": 11605,
+        "commentCount": 1170,
+        "shareCount": 699,
+        "subscribeCount": 7515,
+        "publishTime": 1545548978000,
+        "avatarUrl": "http://p1.music.126.net/PfAjGOrYTepLWBELSrhSWg==/109951163981832642.jpg",
+        "width": 1920,
+        "height": 1080,
+        "resolutions": [
+            {
+                "size": 5426682,
+                "resolution": 240
+            },
+            {
+                "size": 8776523,
+                "resolution": 480
+            },
+            {
+                "size": 12716962,
+                "resolution": 720
+            },
+            {
+                "size": 21087096,
+                "resolution": 1080
+            }
+        ],
+        "videoGroup": [
+            {
+                "id": 16190,
+                "name": "韩国明星",
+                "alg": "groupTagRank"
+            },
+            {
+                "id": 15151,
+                "name": "采访",
+                "alg": "groupTagRank"
+            },
+            {
+                "id": 4101,
+                "name": "娱乐",
+                "alg": "groupTagRank"
+            },
+            {
+                "id": 58101,
+                "name": "听BGM",
+                "alg": "groupTagRank"
+            }
+        ],
+        "hasRelatedGameAd": false,
+        "advertisement": false,
+        "authType": 1
+    },
+    "message": "success"
+}

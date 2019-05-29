@@ -1,0 +1,38 @@
+{
+    "result": {
+        "videoCount": 600,
+        "videos": [
+            {
+                "coverUrl": "http://p1.music.126.net/gXzIdxKNR8yzOhrd8xrKxQ==/109951163745712055.jpg",
+                "title": "女团Stellar拍19禁NV的心酸历程",
+                "durationms": 82478,
+                "playTime": 2520764,
+                "type": 1,
+                "creator": [
+                    {
+                        "userId": 35672686,
+                        "userName": "Kpop现场舞台"
+                    }
+                ],
+                "vid": "E5B09D6E25951186030DC1AD32E5D907",
+                "alg": "alg_video_a"
+            },
+            {
+                "coverUrl": "http://p1.music.126.net/f5GNPETEIvpz436apWaRwQ==/109951163629127119.jpg",
+                "title": "1M舞室May J Lee女神编舞的《Watch Me Work》，百看不厌啊！",
+                "durationms": 213787,
+                "playTime": 2093737,
+                "type": 1,
+                "creator": [
+                    {
+                        "userId": 268137613,
+                        "userName": "舞蹈侦探"
+                    }
+                ],
+                "vid": "65818BC2FA0B737A9952849334DF71C6",
+                "alg": "alg_video_a"
+            }
+        ]
+    },
+    "code": 200
+}
