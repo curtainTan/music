@@ -44,7 +44,7 @@ class SingerAbout extends StatelessWidget {
                   margin: EdgeInsets.symmetric(
                     horizontal: ScreenUtil().setWidth( 20 )
                   ),
-                  child: Text( mvUser , style: TextStyle( fontSize: ScreenUtil().setSp( 40 ) ),),
+                  child: Text( mvUser ?? "-" , style: TextStyle( fontSize: ScreenUtil().setSp( 40 ) ),),
                 )
               ],
             ),

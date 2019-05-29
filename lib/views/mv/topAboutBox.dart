@@ -35,8 +35,11 @@ class TopAboutBox extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text( mvTitle ?? "-" , maxLines: 2, overflow: TextOverflow.ellipsis, 
-                style: TextStyle( fontSize: ScreenUtil().setSp(42), fontWeight: FontWeight.bold ),),
+                Container(
+                  width: ScreenUtil().setWidth( 800 ),
+                  child: Text( mvTitle ?? "-" , maxLines: 2, overflow: TextOverflow.ellipsis, 
+                  style: TextStyle( fontSize: ScreenUtil().setSp(42), fontWeight: FontWeight.bold ),),
+                ),
                 IconButton(
                   onPressed: changeFunc,
                   icon: Icon( showMore ? Icons.expand_less : Icons.expand_more, size: ScreenUtil().setSp( 60 ), )

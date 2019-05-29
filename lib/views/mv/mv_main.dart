@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
 
@@ -57,7 +58,7 @@ class _MvPageState extends State<MvPage>{
 
   VideoPlayerController _videoPlayerController;
   ChewieController _chewieController;
-  String mvurl = "";
+  String mvurl = "http://vodkgeyttp9c.vod.126.net/vodkgeyttp8/xOgr8WSM_2172435062_uhd.mp4?wsSecret=527aaf00b22a90099f225be12bbca9ed&wsTime=1559121255&ext=NnR5gMvHcZNcbCz592mDGUGuDOFN18isir07K1EOfL38igB38O7A%2B6J9Pi%2B5S6BGOc%2BFAbv%2BASpwe1HS%2F4j5mChTSgo1M7XkaFIM6Sjx4y94I6ADz5tbo%2B7t808Ai%2BdNV8Gol4zlA7e1NepmcKdynIjURmTpNay%2Fv7gz0uoh%2FQTOtUpSK2Vi2IUKJFMOgYQ0T4zQZcz9vP2C7RqyZD39Zyiim4%2BPD4Q7Dr3JzRXDju2R2vrJ7OxaqWoq2QuU0gCJ";
   
   double boxHeight = 612;
   bool showMore = false;
@@ -95,7 +96,7 @@ class _MvPageState extends State<MvPage>{
   }
 
   void getSimiVideo(){
-    requestGet( "relatedAllvideo", formData: { "mvid" : widget.videoId } ).then( ( data ){
+    requestGet( "relatedAllvideo", formData: { "id" : widget.videoId } ).then( ( data ){
       setState(() {
         _relatedRideoModal = RelatedRideoModal.fromJson( data );
       });
@@ -103,22 +104,41 @@ class _MvPageState extends State<MvPage>{
   }
 
   void addComment(){
-    requestGet( widget.mvid != 0 ? "commentMv" : "commentVideo" , formData: { "id" : widget.mvid, "offset" : commentPage } ).then( ( res ){
-      MvComment nowData = MvComment.fromJson( res );
-      setState(() {
-        commentList..addAll( nowData.comments );
-        commentPage ++;
+    if( widget.mvid != 0 ){
+      requestGet( "commentMv" , formData: { "id" : widget.mvid, "offset" : commentPage } ).then( ( res ){
+        MvComment nowData = MvComment.fromJson( res );
+        setState(() {
+          commentList..addAll( nowData.comments );
+          commentPage ++;
+        });
       });
-    });
+    }else{
+      requestGet( "commentVideo" , formData: { "id" : widget.videoId, "offset" : commentPage } ).then( ( res ){
+        MvComment nowData = MvComment.fromJson( res );
+        setState(() {
+          commentList..addAll( nowData.comments );
+          commentPage ++;
+        });
+      });
+    }
   }
 
   void getMvComment(){
-    requestGet( widget.mvid != 0 ? "commentMv" : "commentVideo", formData: { "id" : widget.mvid } ).then( ( res ){
-      setState(() {
-        _mvComment = MvComment.fromJson( res );
-        commentList..addAll( _mvComment.comments );
+    if( widget.mvid != 0 ){
+      requestGet( "commentMv" , formData: { "id" : widget.mvid } ).then( ( res ){
+        setState(() {
+          _mvComment = MvComment.fromJson( res );
+          commentList..addAll( _mvComment.comments );
+        });
       });
-    });
+    } else {
+      requestGet( "commentVideo", formData: { "id" : widget.videoId } ).then( ( res ){
+        setState(() {
+          _mvComment = MvComment.fromJson( res );
+          commentList..addAll( _mvComment.comments );
+        });
+      });
+    }
   }
 
   void getMvDetail(){
@@ -133,12 +153,13 @@ class _MvPageState extends State<MvPage>{
         aspectRatio: 2 / 1,
         autoPlay: true,
         looping: true,
+        placeholder: Text("-------渲染不出来？？-------", style: TextStyle( color: Colors.white ),)
       );
     });
   }
 
   void getVideoDetail(){
-    requestGet( "videoDetail", formData: { "mvid" : widget.videoId } ).then((onValue){
+    requestGet( "videoDetail", formData: { "id" : widget.videoId } ).then((onValue){
       setState(() {
         _videoDetailModal = VideoDetailModal.fromJson( onValue );
       });
@@ -146,7 +167,8 @@ class _MvPageState extends State<MvPage>{
   }
 
   void getVideoUrl(){
-    requestGet( "videoUrl", formData: { "mvid" : widget.videoId } ).then((onValue){
+    requestGet( "videoUrl", formData: { "id" : widget.videoId } ).then((onValue){
+      print("-------url数据----------${onValue.toString()}");
       Provide.value<PlayMusic>(context).setPause();
       setState(() {
         _videoUrlModal = VideoUrlModal.fromJson( onValue );
@@ -154,9 +176,10 @@ class _MvPageState extends State<MvPage>{
       });
       _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController,
-        aspectRatio: 2 / 1,
+        // aspectRatio: 2 / 1,
         autoPlay: true,
         looping: true,
+        placeholder: Text("-------渲染不出来？？-------", style: TextStyle( color: Colors.white ),)
       );
     });
   }
@@ -256,11 +279,19 @@ class _MvPageState extends State<MvPage>{
             height: ScreenUtil().setHeight( boxHeight ),
             width: double.infinity,
             color: Colors.black,
-            child: _mvDetailModal != null ?
+            child: widget.mvid == 0 ? (
+              _mvDetailModal != null ?
               Chewie(
                 // key: myKey,
                 controller: _chewieController,
               ) : Container()
+            ) : ( 
+              _videoUrlModal != null ? 
+              Chewie(
+                // key: myKey,
+                controller: _chewieController,
+              ) : Container()
+            )
           ),
           Expanded(
             child: CustomScrollView(
@@ -305,6 +336,7 @@ class _MvPageState extends State<MvPage>{
                           playCount: _simiMvModal.mvs[index].playCount,
                           time: _simiMvModal.mvs[index].duration,
                           mvId: _simiMvModal.mvs[index].id,
+                          isReplace: true,
                         );
                       },
                       childCount: _simiMvModal.mvs.length
@@ -326,7 +358,8 @@ class _MvPageState extends State<MvPage>{
                             playCount: _relatedRideoModal.data[index].playTime,
                             time: _relatedRideoModal.data[index].durationms,
                             mvId: 0,
-                            videoId: _relatedRideoModal.data[index].vid
+                            videoId: _relatedRideoModal.data[index].vid,
+                            isReplace: true,
                           );
                         },
                         childCount: _relatedRideoModal.data.length

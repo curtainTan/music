@@ -11,6 +11,7 @@ class OneSimiMv extends StatelessWidget {
 
   String mvCover, mvTitle, mvUser, videoId;
   int playCount, time, mvId;
+  bool isReplace;
 
   OneSimiMv({
     this.mvCover,
@@ -19,13 +20,14 @@ class OneSimiMv extends StatelessWidget {
     this.playCount,
     this.time,
     this.mvId = 0,
+    this.isReplace = false,
     this.videoId = "" });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Routes.router.navigateTo(context, "/mvs/" + mvId.toString() + "/" + videoId , replace: true );
+        Routes.router.navigateTo(context, "/mvs/" + mvId.toString() + "/" + videoId , replace: isReplace );
       },
       child: Row(
         children: <Widget>[

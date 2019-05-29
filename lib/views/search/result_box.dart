@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/service/http.dart';
@@ -729,6 +728,7 @@ class _VoidPageState extends State<VoidPage> with AutomaticKeepAliveClientMixin 
                   playCount: data.onlyVideoList[index].playTime,
                   time: data.onlyVideoList[index].durationms,
                   videoId: data.onlyVideoList[index].vid,
+                  isReplace: false,
                 );
               }
             },
@@ -881,6 +881,7 @@ class OneMenu extends StatelessWidget {
   Widget midabout(){
     return Container(
       height: ScreenUtil().setHeight(160),
+      width: ScreenUtil().setWidth( 750 ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
