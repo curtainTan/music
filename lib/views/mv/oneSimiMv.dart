@@ -18,8 +18,8 @@ class OneSimiMv extends StatelessWidget {
     this.mvUser,
     this.playCount,
     this.time,
-    this.mvId,
-    this.videoId });
+    this.mvId = 0,
+    this.videoId = "" });
 
   @override
   Widget build(BuildContext context) {

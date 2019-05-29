@@ -8,7 +8,7 @@ class TopAboutBox extends StatelessWidget {
 
   bool showMore;
   String mvTitle, pubTime;
-  int playcount;
+  int playcount, publishTimeInt;
   final changeFunc;
   List<String> label = [ "MV", "流行", "音乐", "Showtime" ];
 
@@ -17,7 +17,8 @@ class TopAboutBox extends StatelessWidget {
     this.changeFunc,
     this.mvTitle,
     this.playcount,
-    this.pubTime
+    this.pubTime,
+    this.publishTimeInt = 0
   });
   
 

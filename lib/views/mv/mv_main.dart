@@ -266,45 +266,79 @@ class _MvPageState extends State<MvPage>{
             child: CustomScrollView(
               controller: _scrollController,
               slivers: <Widget>[
+                widget.mvid != 0 ?
                 TopAboutBox(
                   showMore: showMore,
                   changeFunc: changeShowMore,
                   mvTitle: _mvDetailModal?.data?.name ?? "-" ,
                   playcount: _mvDetailModal?.data?.playCount ?? 0,
                   pubTime: _mvDetailModal?.data?.publishTime ?? "-",
+                ) : TopAboutBox(
+                  showMore: showMore,
+                  changeFunc: changeShowMore,
+                  mvTitle: _videoDetailModal?.data?.title ?? "-" ,
+                  playcount: _videoDetailModal?.data?.playTime ?? 0,
+                  publishTimeInt: _videoDetailModal?.data?.publishTime ?? 0,
+                  pubTime: "",
                 ),
                 SliverPersistentHeader(
                   pinned: true,
                   delegate: MySliverAppBarDelegate(
                     minHeight: ScreenUtil().setHeight(150),
                     maxHeight: ScreenUtil().setHeight(150),
-                    child: SingerAbout(
-                      mvUser: _mvDetailModal?.data?.artistName ?? "-",
-                    )
+                    child: widget.mvid != 0 ? SingerAbout(
+                        mvUser: _mvDetailModal?.data?.artistName ?? "-",
+                      ) : SingerAbout(
+                        mvUser: _videoDetailModal?.data?.creator?.nickname,
+                        headImg: _videoDetailModal?.data?.creator?.avatarUrl,
+                      )
                   ),
                 ),
                 someTitle( "相关视频" ),
-                _simiMvModal != null ? SliverFixedExtentList(
-                  delegate: SliverChildBuilderDelegate(
-                    ( context, index ){
-                      return OneSimiMv(
-                        mvCover: _simiMvModal.mvs[index].cover,
-                        mvTitle: _simiMvModal.mvs[index].name,
-                        mvUser: _simiMvModal.mvs[index].artistName,
-                        playCount: _simiMvModal.mvs[index].playCount,
-                        time: _simiMvModal.mvs[index].duration,
-                        mvId: _simiMvModal.mvs[index].id,
-                      );
-                    },
-                    childCount: _simiMvModal.mvs.length
+                widget.mvid != 0 ? ( _simiMvModal != null ? SliverFixedExtentList(
+                    delegate: SliverChildBuilderDelegate(
+                      ( context, index ){
+                        return OneSimiMv(
+                          mvCover: _simiMvModal.mvs[index].cover,
+                          mvTitle: _simiMvModal.mvs[index].name,
+                          mvUser: _simiMvModal.mvs[index].artistName,
+                          playCount: _simiMvModal.mvs[index].playCount,
+                          time: _simiMvModal.mvs[index].duration,
+                          mvId: _simiMvModal.mvs[index].id,
+                        );
+                      },
+                      childCount: _simiMvModal.mvs.length
+                    ),
+                    itemExtent: ScreenUtil().setHeight( 280 ),
+                  ) : SliverToBoxAdapter(
+                    child: Container(
+                      height: ScreenUtil().setHeight(200),
+                      child: Text("暂无相似视频...."),
+                    ),
+                  )) : ( 
+                    _relatedRideoModal != null ? SliverFixedExtentList(
+                      delegate: SliverChildBuilderDelegate(
+                        ( context, index ){
+                          return OneSimiMv(
+                            mvCover: _relatedRideoModal.data[index].coverUrl,
+                            mvTitle: _relatedRideoModal.data[index].title,
+                            mvUser: _relatedRideoModal.data[index].creator[0].userName,
+                            playCount: _relatedRideoModal.data[index].playTime,
+                            time: _relatedRideoModal.data[index].durationms,
+                            mvId: 0,
+                            videoId: _relatedRideoModal.data[index].vid
+                          );
+                        },
+                        childCount: _relatedRideoModal.data.length
+                      ),
+                      itemExtent: ScreenUtil().setHeight( 280 ),
+                    ) : SliverToBoxAdapter(
+                      child: Container(
+                        height: ScreenUtil().setHeight(200),
+                        child: Text("暂无相似视频...."),
+                      ),
+                    )
                   ),
-                  itemExtent: ScreenUtil().setHeight( 280 ),
-                ) : SliverToBoxAdapter(
-                  child: Container(
-                    height: ScreenUtil().setHeight(200),
-                    child: Text("暂无相似视频...."),
-                  ),
-                ),
                 someTitle( "精彩评论" ),
                 _mvComment != null ? SliverList(
                   delegate: SliverChildBuilderDelegate(
