@@ -153,7 +153,16 @@ class _MvPageState extends State<MvPage>{
         aspectRatio: 2 / 1,
         autoPlay: true,
         looping: true,
-        placeholder: Text("-------渲染不出来？？-------", style: TextStyle( color: Colors.white ),)
+        placeholder: Container(
+          color: Colors.red,
+        ),
+        overlay: Text("这里是overlay"),
+        errorBuilder: ( context, err ){
+          print("播放器出错了-----${err.toString()}");
+          return Container(
+            child: Text("---errorBuilder-----", style: TextStyle( color: Colors.yellow ),),
+          );
+        }
       );
     });
   }
@@ -176,10 +185,16 @@ class _MvPageState extends State<MvPage>{
       });
       _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController,
-        // aspectRatio: 2 / 1,
+        aspectRatio: 2 / 1,
         autoPlay: true,
         looping: true,
-        placeholder: Text("-------渲染不出来？？-------", style: TextStyle( color: Colors.white ),)
+        // overlay: Text("这里是overlay"),
+        errorBuilder: ( context, err ){
+          print("播放器出错了-----${err.toString()}");
+          return Container(
+            child: Text("---errorBuilder-----", style: TextStyle( color: Colors.yellow ),),
+          );
+        }
       );
     });
   }
@@ -279,14 +294,15 @@ class _MvPageState extends State<MvPage>{
             height: ScreenUtil().setHeight( boxHeight ),
             width: double.infinity,
             color: Colors.black,
-            child: widget.mvid == 0 ? (
+            // child: 
+            child: widget.mvid != 0 ? (
               _mvDetailModal != null ?
               Chewie(
                 // key: myKey,
                 controller: _chewieController,
               ) : Container()
             ) : ( 
-              _videoUrlModal != null ? 
+              _videoUrlModal != null ?
               Chewie(
                 // key: myKey,
                 controller: _chewieController,

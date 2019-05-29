@@ -728,6 +728,7 @@ class _VoidPageState extends State<VoidPage> with AutomaticKeepAliveClientMixin 
                   playCount: data.onlyVideoList[index].playTime,
                   time: data.onlyVideoList[index].durationms,
                   videoId: data.onlyVideoList[index].vid,
+                  videoType: data.onlyVideoList[index].type,
                   isReplace: false,
                 );
               }

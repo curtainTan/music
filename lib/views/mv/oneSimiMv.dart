@@ -10,7 +10,7 @@ import 'package:music/routers/route.dart';
 class OneSimiMv extends StatelessWidget {
 
   String mvCover, mvTitle, mvUser, videoId;
-  int playCount, time, mvId;
+  int playCount, time, mvId, videoType;
   bool isReplace;
 
   OneSimiMv({
@@ -21,13 +21,19 @@ class OneSimiMv extends StatelessWidget {
     this.time,
     this.mvId = 0,
     this.isReplace = false,
-    this.videoId = "" });
+    this.videoId = "",
+    this.videoType = 1,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Routes.router.navigateTo(context, "/mvs/" + mvId.toString() + "/" + videoId , replace: isReplace );
+        if( videoType == 0 ){
+          Routes.router.navigateTo(context, "/mvs/" + videoId + "/" + videoId , replace: isReplace );
+        } else {
+          Routes.router.navigateTo(context, "/mvs/" + mvId.toString() + "/" + videoId , replace: isReplace );
+        }
       },
       child: Row(
         children: <Widget>[
