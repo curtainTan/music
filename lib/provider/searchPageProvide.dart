@@ -10,6 +10,7 @@ import 'package:music/modal/search_suggest.dart';
 import 'package:music/modal/search-type1.dart';
 import 'package:music/modal/mv/search_mv.dart';
 
+import 'package:music/modal/search_video.dart';
 
 class SearchPageProvide with ChangeNotifier{
 
@@ -21,7 +22,8 @@ class SearchPageProvide with ChangeNotifier{
   Timer atimer = null;
   
   List<SearchType1Songs> type1Song = [];
-  List<OnlyMvs> onlyMvList = [];
+  // List<OnlyMvs> onlyMvList = [];
+  List<OnlyVideos> onlyVideoList = [];
   
 
   SearchHot searchHot = null;
@@ -45,7 +47,7 @@ class SearchPageProvide with ChangeNotifier{
   clearData(){
     type1Song = [];
     searchComplex = null;
-    onlyMvList = [];
+    onlyVideoList = [];
     notifyListeners();
   }
   // 初始化历史记录
@@ -70,7 +72,7 @@ class SearchPageProvide with ChangeNotifier{
       });
     }
     if( tabIndex == 2 ){                  // mv
-      requestGet("search", formData: { "keywords" : searchInputData, "limit" : 10, "offset" : 1, "type" : 1004 }).then( (resData){
+      requestGet("search", formData: { "keywords" : searchInputData, "limit" : 10, "offset" : 1, "type" : 1014 }).then( (resData){
         setType1Song(resData);
       });
     }
@@ -109,16 +111,15 @@ class SearchPageProvide with ChangeNotifier{
 
     List<SearchType1Songs> nowSongList = SearchType1.fromJson(data).result.songs;
     type1Song..addAll( nowSongList );
-    // print("------------数据长度为----${type1Song.length}----------${nowSongList.length}--");
     notifyListeners();
 
   }
   // 设置mv
   setMvs( data ){
 
-    SearchMvModal searchMvModal = SearchMvModal.fromJson( data );
-    List<OnlyMvs> ooooo = searchMvModal.result.mvs;
-    onlyMvList..addAll( ooooo );
+    SearchVideoModal searchMvModal = SearchVideoModal.fromJson( data );
+    List<OnlyVideos> justNowList = searchMvModal.result.videos;
+    onlyVideoList..addAll( justNowList );
     notifyListeners();
 
   }

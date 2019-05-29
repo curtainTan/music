@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
 
@@ -11,9 +9,16 @@ import 'package:video_player/video_player.dart';
 import 'package:music/service/http.dart';
 import 'package:music/provider/play_music.dart';
 
+// mv
 import 'package:music/modal/mv/mv_detail.dart';
 import 'package:music/modal/mv/simi_mv.dart';
 import 'package:music/modal/mv/comment_mv.dart';
+
+// video
+import 'package:music/modal/video/related_video.dart';
+import 'package:music/modal/video/video_detail.dart';
+import 'package:music/modal/video/video_url.dart';
+
 
 import './delegate.dart';
 import './singerAbout.dart';
@@ -21,8 +26,6 @@ import './topAboutBox.dart';
 import './oneSimiMv.dart';
 import './oneComment.dart';
 import './bottomBox.dart';
-
-
 
 
 class MvPage extends StatefulWidget {
@@ -36,20 +39,25 @@ class MvPage extends StatefulWidget {
 }
 
 class _MvPageState extends State<MvPage>{
-
+  // mv
   MvDetailModal _mvDetailModal = null;
   SimiMvModal _simiMvModal = null;
   MvComment _mvComment = null;
+  // video
+  RelatedRideoModal _relatedRideoModal = null;
+  VideoDetailModal _videoDetailModal = null;
+  VideoUrlModal _videoUrlModal = null;
+  // 评论
   List<Comments> commentList = [];
   int  commentPage = 2;
 
   ScrollController _scrollController = null;
 
-  GlobalKey myKey = GlobalKey();
+  // GlobalKey myKey = GlobalKey();
 
   VideoPlayerController _videoPlayerController;
   ChewieController _chewieController;
-  String mvurl = "http://vodkgeyttp8.vod.126.net/cloudmusic/MjQ3NDQ3MjUw/89a6a279dc2acfcd068b45ce72b1f560/533e4183a709699d566180ed0cd9abe9.mp4?wsSecret=631fbe072415240217962ad5b7e0c119&wsTime=1558538796";
+  String mvurl = "";
   
   double boxHeight = 612;
   bool showMore = false;
@@ -57,11 +65,19 @@ class _MvPageState extends State<MvPage>{
   @override
   void initState() {
     super.initState();
-    getSimiMv();
+    if( widget.mvid == 0 ){
+      getSimiVideo();
+      getVideoDetail();
+      Timer( Duration( seconds: 0 ) , (){
+        getVideoUrl();
+      });
+    }else{
+      getSimiMv();
+      Timer( Duration( seconds: 0 ) , (){
+        getMvDetail();
+      });
+    }
     getMvComment();
-    Timer( Duration( seconds: 0 ) , (){
-      getMvDetail();
-    });
     _scrollController = ScrollController();
     _scrollController.addListener( (){
       if( _scrollController.position.pixels == _scrollController.position.maxScrollExtent ){
@@ -69,7 +85,6 @@ class _MvPageState extends State<MvPage>{
       }
     } );
   }
-
 
   void getSimiMv(){
     requestGet( "simiMv", formData: { "mvid" : widget.mvid } ).then( ( res ){
@@ -79,8 +94,16 @@ class _MvPageState extends State<MvPage>{
     });
   }
 
+  void getSimiVideo(){
+    requestGet( "relatedAllvideo", formData: { "mvid" : widget.videoId } ).then( ( data ){
+      setState(() {
+        _relatedRideoModal = RelatedRideoModal.fromJson( data );
+      });
+    });
+  }
+
   void addComment(){
-    requestGet( "commentMv", formData: { "id" : widget.mvid, "offset" : commentPage } ).then( ( res ){
+    requestGet( widget.mvid != 0 ? "commentMv" : "commentVideo" , formData: { "id" : widget.mvid, "offset" : commentPage } ).then( ( res ){
       MvComment nowData = MvComment.fromJson( res );
       setState(() {
         commentList..addAll( nowData.comments );
@@ -90,7 +113,7 @@ class _MvPageState extends State<MvPage>{
   }
 
   void getMvComment(){
-    requestGet( "commentMv", formData: { "id" : widget.mvid } ).then( ( res ){
+    requestGet( widget.mvid != 0 ? "commentMv" : "commentVideo", formData: { "id" : widget.mvid } ).then( ( res ){
       setState(() {
         _mvComment = MvComment.fromJson( res );
         commentList..addAll( _mvComment.comments );
@@ -104,6 +127,30 @@ class _MvPageState extends State<MvPage>{
       setState(() {
         _mvDetailModal = MvDetailModal.fromJson( onValue );
         _videoPlayerController = VideoPlayerController.network( _mvDetailModal.data.brs.s240 );
+      });
+      _chewieController = ChewieController(
+        videoPlayerController: _videoPlayerController,
+        aspectRatio: 2 / 1,
+        autoPlay: true,
+        looping: true,
+      );
+    });
+  }
+
+  void getVideoDetail(){
+    requestGet( "videoDetail", formData: { "mvid" : widget.videoId } ).then((onValue){
+      setState(() {
+        _videoDetailModal = VideoDetailModal.fromJson( onValue );
+      });
+    });
+  }
+
+  void getVideoUrl(){
+    requestGet( "videoUrl", formData: { "mvid" : widget.videoId } ).then((onValue){
+      Provide.value<PlayMusic>(context).setPause();
+      setState(() {
+        _videoUrlModal = VideoUrlModal.fromJson( onValue );
+        _videoPlayerController = VideoPlayerController.network( _videoUrlModal.urls[0].url );
       });
       _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController,
@@ -211,7 +258,7 @@ class _MvPageState extends State<MvPage>{
             color: Colors.black,
             child: _mvDetailModal != null ?
               Chewie(
-                key: myKey,
+                // key: myKey,
                 controller: _chewieController,
               ) : Container()
           ),
@@ -220,7 +267,7 @@ class _MvPageState extends State<MvPage>{
               controller: _scrollController,
               slivers: <Widget>[
                 TopAboutBox(
-                  showMore: showMore, 
+                  showMore: showMore,
                   changeFunc: changeShowMore,
                   mvTitle: _mvDetailModal?.data?.name ?? "-" ,
                   playcount: _mvDetailModal?.data?.playCount ?? 0,

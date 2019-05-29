@@ -635,7 +635,6 @@ class _VoidPageState extends State<VoidPage> with AutomaticKeepAliveClientMixin 
         setState(() {
           page++;
         });
-        print("-------------页面--$page");
         getMvListData();
       }
     });
@@ -643,7 +642,7 @@ class _VoidPageState extends State<VoidPage> with AutomaticKeepAliveClientMixin 
 
   void getMvListData(  ) {
     String keywords = Provide.value<SearchPageProvide>(context).searchInputData;
-    requestGet("search", formData: { "keywords" : keywords, "limit" : limit, "offset" : page, "type": 1004 }).then((onValue){
+    requestGet("search", formData: { "keywords" : keywords, "limit" : limit, "offset" : page, "type": 1014 }).then((onValue){
       Provide.value<SearchPageProvide>(context).setMvs(onValue);
     });
   }
@@ -710,29 +709,30 @@ class _VoidPageState extends State<VoidPage> with AutomaticKeepAliveClientMixin 
   Widget build(BuildContext context) {
     return Provide<SearchPageProvide>(
       builder: ( context, child, data ){
-        if( data.onlyMvList.length != 0 ){
+        if( data.onlyVideoList.length != 0 ){
           return ListView.builder(
             controller: _scrollController,
             itemBuilder: ( context, index ){
-              if( index == data.onlyMvList.length ){
+              if( index == data.onlyVideoList.length ){
                 return _buildProgressIndicator();
               }else{
-                if( index == data.onlyMvList.length + 1 ){
+                if( index == data.onlyVideoList.length + 1 ){
                   return Container(
                     height: ScreenUtil().setHeight(200),
                   );
                 }
                 return OneSimiMv(
-                  mvCover: data.onlyMvList[index].cover,
-                  mvTitle: data.onlyMvList[index].name,
-                  mvId: data.onlyMvList[index].id,
-                  mvUser: data.onlyMvList[index].artistName,
-                  playCount: data.onlyMvList[index].playCount,
-                  time: data.onlyMvList[index].duration
+                  mvCover: data.onlyVideoList[index].coverUrl,
+                  mvTitle: data.onlyVideoList[index].title,
+                  mvId: 0,
+                  mvUser: data.onlyVideoList[index].creator[0].userName,
+                  playCount: data.onlyVideoList[index].playTime,
+                  time: data.onlyVideoList[index].durationms,
+                  videoId: data.onlyVideoList[index].vid,
                 );
               }
             },
-            itemCount: data.onlyMvList.length + 1 ,
+            itemCount: data.onlyVideoList.length + 1 ,
             itemExtent: ScreenUtil().setHeight( 280 ),
           );
         }else{
