@@ -32,7 +32,6 @@
 
 # 5.30更新
 <a><img src="./asset/picture/gif/mvPage.gif" width="200" ></a>
-<a><img src="./asset/picture/suggest.png" width="200" ></a>
 <a><img src="./asset/picture/search.png" width="200" ></a>
 <a><img src="./asset/picture/search1.png" width="200" ></a>
 
