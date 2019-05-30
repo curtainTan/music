@@ -1,6 +1,25 @@
 # music
 
+## 当前项目已经完成的功能：
 
+- splah页面
+- 登录
+- 播放音乐
+- 显示歌词
+- 歌词跟随
+- 上一曲/下一曲
+- 搜索
+- 搜索提示
+- 播放mv/video
+- 用户中心
+
+## 接下来要完成的功能
+
+- 评论（带emoji表情的）
+- 设置皮肤
+- 动态展示
+
+---
 
 ## 嘤嘤嘤
 
@@ -9,12 +28,18 @@
 好可惜啊，界面还没有写完，网易的界面就更新了
 
 
+下面放上截图：
 
-下面放上截图吧：
+# 5.30更新
+<a><img src="./asset/picture/gif/mvPage.gif" width="200" ></a>
+<a><img src="./asset/picture/suggest.png" width="200" ></a>
+<a><img src="./asset/picture/search.png" width="200" ></a>
+<a><img src="./asset/picture/search1.png" width="200" ></a>
 
 # 5.15更新
 ## 增加了搜索的数据管理结构，界面还没开始写，手写了搜索推荐的局部dialog，上图吧，
 <a><img src="./asset/picture/gif/search_modal.gif" width="200" ></a>
+
 局部dialog，嘿嘿，我觉得写得蛮不错的，
 
 
@@ -71,27 +96,9 @@
 <span><img src="./asset/picture/7.png" width="200" ></span>
 <span><img src="./asset/picture/8.png" width="200" ></span>
 
-## 个人中心---展示header的变化，这里也写了超久----不过学习了sliver家族，开心
-
 ##### 好想给你们展示一下动图啊，下次补上
 
 <span><img src="./asset/picture/9.png" width="200" ></span>
-
-## 歌单
-
-<span><img src="./asset/picture/10.png" width="200" ></span>
-
-## 歌单-----这里也想给你们展示动图........
-
-<span><img src="./asset/picture/11.png" width="200" ></span>
-
-## 播放界面---
-
-### 这里还没有写完，只写了界面-------最近学业忙---数据过两天加上
-
-### 这里我会加上鲸云的音频波浪效果的------等我.......
-
-<span><img src="./asset/picture/12.png" width="200" ></span>
 
 
 # 给我一点时间----------
