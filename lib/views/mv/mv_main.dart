@@ -58,7 +58,6 @@ class _MvPageState extends State<MvPage>{
 
   VideoPlayerController _videoPlayerController;
   ChewieController _chewieController;
-  String mvurl = "http://vodkgeyttp9c.vod.126.net/vodkgeyttp8/xOgr8WSM_2172435062_uhd.mp4?wsSecret=527aaf00b22a90099f225be12bbca9ed&wsTime=1559121255&ext=NnR5gMvHcZNcbCz592mDGUGuDOFN18isir07K1EOfL38igB38O7A%2B6J9Pi%2B5S6BGOc%2BFAbv%2BASpwe1HS%2F4j5mChTSgo1M7XkaFIM6Sjx4y94I6ADz5tbo%2B7t808Ai%2BdNV8Gol4zlA7e1NepmcKdynIjURmTpNay%2Fv7gz0uoh%2FQTOtUpSK2Vi2IUKJFMOgYQ0T4zQZcz9vP2C7RqyZD39Zyiim4%2BPD4Q7Dr3JzRXDju2R2vrJ7OxaqWoq2QuU0gCJ";
   
   double boxHeight = 612;
   bool showMore = false;
@@ -146,19 +145,14 @@ class _MvPageState extends State<MvPage>{
       Provide.value<PlayMusic>(context).setPause();
       setState(() {
         _mvDetailModal = MvDetailModal.fromJson( onValue );
-        _videoPlayerController = VideoPlayerController.network( _mvDetailModal.data.brs.s240 );
+        _videoPlayerController = VideoPlayerController.network( _mvDetailModal.data.brs?.s480 ?? _mvDetailModal.data.brs?.s240 );
       });
       _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController,
         aspectRatio: 2 / 1,
         autoPlay: true,
         looping: true,
-        placeholder: Container(
-          color: Colors.red,
-        ),
-        overlay: Text("这里是overlay"),
         errorBuilder: ( context, err ){
-          print("播放器出错了-----${err.toString()}");
           return Container(
             child: Text("---errorBuilder-----", style: TextStyle( color: Colors.yellow ),),
           );
@@ -177,7 +171,6 @@ class _MvPageState extends State<MvPage>{
 
   void getVideoUrl(){
     requestGet( "videoUrl", formData: { "id" : widget.videoId } ).then((onValue){
-      print("-------url数据----------${onValue.toString()}");
       Provide.value<PlayMusic>(context).setPause();
       setState(() {
         _videoUrlModal = VideoUrlModal.fromJson( onValue );
@@ -190,7 +183,6 @@ class _MvPageState extends State<MvPage>{
         looping: true,
         // overlay: Text("这里是overlay"),
         errorBuilder: ( context, err ){
-          print("播放器出错了-----${err.toString()}");
           return Container(
             child: Text("---errorBuilder-----", style: TextStyle( color: Colors.yellow ),),
           );
@@ -243,7 +235,7 @@ class _MvPageState extends State<MvPage>{
 
   Widget _buildProgressIndicator() {
     return new Container(
-      height: ScreenUtil().setHeight(100),
+      height: ScreenUtil().setHeight(200),
       margin: EdgeInsets.only(
         bottom: ScreenUtil().setHeight(30)
       ),
@@ -353,6 +345,7 @@ class _MvPageState extends State<MvPage>{
                           time: _simiMvModal.mvs[index].duration,
                           mvId: _simiMvModal.mvs[index].id,
                           isReplace: true,
+                          videoId: ""
                         );
                       },
                       childCount: _simiMvModal.mvs.length
@@ -360,6 +353,7 @@ class _MvPageState extends State<MvPage>{
                     itemExtent: ScreenUtil().setHeight( 280 ),
                   ) : SliverToBoxAdapter(
                     child: Container(
+                      alignment: Alignment.center,
                       height: ScreenUtil().setHeight(200),
                       child: Text("暂无相似视频...."),
                     ),
@@ -376,6 +370,7 @@ class _MvPageState extends State<MvPage>{
                             mvId: 0,
                             videoId: _relatedRideoModal.data[index].vid,
                             isReplace: true,
+                            videoType: _relatedRideoModal.data[index].type,
                           );
                         },
                         childCount: _relatedRideoModal.data.length
@@ -453,9 +448,6 @@ class _MvPageState extends State<MvPage>{
     );
   }
 }
-
-
-
 
 
 

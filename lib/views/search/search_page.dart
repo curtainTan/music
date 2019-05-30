@@ -94,6 +94,13 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
             });
           }
         }
+        if( _tabController.index == 2 ){
+          if( Provide.value<SearchPageProvide>(context).onlyVideoList.length == 0 ){
+            requestGet("search", formData: { "keywords" : searchText, "limit" : 10, "offset" : 1, "type": 1014 }).then((onValue){
+              Provide.value<SearchPageProvide>(context).setMvs(onValue);
+            });
+          }
+        }
         Provide.value<SearchPageProvide>(context).changeTabIndex( _tabController.index );
       }
     } );

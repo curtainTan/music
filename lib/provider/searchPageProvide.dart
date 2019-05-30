@@ -43,6 +43,7 @@ class SearchPageProvide with ChangeNotifier{
       historyList.insert( 0, data );
     }
     pref.setStringList("historySearch", historyList);
+    notifyListeners();
   }
   clearData(){
     type1Song = [];
@@ -54,6 +55,7 @@ class SearchPageProvide with ChangeNotifier{
   initHistory() async {
     pref = await SharedPreferences.getInstance();
     historyList = pref.getStringList("historySearch") ?? [];
+    notifyListeners();
   }
 
   // 开始搜索

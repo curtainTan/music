@@ -641,6 +641,7 @@ class _VoidPageState extends State<VoidPage> with AutomaticKeepAliveClientMixin 
 
   void getMvListData(  ) {
     String keywords = Provide.value<SearchPageProvide>(context).searchInputData;
+    print("------------请求的page----:::>>$page--------------");
     requestGet("search", formData: { "keywords" : keywords, "limit" : limit, "offset" : page, "type": 1014 }).then((onValue){
       Provide.value<SearchPageProvide>(context).setMvs(onValue);
     });
