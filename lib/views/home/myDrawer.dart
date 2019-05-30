@@ -168,7 +168,7 @@ class MyDrawer extends StatelessWidget {
                       child: Image.network(
                         data?.profile?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
                         width: ScreenUtil().setWidth(150),
-                        height: ScreenUtil().setHeight(150),
+                        height: ScreenUtil().setWidth(150),
                       ),
                     ),
                   ),

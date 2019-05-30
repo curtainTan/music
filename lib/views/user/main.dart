@@ -216,7 +216,7 @@ class _UserMainState extends State<UserMain> with TickerProviderStateMixin {
                   // "http://curtaintan.club/headImg/1549358122065.jpg",
                   head,
                   width: ScreenUtil().setWidth(200),
-                  height: ScreenUtil().setHeight(200),
+                  height: ScreenUtil().setWidth(200),
                 ),
               ),
             ),
