@@ -312,6 +312,11 @@ class _MvPageState extends State<MvPage>{
                   mvTitle: _mvDetailModal?.data?.name ?? "-" ,
                   playcount: _mvDetailModal?.data?.playCount ?? 0,
                   pubTime: _mvDetailModal?.data?.publishTime ?? "-",
+                  likeCount: _mvDetailModal?.data?.likeCount ?? 0,
+                  collectCount: _mvDetailModal?.data?.subCount ?? 0,
+                  commentCount: _mvDetailModal?.data?.commentCount ?? 0,
+                  sharedCount: _mvDetailModal?.data?.shareCount ?? 0,
+                  description: _mvDetailModal?.data?.briefDesc ?? "-",
                 ) : TopAboutBox(
                   showMore: showMore,
                   changeFunc: changeShowMore,
@@ -319,6 +324,11 @@ class _MvPageState extends State<MvPage>{
                   playcount: _videoDetailModal?.data?.playTime ?? 0,
                   publishTimeInt: _videoDetailModal?.data?.publishTime ?? 0,
                   pubTime: "",
+                  likeCount: _videoDetailModal?.data?.praisedCount ?? 0,
+                  collectCount: _videoDetailModal?.data?.subscribeCount ?? 0,
+                  commentCount: _videoDetailModal?.data?.commentCount ?? 0,
+                  sharedCount: _videoDetailModal?.data?.shareCount ?? 0,
+                  description: _videoDetailModal?.data?.description ?? ""
                 ),
                 SliverPersistentHeader(
                   pinned: true,
