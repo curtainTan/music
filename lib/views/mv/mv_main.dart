@@ -194,6 +194,7 @@ class _MvPageState extends State<MvPage>{
   @override
   void dispose() {
     _chewieController.dispose();
+    _scrollController.dispose();
     _videoPlayerController.dispose();
     super.dispose();
   }
