@@ -17,6 +17,9 @@ const servicePath = {
   "checkmusic" : serviceUrl + "/check/music",                 // 传入歌曲 id, 可获取音乐是否可用
   "songdetail" : serviceUrl + "/song/detail",                 // 获取歌曲详情   ids: 音乐 id, 如 ids=347230
 
+  // 签到
+  "daily_signin" : serviceUrl + "/daily_signin",              // 签到
+
   
   // 搜索
   "search" : serviceUrl + "/search",                          // 必选参数 : keywords : 关键词
@@ -45,6 +48,20 @@ const servicePath = {
   "videoDetail" : serviceUrl + "/video/detail",               // 视频详情    id: 视频 的 id
   "videoUrl" : serviceUrl + "/video/url",                     // 调用此接口 , 传入视频 id,可获取视频播放地址      必选参数 : id: 视频 的 id
   "videoGroup" : serviceUrl + "/video/group",                 // 说明 : 调用此接口 , 传入videoGroupId,可获取到相关的视频。 传入videoGroupId: videoGroup 的 id  /video/group?id=9104
+
+  // 动态
+  "event" : serviceUrl + "/event",                            // 调用此接口 , 可获取各种动态 , 对应网页版网易云，朋友界面里的各种动态消息
+                                                              // 必选参数 :  pagesize : 每页数据,默认20  lasttime : 返回数据的 lasttime ,默认-1,传入上一次返回结果的 lasttime,将会返回下一页的数据
+  "userEvent" : serviceUrl + "/user/event",                   // 传入用户 id, 可以获取用户动态  必选参数 : uid : 用户 id limit : 返回数量 , 
+                                                              // lasttime : 返回数据的 lasttime ,默认-1,传入上一次返回结果的 lasttime,将会返回下一页的数据
+  "commentEvent" : serviceUrl + "/comment/event",             // 可以获取动态下评论  threadId : 动态 id，
+  "commentPlaylist" : serviceUrl + "/comment/playlist",       // 传入音乐 id 和 limit 参数 , 可获得该歌单的所有评论  必选参数 : id: 歌单 id  limit  offset: 偏移数量
+  "commentMusic" : serviceUrl + "/comment/music",             // 传入音乐 id 和 limit 参数 , 可获得该音乐的所有评论  可选参数 : limit: 取出评论数量 , 默认为 20 offset: 偏移数量 
+  "commentLike" : serviceUrl + "comment/like",                // 给评论点赞    必选参数 : id : 资源 id, 如歌曲 id,mv id
+                                                              // cid : 评论 id
+                                                              // t : 是否点赞 ,1 为点赞 ,0 为取消点赞
+                                                              // tpye: 数字 , 资源类型 , 对应歌曲 , mv, 专辑 , 歌单 , 电台, 视频对应以下类型
+
 
 };
 
