@@ -8,8 +8,6 @@ import 'package:music/provider/bannerProvider.dart';
 import 'package:music/provider/inPlayList.dart';
 import 'package:music/routers/route.dart';
 
-import 'package:extended_image/extended_image.dart';
-
 import 'package:music/component/myImage.dart';
 
 class TOne extends StatefulWidget {
@@ -31,7 +29,7 @@ class _TOneState extends State<TOne> with AutomaticKeepAliveClientMixin {
            FourBar(),
            TuiBox(),
            SizedBox(
-             height: ScreenUtil().setHeight(200),
+             height: ScreenUtil().setHeight(150),
            )
          ],
        ),
@@ -230,7 +228,7 @@ class TuiBox extends StatelessWidget {
                       crossAxisCount: 3,
                       crossAxisSpacing: ScreenUtil().setHeight(20),
                       mainAxisSpacing: ScreenUtil().setHeight(40),
-                      childAspectRatio: 0.8
+                      childAspectRatio: 0.79
                     ),
                     itemBuilder: ( context, index ){
                       return ExtendOneGeDanBox( 

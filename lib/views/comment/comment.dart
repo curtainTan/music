@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,22 +40,19 @@ class _CommentPageState extends State<CommentPage> {
     int id = Provide.value<CommentProvider>(context).id;
     int type = Provide.value<CommentProvider>(context).type;
     if( type == 0 ){
-      requestGet( "commentMusic", formData: { "id" : id } ).then((onValue){
-        Provide.value<CommentProvider>(context).setComment( onValue );
-      });
       requestGet("simiSong", formData: { "id" : id }).then( (onValue){
         Provide.value<CommentProvider>(context).setSimiSong( onValue );
       });
-    } else {
-      requestGet( "commentMusic", formData: { "id" : id } ).then((onValue){
-        Provide.value<CommentProvider>(context).setComment( onValue );
-      });
     }
+    requestGet( type == 0 ? "commentMusic" : "commentPlaylist", formData: { "id" : id } ).then((onValue){
+      Provide.value<CommentProvider>(context).setComment( onValue );
+    });
   }
 
   void addComment(){
     int id = Provide.value<CommentProvider>(context).id;
-    requestGet( "commentMusic", formData: { "id" : id, "page" : page } ).then((onValue){
+    int type = Provide.value<CommentProvider>(context).type;
+    requestGet( type == 0 ? "commentMusic" : "commentPlaylist", formData: { "id" : id, "page" : page } ).then((onValue){
       Provide.value<CommentProvider>(context).addComment( onValue );
     });
     setState(() {
@@ -103,28 +101,28 @@ class _CommentPageState extends State<CommentPage> {
     );
   }
 
-  Widget _buildProgressIndicator() {
-    return new Container(
+  Widget _buildProgressIndicator( bool more ) {
+    return Container(
       height: ScreenUtil().setHeight(240),
       margin: EdgeInsets.only(
         bottom: ScreenUtil().setHeight(50)
       ),
-      child: new Center(
+      child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Container(
+            more ? Container(
               height: ScreenUtil().setHeight(50),
               width: ScreenUtil().setHeight(50),
               child: CircularProgressIndicator(
                 strokeWidth: 2,
               ),
-            ),
+            ) : Container(),
             Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-              child: new Text('即将加载更多...'))
+              child: Text( more ? "即将加载更多..." : "已经全部加载....", style: TextStyle( color: Colors.grey ), ))
           ],
         )
       ),
@@ -149,7 +147,7 @@ class _CommentPageState extends State<CommentPage> {
                 child: CommentTopBox(),
               ),
               SliverToBoxAdapter(
-                child: provideData.type != 0 ? SimiSongBox() : Container(),
+                child: provideData.type == 0 ? SimiSongBox() : Container(),
               ),
               SliverToBoxAdapter(
                 child: someTitle( "精彩评论" ),
@@ -171,6 +169,11 @@ class _CommentPageState extends State<CommentPage> {
                 ),
               ) : SliverToBoxAdapter( child: loading(), ),
               SliverToBoxAdapter(
+                child: SizedBox(
+                  height: ScreenUtil().setHeight( 120 ),
+                ),
+              ),
+              SliverToBoxAdapter(
                 child: someTitle( "最新评论" ),
               ),
               provideData.commentsList.length != 0 ? SliverList(
@@ -190,7 +193,7 @@ class _CommentPageState extends State<CommentPage> {
                 ),
               ) : SliverToBoxAdapter( child: loading(), ),
               SliverToBoxAdapter(
-                child: provideData.commentModal != null ? _buildProgressIndicator() : Container(),
+                child: provideData.commentModal != null ? _buildProgressIndicator( provideData.haveMore ) : Container(),
               )
             ],
           )

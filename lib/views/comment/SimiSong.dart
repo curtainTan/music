@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provide/provide.dart';
 
 
-
+import 'package:music/provider/commentProvider.dart';
 
 class SimiSongBox extends StatelessWidget {
 
@@ -17,14 +18,16 @@ class SimiSongBox extends StatelessWidget {
           Text("相关推荐", style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), fontWeight: FontWeight.bold ),),
           InkWell(
             onTap: (){
-
+              print("点击了一下");
             },
             child: Container(
-              width: ScreenUtil().setWidth( 180 ),
+              width: ScreenUtil().setWidth( 140 ),
+              height: ScreenUtil().setHeight(90),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Text("更多", style: TextStyle( fontSize: ScreenUtil().setSp( 30 ) ), ),
-                  Icon( IconData( 0xe65f, fontFamily: "iconfont" ), size: ScreenUtil().setSp( 40 ), )
+                  Icon( IconData( 0xe65f, fontFamily: "iconfont" ), size: ScreenUtil().setSp( 30 ), )
                 ],
               ),
             ),
@@ -34,7 +37,7 @@ class SimiSongBox extends StatelessWidget {
     );
   }
 
-  Widget oneItem(){
+  Widget oneItem( { coverUrl, id, user, title, album }){
     return GestureDetector(
       onTap: (){
         
@@ -47,7 +50,7 @@ class SimiSongBox extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular( 4 ),
-          color: Colors.white.withOpacity( 0.3 )
+          color: Colors.black12.withOpacity( 0.1 )
         ),
         child: Row(
           children: <Widget>[
@@ -59,7 +62,7 @@ class SimiSongBox extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage("http://curtaintan.club/headImg/1549358122065.jpg"),
+                  image: NetworkImage( coverUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg"),
                   fit: BoxFit.cover
                 ),
                 borderRadius: BorderRadius.only(
@@ -71,9 +74,10 @@ class SimiSongBox extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("title", style: TextStyle( fontSize: ScreenUtil().setSp( 38 ) ),),
-                  Text("作者和专辑", style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), color: Colors.grey ), )
+                  Text( title ?? "title", style: TextStyle( fontSize: ScreenUtil().setSp( 34 ) ), maxLines: 1, overflow: TextOverflow.ellipsis,),
+                  Text( "${ user?? "-"} - ${ album ?? "-"}", style: TextStyle( fontSize: ScreenUtil().setSp( 28 ), color: Colors.grey ), )
                 ],
               ),
             )
@@ -83,27 +87,69 @@ class SimiSongBox extends StatelessWidget {
     );
   }
 
+  Widget loading(){
+    return Container(
+      alignment: Alignment.topCenter,
+      height: ScreenUtil().setHeight( 210 ),
+      child: Container(
+        margin: EdgeInsets.only(
+          top: ScreenUtil().setHeight(100)
+        ),
+        width: double.infinity,
+        height: ScreenUtil().setWidth(100),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(
+                right: ScreenUtil().setWidth(40)
+              ),
+              height: ScreenUtil().setWidth(70),
+              width: ScreenUtil().setWidth(70),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              )
+            ),
+            Text("加载中...", style: TextStyle( color: Colors.red ), )
+          ], 
+        )
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: ScreenUtil().setHeight( 250 ),
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: ScreenUtil().setWidth( 30 )
-      ),
-      child: Column(
-        children: <Widget>[
-          titleBox(),
-          ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 3,
-            itemBuilder: ( context, index ){
-              return oneItem(  );
-            },
-            itemExtent: ScreenUtil().setHeight( 150 ),
-          )
-        ],
-      ),
+    return Provide<CommentProvider>(
+      builder: ( context, child, data ){
+        return data.simiSongModal != null ? Container(
+          height: ScreenUtil().setHeight( 250 ),
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: ScreenUtil().setWidth( 30 )
+          ),
+          child: Column(
+            children: <Widget>[
+              titleBox(),
+              Container(
+                height: ScreenUtil().setHeight( 140 ),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 3,
+                  itemBuilder: ( context, index ){
+                    return oneItem(
+                      coverUrl: data.simiSongModal.songs[index].album.picUrl,
+                      id: data.simiSongModal.songs[index].id,
+                      user: data.simiSongModal.songs[index].album.artists[0].name,
+                      title: data.simiSongModal.songs[index].name,
+                      album: data.simiSongModal.songs[index].album.name
+                    );
+                  }
+                ),
+              )
+            ],
+          ),
+        ) : loading();
+      },
     );
   }
 }

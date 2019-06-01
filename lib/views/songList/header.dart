@@ -4,7 +4,6 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:ui';
 
-
 import 'package:music/provider/commentProvider.dart';
 import 'package:music/provider/inPlayList.dart';
 import 'package:provide/provide.dart';
@@ -19,9 +18,6 @@ class SongListPageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    // var headerdata = Provide.value<InPlayList>(context).headerImg;
-
     return Provide<InPlayList>(
       builder: ( context, child, data ){
         return SliverAppBar(
@@ -72,7 +68,7 @@ class SongListPageHeader extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        midBox( data ),
+                        midBox( data, data?.headerImg, data?.nowUiList?.playlist?.playCount ),
                         Container(
                           height: ScreenUtil().setHeight(110),
                           margin: EdgeInsets.only(
@@ -86,10 +82,10 @@ class SongListPageHeader extends StatelessWidget {
                                 text: "评论",
                                 count: data.nowUiList?.playlist?.commentCount ?? 0, 
                                 context: context,
-                                title: data.nowUiList.playlist?.name ?? "-",
-                                id: data.nowUiList.playlist?.id,
-                                username: data.nowUiList.playlist?.creator?.nickname ?? "-",
-                                cover: data.nowUiList.playlist?.coverImgUrl
+                                title: data.nowUiList?.playlist?.name ?? "-",
+                                id: data.nowUiList?.playlist?.id ?? 0,
+                                username: data.nowUiList?.playlist?.creator?.nickname ?? "-",
+                                cover: data.nowUiList?.playlist?.coverImgUrl ?? "https://www.curtaintan.club/bg/m2.jpg"
                               ),
                               _oneTab( 
                                 icon: 0xe606, 
@@ -172,7 +168,7 @@ class SongListPageHeader extends StatelessWidget {
             Icon( IconData( icon, fontFamily: 'iconfont' ), size: ScreenUtil().setSp( 50 ), color: Colors.white ),
             Container(
               margin: EdgeInsets.only(
-                top: ScreenUtil().setHeight(10)
+                top: ScreenUtil().setHeight( 4 )
               ),
               child: Text( count == 0 ? text : "$count" , style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), color: Colors.white ), ),
             )
@@ -183,7 +179,7 @@ class SongListPageHeader extends StatelessWidget {
   }
 
   // 中间的盒子
-  Widget midBox( inPlayList ){
+  Widget midBox( inPlayList, imgUrl, count ){
     return Container(
       height: ScreenUtil().setHeight(340),
       child: Row(
@@ -198,7 +194,7 @@ class SongListPageHeader extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       // image: NetworkImage( "https://www.curtaintan.club/bg/m2.jpg" ),
-                      image: NetworkImage( inPlayList.headerImg ),
+                      image: NetworkImage( imgUrl ),
                       fit: BoxFit.fitHeight
                     ),
                     borderRadius: BorderRadius.all( Radius.circular(10) )
@@ -211,7 +207,10 @@ class SongListPageHeader extends StatelessWidget {
                     top: ScreenUtil().setHeight(10),
                     right: ScreenUtil().setHeight(10)
                   ),
-                  child: Text("播放量", style: TextStyle( fontSize: ScreenUtil().setSp(30), color: Colors.black54 ),),
+                  child: Text(
+                    count == null ? "播放量" : ( count > 10000 ? "播放 ${( count / 10000 ).ceil()}万次" : "播放 $count"  ),
+                    style: TextStyle( fontSize: ScreenUtil().setSp(30), color: Colors.white ),
+                  ),
                 )
               ],
             )

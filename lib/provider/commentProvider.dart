@@ -9,6 +9,7 @@ class CommentProvider with ChangeNotifier{
   // 评论类型，为了播放歌曲和返回界面，0代表歌曲，1代表歌单
   int type = 0;
   int id = 0;
+  bool haveMore = true;
 
   // 头部关于评论数据
   String coverImg = "", title = "", userName ="" ;
@@ -22,6 +23,9 @@ class CommentProvider with ChangeNotifier{
     commentModal = MvComment.fromJson( data );
     commentsList = [];
     commentsList..addAll( commentModal.comments );
+    if( commentsList.length == commentModal.total ){
+      haveMore = false;
+    }
     notifyListeners();
   }
   // 初始化基础数据
@@ -37,6 +41,9 @@ class CommentProvider with ChangeNotifier{
   addComment( data ){
     MvComment nowComment = MvComment.fromJson( data );
     commentsList..addAll( nowComment.comments );
+    if( commentsList.length == nowComment.total ){
+      haveMore = false;
+    }
     notifyListeners();
   }
   // 设置相似歌曲
