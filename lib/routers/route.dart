@@ -10,7 +10,7 @@ import '../views/songList/songList.dart';
 import '../views/play/play_page.dart';
 import 'package:music/views/search/search_page.dart';
 import '../views/mv/mv_main.dart';
-
+import '../views/comment/comment.dart';
 
 
 class Routes {
@@ -24,6 +24,7 @@ class Routes {
   static String playpage = '/playpage';
   static String searchpage = "/searchpage";
   static String mvPage = "/mvs/:mvid/:video";
+  static String commentPage = "/comment";
 
 
   static void configurRoute( Router router ){
@@ -55,6 +56,9 @@ class Routes {
       mvPage, handler: Handler( handlerFunc: ( context, params ){
         return MvPage( mvid: int.parse( params['mvid'][0] ), videoId: params['video'][0], );
       } ), transitionType: TransitionType.native
+    );
+    router.define(
+      commentPage, handler: Handler( handlerFunc: ( context, params ) => CommentPage() ), transitionType: TransitionType.inFromRight
     );
 
 

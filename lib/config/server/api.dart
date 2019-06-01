@@ -59,6 +59,8 @@ const servicePath = {
                                                               // 必选参数 :  pagesize : 每页数据,默认20  lasttime : 返回数据的 lasttime ,默认-1,传入上一次返回结果的 lasttime,将会返回下一页的数据
   "userEvent" : serviceUrl + "/user/event",                   // 传入用户 id, 可以获取用户动态  必选参数 : uid : 用户 id limit : 返回数量 , 
                                                               // lasttime : 返回数据的 lasttime ,默认-1,传入上一次返回结果的 lasttime,将会返回下一页的数据
+                                                              
+  // 评论 
   "commentEvent" : serviceUrl + "/comment/event",             // 可以获取动态下评论  threadId : 动态 id，
   "commentPlaylist" : serviceUrl + "/comment/playlist",       // 传入音乐 id 和 limit 参数 , 可获得该歌单的所有评论  必选参数 : id: 歌单 id  limit  offset: 偏移数量
   "commentMusic" : serviceUrl + "/comment/music",             // 传入音乐 id 和 limit 参数 , 可获得该音乐的所有评论  可选参数 : limit: 取出评论数量 , 默认为 20 offset: 偏移数量 

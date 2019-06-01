@@ -14,6 +14,7 @@ import './provider/bannerProvider.dart';
 import './provider/inPlayList.dart';
 import './provider/userData.dart';
 import './provider/searchPageProvide.dart';
+import './provider/commentProvider.dart';
 
 
 void main() {
@@ -26,6 +27,7 @@ void main() {
   var inplayList = InPlayList();
   var userData = UserDataProvide();
   var searchPageProvide = SearchPageProvide();
+  var commentProvider = CommentProvider();
 
   providers..provide( Provider<MeInfoProvide>.value( me ) )
   ..provide( Provider<PlayMusic>.value( playmusic ) )
@@ -33,6 +35,7 @@ void main() {
   ..provide( Provider<InPlayList>.value( inplayList ) )
   ..provide( Provider<UserDataProvide>.value( userData ) )
   ..provide( Provider<SearchPageProvide>.value( searchPageProvide ) )
+  ..provide( Provider<CommentProvider>.value( commentProvider ) )
   ;
   runApp( ProviderNode( child: MyApp(), providers: providers, ) );
 

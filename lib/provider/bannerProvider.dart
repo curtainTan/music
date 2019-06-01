@@ -24,8 +24,6 @@ class BannerProvide with ChangeNotifier{
 
   setTuijian( data ){
 
-    print("-----设置推荐");
-
     tuijian = Tuijian.fromJson( data );
 
     notifyListeners();
