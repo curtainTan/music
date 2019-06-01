@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
+import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:ui';
 
+
+import 'package:music/provider/commentProvider.dart';
 import 'package:music/provider/inPlayList.dart';
 import 'package:provide/provide.dart';
+import 'package:music/routers/route.dart';
 
 
 class SongListPageHeader extends StatelessWidget {
@@ -77,10 +81,31 @@ class SongListPageHeader extends StatelessWidget {
                           ),
                           child: Row(
                             children: <Widget>[
-                              _oneTab( 0xe631, "评论" ),
-                              _oneTab( 0xe606, "分享" ),
-                              _oneTab( 0xe7ef, "下载" ),
-                              _oneTab( 0xec37, "多选" ),
+                              _oneTab( 
+                                icon: 0xe631,
+                                text: "评论",
+                                count: data.nowUiList?.playlist?.commentCount ?? 0, 
+                                context: context,
+                                title: data.nowUiList.playlist?.name ?? "-",
+                                id: data.nowUiList.playlist?.id,
+                                username: data.nowUiList.playlist?.creator?.nickname ?? "-",
+                                cover: data.nowUiList.playlist?.coverImgUrl
+                              ),
+                              _oneTab( 
+                                icon: 0xe606, 
+                                text: "分享", 
+                                count: data.nowUiList?.playlist?.shareCount ?? 0, 
+                                context: context ),
+                              _oneTab( 
+                                icon: 0xe7ef, 
+                                text:"下载", 
+                                count: 0, 
+                                context: context ),
+                              _oneTab( 
+                                icon: 0xec37, 
+                                text: "多选", 
+                                count: 0, 
+                                context: context ),
                             ],
                           ),
                         )
@@ -124,17 +149,33 @@ class SongListPageHeader extends StatelessWidget {
   }
 
   // 底部的一个tab
-  Widget _oneTab( int icon, String text ){
+  Widget _oneTab({ int icon, String text, int count, context, id, cover, title, username }){
     return Container(
       height: ScreenUtil().setHeight(110),
       width: ScreenUtil().setWidth( 270 ),
       child: InkWell(
-        onTap: (){},
+        onTap: (){
+          if( icon == 0xe631 ){
+            Provide.value<CommentProvider>(context).initData(
+              nowType: 1,
+              nowCover: cover,
+              nowId: id,
+              nowName: username,
+              nowTitle: title
+            );
+            Routes.router.navigateTo(context, Routes.commentPage);
+          }
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon( IconData( icon, fontFamily: 'iconfont' ), size: ScreenUtil().setSp( 50 ), color: Colors.white ),
-            Text( text, style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), color: Colors.white ), )
+            Container(
+              margin: EdgeInsets.only(
+                top: ScreenUtil().setHeight(10)
+              ),
+              child: Text( count == 0 ? text : "$count" , style: TextStyle( fontSize: ScreenUtil().setSp( 32 ), color: Colors.white ), ),
+            )
           ],
         ),
       )

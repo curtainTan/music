@@ -9,7 +9,6 @@ class CommentProvider with ChangeNotifier{
   // 评论类型，为了播放歌曲和返回界面，0代表歌曲，1代表歌单
   int type = 0;
   int id = 0;
-  int count = 0;
 
   // 头部关于评论数据
   String coverImg = "", title = "", userName ="" ;
