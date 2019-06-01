@@ -14,17 +14,28 @@ class CommentTopBox extends StatelessWidget {
         return InkWell(
           onTap: (){},
           child: Container(
-            height: ScreenUtil().setHeight(200),
+            height: ScreenUtil().setHeight(280),
             width: double.infinity,
             padding: EdgeInsets.symmetric(
               horizontal: ScreenUtil().setWidth(30)
+            ),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.grey,
+                  width: ScreenUtil().setWidth(1)
+                )
+              )
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  height: ScreenUtil().setHeight( 160 ),
-                  width: ScreenUtil().setHeight( 160 ),
+                  margin: EdgeInsets.only(
+                    right: ScreenUtil().setWidth(30)
+                  ),
+                  height: ScreenUtil().setHeight( 200 ),
+                  width: ScreenUtil().setHeight( 200 ),
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage( data.coverImg ),
@@ -36,13 +47,14 @@ class CommentTopBox extends StatelessWidget {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text( data.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: ScreenUtil().setSp( 42 ) ), ),
                       Text( "by ${data.userName}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: ScreenUtil().setSp( 32 ) ), )
                     ],
                   ),
                 ),
-                Icon( IconData( 0xe62d, fontFamily: "iconfont" ) )
+                Icon( IconData( 0xe62d, fontFamily: "iconfont" ), size: ScreenUtil().setSp( 32 ), )
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
 
@@ -9,7 +10,7 @@ import 'package:music/provider/commentProvider.dart';
 import 'package:music/service/http.dart';
 import 'package:music/views/mv/oneComment.dart';
 import './topAbout.dart';
-
+import './SimiSong.dart';
 
 
 class CommentPage extends StatefulWidget {
@@ -75,9 +76,10 @@ class _CommentPageState extends State<CommentPage> {
   Widget loading(){
     return Container(
       alignment: Alignment.topCenter,
+      height: ScreenUtil().setHeight( 210 ),
       child: Container(
         margin: EdgeInsets.only(
-          top: ScreenUtil().setHeight(300)
+          top: ScreenUtil().setHeight(100)
         ),
         width: double.infinity,
         height: ScreenUtil().setWidth(100),
@@ -101,6 +103,34 @@ class _CommentPageState extends State<CommentPage> {
     );
   }
 
+  Widget _buildProgressIndicator() {
+    return new Container(
+      height: ScreenUtil().setHeight(240),
+      margin: EdgeInsets.only(
+        bottom: ScreenUtil().setHeight(50)
+      ),
+      child: new Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: ScreenUtil().setHeight(50),
+              width: ScreenUtil().setHeight(50),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+              child: new Text('即将加载更多...'))
+          ],
+        )
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -108,54 +138,62 @@ class _CommentPageState extends State<CommentPage> {
       builder: ( context, child, provideData ){
         return Scaffold(
           appBar: AppBar(
-            title: Text("评论(${ provideData.count })"),
+            elevation: 0,
+            titleSpacing: -ScreenUtil().setWidth( 30 ),
+            title: Text("评论(${ provideData?.commentModal?.total ?? 0 })", style: TextStyle( fontSize: ScreenUtil().setSp( 40 ) ),),
           ),
-          body: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: ScreenUtil().setWidth(30)
-            ),
-            child: Column(
-              children: <Widget>[
-                CommentTopBox(),
-                provideData.type == 0 ? Container() : Container(),
-                someTitle( "精彩评论" ),
-                provideData.commentModal == null ? Expanded(
-                  child: ListView.builder(
-                    itemBuilder: ( context, index ){
-                      return OneComment(
-                        commentContext: provideData.commentModal?.hotComments[index]?.content ?? "-",
-                        headImg: provideData.commentModal?.hotComments[index]?.user?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
-                        likeCount: provideData.commentModal?.hotComments[index]?.likedCount ?? 0,
-                        time: provideData.commentModal?.hotComments[index]?.time ?? 111110,
-                        commentId: provideData.commentModal?.hotComments[index]?.commentId,
-                        userId: provideData.commentModal?.hotComments[index]?.user?.userId ?? 109496832,
-                        userName: provideData.commentModal?.hotComments[index]?.user?.nickname ?? "-",
-                      );
-                    },
-                    itemCount: provideData.commentModal.hotComments.length,
-                  ),
-                ) : loading(),
-                someTitle( "最新评论" ),
-                provideData.commentsList.length == 0 ? Expanded(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    itemBuilder: ( context, index ){
-                      return OneComment(
-                        commentContext: provideData.commentsList[index]?.content ?? "-",
-                        headImg: provideData.commentsList[index]?.user?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
-                        likeCount: provideData.commentsList[index]?.likedCount ?? 0,
-                        time: provideData.commentsList[index]?.time ?? 111110,
-                        commentId: provideData.commentsList[index]?.commentId,
-                        userId: provideData.commentsList[index]?.user?.userId ?? 109496832,
-                        userName: provideData.commentsList[index]?.user?.nickname ?? "-",
-                      );
-                    },
-                    itemCount: provideData.commentsList.length,
-                  ),
-                ) : loading(),
-              ],
-            )
-          ),
+          body: CustomScrollView(
+            controller: _scrollController,
+            slivers: <Widget>[
+              SliverToBoxAdapter(
+                child: CommentTopBox(),
+              ),
+              SliverToBoxAdapter(
+                child: provideData.type != 0 ? SimiSongBox() : Container(),
+              ),
+              SliverToBoxAdapter(
+                child: someTitle( "精彩评论" ),
+              ),
+              provideData.commentModal != null ? SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index){
+                    return OneComment(
+                      commentContext: provideData.commentModal?.hotComments[index]?.content ?? "-",
+                      headImg: provideData.commentModal?.hotComments[index]?.user?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
+                      likeCount: provideData.commentModal?.hotComments[index]?.likedCount ?? 0,
+                      time: provideData.commentModal?.hotComments[index]?.time ?? 111110,
+                      commentId: provideData.commentModal?.hotComments[index]?.commentId,
+                      userId: provideData.commentModal?.hotComments[index]?.user?.userId ?? 109496832,
+                      userName: provideData.commentModal?.hotComments[index]?.user?.nickname ?? "-",
+                    );
+                  },
+                  childCount: provideData.commentModal?.hotComments?.length ?? 0,
+                ),
+              ) : SliverToBoxAdapter( child: loading(), ),
+              SliverToBoxAdapter(
+                child: someTitle( "最新评论" ),
+              ),
+              provideData.commentsList.length != 0 ? SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index){
+                    return OneComment(
+                      commentContext: provideData.commentsList[index]?.content ?? "-",
+                      headImg: provideData.commentsList[index]?.user?.avatarUrl ?? "http://curtaintan.club/headImg/1549358122065.jpg",
+                      likeCount: provideData.commentsList[index]?.likedCount ?? 0,
+                      time: provideData.commentsList[index]?.time ?? 111110,
+                      commentId: provideData.commentsList[index]?.commentId,
+                      userId: provideData.commentsList[index]?.user?.userId ?? 109496832,
+                      userName: provideData.commentsList[index]?.user?.nickname ?? "-",
+                    );
+                  },
+                  childCount: provideData.commentsList?.length ?? 0,
+                ),
+              ) : SliverToBoxAdapter( child: loading(), ),
+              SliverToBoxAdapter(
+                child: provideData.commentModal != null ? _buildProgressIndicator() : Container(),
+              )
+            ],
+          )
         );
       },
     );

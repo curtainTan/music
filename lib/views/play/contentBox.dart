@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
 import 'dart:async';
 
-
+import 'package:music/provider/commentProvider.dart';
 import 'package:music/provider/play_music.dart';
 import 'package:music/component/myImage.dart';
-
+import 'package:music/routers/route.dart';
 
 // import 'package:music/event_bus/play.dart';
 
@@ -72,7 +72,12 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
           child: IndexedStack(
             index: selectIndex,
             children: <Widget>[
-              _one( data.tracks.al.picUrl ),
+              _one( 
+                data.tracks.al.picUrl,
+                data.tracks.name,
+                data.tracks.al.name,
+                data.tracks.id
+              ),
               _two( context, data.lyricList, data.nowLyricIndex, scrollController )
             ],
           ),
@@ -81,7 +86,28 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
     );
   }
 
-  Widget _one( url ){
+  Widget _one( String coverUrl, String title, String  userName, int songId ){
+
+    
+    Widget oneIcon( int icon, int type ){
+      return IconButton(
+        onPressed: (){
+          print("------------点击了一下,开始跳转------");
+          if( type == 4 ){
+            Provide.value<CommentProvider>(context).initData(
+              nowType: 0,
+              nowCover: coverUrl,
+              nowId: songId,
+              nowName: userName,
+              nowTitle: title
+            );
+          }
+          Routes.router.navigateTo(context, Routes.commentPage );
+        },
+        icon: Icon( IconData( icon, fontFamily: 'iconfont' ), color: Colors.white, size: ScreenUtil().setSp(65), ),
+      );
+    }
+
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -99,7 +125,7 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
                 child: Center(
                   child: MyImage(
                     shape: BoxShape.circle,
-                    url: url,
+                    url: coverUrl,
                     h: ScreenUtil().setWidth(650),
                     w: ScreenUtil().setWidth(650),
                   ),
@@ -123,25 +149,16 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                oneIcon( 0xe7df ),
-                oneIcon( 0xe7ef ),
-                oneIcon( 0xe64d ),
-                oneIcon( 0xe631 ),
-                oneIcon( 0xe6bf ),
+                oneIcon( 0xe7df, 1 ),
+                oneIcon( 0xe7ef, 2 ),
+                oneIcon( 0xe64d, 3 ),
+                oneIcon( 0xe631, 4 ),
+                oneIcon( 0xe6bf, 5 ),
               ],
             ),
           )
         ],
       )
-    );
-  }
-
-  Widget oneIcon( int icon ){
-    return IconButton(
-      onPressed: (){
-
-      },
-      icon: Icon( IconData( icon, fontFamily: 'iconfont' ), color: Colors.white, size: ScreenUtil().setSp(65), ),
     );
   }
 

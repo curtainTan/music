@@ -59,7 +59,7 @@ class SimiSongBox extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage("url"),
+                  image: NetworkImage("http://curtaintan.club/headImg/1549358122065.jpg"),
                   fit: BoxFit.cover
                 ),
                 borderRadius: BorderRadius.only(

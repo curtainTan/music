@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../modal/mv/comment_mv.dart';
 import '../modal/song/simi_song.dart';
-import '../modal/song/simi_song.dart';
 
 
 class CommentProvider with ChangeNotifier{
