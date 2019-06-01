@@ -1,0 +1,57 @@
+{
+    "songs": [
+        {
+            "starred": false,
+            "popularity": 100,
+            "mp3Url": "http://m2.music.126.net/vAVwJScrrrPBo5LDZs7KFg==/1045635558023798.mp3",
+            "mvid": 28005,
+            "no": 6,
+            "ringtone": "600902000005267437",
+            "disc": "1",
+            "score": 100,
+            "copyrightId": 7003,
+            "album": {
+                "briefDesc": "",
+                "blurPicUrl": "https://p2.music.126.net/JOJvZc_7SqQjKf8TktQ_bw==/29686813951246.jpg",
+                "companyId": 0,
+                "pic": 29686813951246,
+                "picUrl": "https://p2.music.126.net/JOJvZc_7SqQjKf8TktQ_bw==/29686813951246.jpg",
+                "company": "华纳唱片",
+                "copyrightId": 5003,
+                "picId": 29686813951246,
+                "artists": [
+                    {
+                        "img1v1Id": 18686200114669624,
+                        "briefDesc": "",
+                        "followed": false,
+                        "picUrl": "https://p2.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg",
+                        "albumSize": 0,
+                        "musicSize": 0,
+                        "picId": 0,
+                        "trans": "",
+                        "img1v1Url": "https://p2.music.126.net/VnZiScyynLG7atLIZ2YPkw==/18686200114669622.jpg",
+                        "name": "Beyond",
+                        "id": 11127,
+                        "img1v1Id_str": "18686200114669622"
+                    }
+                ],
+                "subType": "录音室版",
+                "description": "",
+                "commentThreadId": "R_AL_3_34147",
+                "name": "光辉岁月十五年",
+                "id": 34147,
+                "type": "专辑",
+                "size": 13
+            },
+            "position": 6,
+            "duration": 299154,
+            "commentThreadId": "R_SO_4_346576",
+            "fee": 8,
+            "name": "光辉岁月",
+            "id": 346576,
+            "recommendReason": "相似歌曲",
+            "alg": "itembased"
+        }
+    ],
+    "code": 200
+}

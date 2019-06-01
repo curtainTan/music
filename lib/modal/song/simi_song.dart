@@ -25,53 +25,60 @@ class SimiSongModal {
 }
 
 class SimiSongs {
-  String commentThreadId;
-  int no;
+  bool starred;
+  int popularity;
+  String mp3Url;
   int mvid;
-  List<SimiArtists> artists;
-  int copyrightId;
+  int no;
+  String ringtone;
+  String disc;
   int score;
+  int copyrightId;
+  SimiAlbum album;
   int position;
   int duration;
-  int status;
-  String disc;
+  String commentThreadId;
+  int fee;
   String name;
   int id;
   String recommendReason;
   String alg;
 
   SimiSongs(
-      {this.commentThreadId,
-      this.no,
+      {this.starred,
+      this.popularity,
+      this.mp3Url,
       this.mvid,
-      this.artists,
-      this.copyrightId,
+      this.no,
+      this.ringtone,
+      this.disc,
       this.score,
+      this.copyrightId,
+      this.album,
       this.position,
       this.duration,
-      this.status,
-      this.disc,
+      this.commentThreadId,
+      this.fee,
       this.name,
       this.id,
       this.recommendReason,
       this.alg});
 
   SimiSongs.fromJson(Map<String, dynamic> json) {
-    commentThreadId = json['commentThreadId'];
-    no = json['no'];
+    starred = json['starred'];
+    popularity = json['popularity'];
+    mp3Url = json['mp3Url'];
     mvid = json['mvid'];
-    if (json['artists'] != null) {
-      artists = new List<SimiArtists>();
-      json['artists'].forEach((v) {
-        artists.add(new SimiArtists.fromJson(v));
-      });
-    }
-    copyrightId = json['copyrightId'];
+    no = json['no'];
+    ringtone = json['ringtone'];
+    disc = json['disc'];
     score = json['score'];
+    copyrightId = json['copyrightId'];
+    album = json['album'] != null ? new SimiAlbum.fromJson(json['album']) : null;
     position = json['position'];
     duration = json['duration'];
-    status = json['status'];
-    disc = json['disc'];
+    commentThreadId = json['commentThreadId'];
+    fee = json['fee'];
     name = json['name'];
     id = json['id'];
     recommendReason = json['recommendReason'];
@@ -80,18 +87,22 @@ class SimiSongs {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['commentThreadId'] = this.commentThreadId;
-    data['no'] = this.no;
+    data['starred'] = this.starred;
+    data['popularity'] = this.popularity;
+    data['mp3Url'] = this.mp3Url;
     data['mvid'] = this.mvid;
-    if (this.artists != null) {
-      data['artists'] = this.artists.map((v) => v.toJson()).toList();
-    }
-    data['copyrightId'] = this.copyrightId;
+    data['no'] = this.no;
+    data['ringtone'] = this.ringtone;
+    data['disc'] = this.disc;
     data['score'] = this.score;
+    data['copyrightId'] = this.copyrightId;
+    if (this.album != null) {
+      data['album'] = this.album.toJson();
+    }
     data['position'] = this.position;
     data['duration'] = this.duration;
-    data['status'] = this.status;
-    data['disc'] = this.disc;
+    data['commentThreadId'] = this.commentThreadId;
+    data['fee'] = this.fee;
     data['name'] = this.name;
     data['id'] = this.id;
     data['recommendReason'] = this.recommendReason;
@@ -100,16 +111,100 @@ class SimiSongs {
   }
 }
 
+class SimiAlbum {
+  String briefDesc;
+  String blurPicUrl;
+  int companyId;
+  int pic;
+  String picUrl;
+  String company;
+  int copyrightId;
+  int picId;
+  List<SimiArtists> artists;
+  String subType;
+  String description;
+  String commentThreadId;
+  String name;
+  int id;
+  String type;
+  int size;
+
+  SimiAlbum(
+      {this.briefDesc,
+      this.blurPicUrl,
+      this.companyId,
+      this.pic,
+      this.picUrl,
+      this.company,
+      this.copyrightId,
+      this.picId,
+      this.artists,
+      this.subType,
+      this.description,
+      this.commentThreadId,
+      this.name,
+      this.id,
+      this.type,
+      this.size});
+
+  SimiAlbum.fromJson(Map<String, dynamic> json) {
+    briefDesc = json['briefDesc'];
+    blurPicUrl = json['blurPicUrl'];
+    companyId = json['companyId'];
+    pic = json['pic'];
+    picUrl = json['picUrl'];
+    company = json['company'];
+    copyrightId = json['copyrightId'];
+    picId = json['picId'];
+    if (json['artists'] != null) {
+      artists = new List<SimiArtists>();
+      json['artists'].forEach((v) {
+        artists.add(new SimiArtists.fromJson(v));
+      });
+    }
+    subType = json['subType'];
+    description = json['description'];
+    commentThreadId = json['commentThreadId'];
+    name = json['name'];
+    id = json['id'];
+    type = json['type'];
+    size = json['size'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['briefDesc'] = this.briefDesc;
+    data['blurPicUrl'] = this.blurPicUrl;
+    data['companyId'] = this.companyId;
+    data['pic'] = this.pic;
+    data['picUrl'] = this.picUrl;
+    data['company'] = this.company;
+    data['copyrightId'] = this.copyrightId;
+    data['picId'] = this.picId;
+    if (this.artists != null) {
+      data['artists'] = this.artists.map((v) => v.toJson()).toList();
+    }
+    data['subType'] = this.subType;
+    data['description'] = this.description;
+    data['commentThreadId'] = this.commentThreadId;
+    data['name'] = this.name;
+    data['id'] = this.id;
+    data['type'] = this.type;
+    data['size'] = this.size;
+    return data;
+  }
+}
+
 class SimiArtists {
   int img1v1Id;
   String briefDesc;
-  int albumSize;
-  String img1v1Url;
-  int musicSize;
+  bool followed;
   String picUrl;
+  int albumSize;
+  int musicSize;
   int picId;
   String trans;
-  bool followed;
+  String img1v1Url;
   String name;
   int id;
   String img1v1IdStr;
@@ -117,13 +212,13 @@ class SimiArtists {
   SimiArtists(
       {this.img1v1Id,
       this.briefDesc,
-      this.albumSize,
-      this.img1v1Url,
-      this.musicSize,
+      this.followed,
       this.picUrl,
+      this.albumSize,
+      this.musicSize,
       this.picId,
       this.trans,
-      this.followed,
+      this.img1v1Url,
       this.name,
       this.id,
       this.img1v1IdStr});
@@ -131,13 +226,13 @@ class SimiArtists {
   SimiArtists.fromJson(Map<String, dynamic> json) {
     img1v1Id = json['img1v1Id'];
     briefDesc = json['briefDesc'];
-    albumSize = json['albumSize'];
-    img1v1Url = json['img1v1Url'];
-    musicSize = json['musicSize'];
+    followed = json['followed'];
     picUrl = json['picUrl'];
+    albumSize = json['albumSize'];
+    musicSize = json['musicSize'];
     picId = json['picId'];
     trans = json['trans'];
-    followed = json['followed'];
+    img1v1Url = json['img1v1Url'];
     name = json['name'];
     id = json['id'];
     img1v1IdStr = json['img1v1Id_str'];
@@ -147,13 +242,13 @@ class SimiArtists {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['img1v1Id'] = this.img1v1Id;
     data['briefDesc'] = this.briefDesc;
-    data['albumSize'] = this.albumSize;
-    data['img1v1Url'] = this.img1v1Url;
-    data['musicSize'] = this.musicSize;
+    data['followed'] = this.followed;
     data['picUrl'] = this.picUrl;
+    data['albumSize'] = this.albumSize;
+    data['musicSize'] = this.musicSize;
     data['picId'] = this.picId;
     data['trans'] = this.trans;
-    data['followed'] = this.followed;
+    data['img1v1Url'] = this.img1v1Url;
     data['name'] = this.name;
     data['id'] = this.id;
     data['img1v1Id_str'] = this.img1v1IdStr;

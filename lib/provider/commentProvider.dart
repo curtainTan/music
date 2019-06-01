@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../modal/mv/comment_mv.dart';
 import '../modal/song/simi_song.dart';
-
+import '../modal/song/simi_song.dart';
 
 
 class CommentProvider with ChangeNotifier{
@@ -39,6 +39,11 @@ class CommentProvider with ChangeNotifier{
   addComment( data ){
     MvComment nowComment = MvComment.fromJson( data );
     commentsList..addAll( nowComment.comments );
+    notifyListeners();
+  }
+  // 设置相似歌曲
+  setSimiSong( data ){
+    simiSongModal = SimiSongModal.fromJson( data );
     notifyListeners();
   }
 

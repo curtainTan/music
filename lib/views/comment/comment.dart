@@ -41,6 +41,13 @@ class _CommentPageState extends State<CommentPage> {
       requestGet( "commentMusic", formData: { "id" : id } ).then((onValue){
         Provide.value<CommentProvider>(context).setComment( onValue );
       });
+      requestGet("simiSong", formData: { "id" : id }).then( (onValue){
+        Provide.value<CommentProvider>(context).setSimiSong( onValue );
+      });
+    } else {
+      requestGet( "commentMusic", formData: { "id" : id } ).then((onValue){
+        Provide.value<CommentProvider>(context).setComment( onValue );
+      });
     }
   }
 
@@ -107,12 +114,12 @@ class _CommentPageState extends State<CommentPage> {
             padding: EdgeInsets.symmetric(
               horizontal: ScreenUtil().setWidth(30)
             ),
-            child: provideData.commentModal == null ?
-            Column(
+            child: Column(
               children: <Widget>[
                 CommentTopBox(),
+                provideData.type == 0 ? Container() : Container(),
                 someTitle( "精彩评论" ),
-                Expanded(
+                provideData.commentModal == null ? Expanded(
                   child: ListView.builder(
                     itemBuilder: ( context, index ){
                       return OneComment(
@@ -127,9 +134,9 @@ class _CommentPageState extends State<CommentPage> {
                     },
                     itemCount: provideData.commentModal.hotComments.length,
                   ),
-                ),
+                ) : loading(),
                 someTitle( "最新评论" ),
-                Expanded(
+                provideData.commentsList.length == 0 ? Expanded(
                   child: ListView.builder(
                     controller: _scrollController,
                     itemBuilder: ( context, index ){
@@ -145,9 +152,9 @@ class _CommentPageState extends State<CommentPage> {
                     },
                     itemCount: provideData.commentsList.length,
                   ),
-                ),
+                ) : loading(),
               ],
-            ) : loading()
+            )
           ),
         );
       },
