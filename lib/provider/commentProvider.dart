@@ -15,7 +15,8 @@ class CommentProvider with ChangeNotifier{
   String coverImg = "", title = "", userName ="" ;
 
   SimiSongModal simiSongModal = null;
-  MvComment commentModal = null;
+  MvComment commentModal = null;                          // 当前评论页面的总数据
+
   List<Comments> commentsList = [];
 
   // 设置大头数据

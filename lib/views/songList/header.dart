@@ -80,7 +80,7 @@ class SongListPageHeader extends StatelessWidget {
                               _oneTab( 
                                 icon: 0xe631,
                                 text: "评论",
-                                count: data.nowUiList?.playlist?.commentCount ?? 0, 
+                                count: data.nowUiList?.playlist?.commentCount ?? 0,
                                 context: context,
                                 title: data.nowUiList?.playlist?.name ?? "-",
                                 id: data.nowUiList?.playlist?.id ?? 0,

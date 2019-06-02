@@ -44,15 +44,13 @@ class _SongListPageState extends State<SongListPage> {
         }
       }
     );
-
+    
     yyy( widget.id );
 
   }
 
-  void yyy( id ) async {
-
-    // print("------歌单重新请求了------");
-    await requestGet("playlistdetail", formData: { "id": id }).then( (res){
+  void yyy( id ){
+    requestGet("playlistdetail", formData: { "id": id }).then( (res){
       Provide.value<InPlayList>(context).setNow( res );
     });
 
