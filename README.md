@@ -12,6 +12,7 @@
 - 搜索提示
 - 播放mv/video
 - 用户中心
+- 评论页(歌单和歌曲)
 
 ## 接下来要完成的功能
 
@@ -29,20 +30,23 @@
 
 
 下面放上截图：
+## 6.2更新  歌曲评论和歌单评论
+<a><img src="./asset/picture/comment.png" width="200" ></a>
+<a><img src="./asset/picture/comment1.png" width="200" ></a>
 
-# 5.30更新
+## 5.30更新
 <a><img src="./asset/picture/gif/mvPage.gif" width="200" ></a>
 <a><img src="./asset/picture/search.png" width="200" ></a>
 <a><img src="./asset/picture/search1.png" width="200" ></a>
 
-# 5.15更新
+## 5.15更新
 ## 增加了搜索的数据管理结构，界面还没开始写，手写了搜索推荐的局部dialog，上图吧，
 <a><img src="./asset/picture/gif/search_modal.gif" width="200" ></a>
 
 局部dialog，嘿嘿，我觉得写得蛮不错的，
 
 
-# 5.4更新
+## 5.4更新
 -------------------------
 ## 动图来了，这次更新了很多
 ## 进入app时的splash屏闪页、进入登录页面的动画，登录提示
@@ -94,10 +98,6 @@
 <span><img src="./asset/picture/6.png" width="200" ></span>
 <span><img src="./asset/picture/7.png" width="200" ></span>
 <span><img src="./asset/picture/8.png" width="200" ></span>
-
-##### 好想给你们展示一下动图啊，下次补上
-
-<span><img src="./asset/picture/9.png" width="200" ></span>
 
 
 # 给我一点时间----------
