@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -93,7 +94,20 @@ class _LoginMidBoxState extends State<LoginMidBox> {
         children: <Widget>[
           itemButtom( "手机号登录", "login1" ),
           itemButtom( "注册", "login2" ),
-          Text("游客试用", style: TextStyle( fontSize: ScreenUtil().setSp(30) ),)
+          FlatButton(
+            child: Text("游客试用", style: TextStyle( fontSize: ScreenUtil().setSp(30) ),),
+            onPressed: (){
+              showDialog(
+                context: context,
+                builder: ( context ){
+                  return AlertDialog(
+                    title: Text("抱歉,暂时不支持试用，请先登录...", style: TextStyle( fontSize: ScreenUtil().setSp(36), color: Colors.red, fontWeight: FontWeight.bold ),),
+                    content: Text("你可以使用电话号码登录.", style: TextStyle( fontSize: ScreenUtil().setSp(32) ),),
+                  );
+                }
+              );
+            },
+          )
         ],
       ),
     );
@@ -107,10 +121,22 @@ class _LoginMidBoxState extends State<LoginMidBox> {
 // 底部盒子
 class FootBox extends StatelessWidget {
 
-  Widget bottombox(){
-    Widget itemicon( String iconpath ){
+  List<String> oneTitle = [ "微信", "qq", "微博", "网易邮箱" ];
+
+  Widget bottombox( context ){
+    Widget itemicon( String iconpath, int type ){
       return IconButton(
-        onPressed: (){},
+        onPressed: (){
+          showDialog(
+            context: context,
+            builder: ( context ){
+              return AlertDialog(
+                title: Text("暂时不能用${ oneTitle[type] }登录...", style: TextStyle( fontSize: ScreenUtil().setSp(36), color: Colors.red, fontWeight: FontWeight.bold ),),
+                content: Text("请使用电话号码登录.", style: TextStyle( fontSize: ScreenUtil().setSp(32) ),),
+              );
+            }
+          );
+        },
         iconSize: 40,
         icon: Image.asset(
           iconpath,
@@ -120,16 +146,13 @@ class FootBox extends StatelessWidget {
       );
     }
     return Container(
-      padding: EdgeInsets.only(
-        top: ScreenUtil().setHeight(100)
-      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          itemicon( "asset/image/ape.png" ),
-          itemicon( "asset/image/apa.png" ),
-          itemicon( "asset/image/apc.png" ),
-          itemicon( "asset/image/ap8.png" ),
+          itemicon( "asset/image/ape.png", 0 ),
+          itemicon( "asset/image/apa.png", 1 ),
+          itemicon( "asset/image/apc.png", 2 ),
+          itemicon( "asset/image/ap8.png", 3 ),
         ],
       ),
     );
@@ -143,8 +166,26 @@ class FootBox extends StatelessWidget {
       height: ScreenUtil().setHeight(400),
       child: Column(
         children: <Widget>[
-          Text("其他登录方式"),
-          bottombox()
+          Container(
+            height: ScreenUtil().setHeight( 100 ),
+            // width: ScreenUtil().setWidth( 300 ),
+            child: FlatButton(
+              child: Text("其他登录方式"),
+              onPressed: (){
+                showDialog(
+                  context: context,
+                  builder: ( context ){
+                    return AlertDialog(
+                      title: Text("抱歉，暂时只支持电话号码登录...", 
+                        style: TextStyle( fontSize: ScreenUtil().setSp(36), color: Colors.red, fontWeight: FontWeight.bold ),),
+                      content: Text("请使用电话号码登录.", style: TextStyle( fontSize: ScreenUtil().setSp(32) ),),
+                    );
+                  }
+                );
+              },
+            )
+          ),
+          bottombox( context )
         ],
       ),
     );
