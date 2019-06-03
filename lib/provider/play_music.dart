@@ -182,16 +182,12 @@ class PlayMusic with ChangeNotifier{
     });
   }
   // 恢复播放
-  priresume(){
+  priresume() async {
     if( playUrl.length == 0 ){
       playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
       audioPlayer.setUrl(playUrl);
-      Timer( Duration( milliseconds: 100 ) , (){
-        audioPlayer.resume();
-      } );
-    }else{
-      audioPlayer.resume();
     }
+    await audioPlayer.resume();
     isPlay = true;
     getDuration();
     getPosition();
