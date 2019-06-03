@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provide/provide.dart';
 
 
+import 'package:music/provider/play_music.dart';
 import 'package:music/routers/route.dart';
 import 'package:music/provider/me.dart';
 import 'package:music/provider/userData.dart';
@@ -102,7 +103,6 @@ class MyDrawer extends StatelessWidget {
           InkWell(
             child: footItem( 0xe634, "退出" ),
             onTap: (){
-              print("我点了退出");
               showDialog(
                 context: context,
                 barrierDismissible: true,
@@ -118,11 +118,9 @@ class MyDrawer extends StatelessWidget {
                         child: Text("取消", style: TextStyle( color: Colors.white ),),
                       ),
                       RaisedButton(
-                        onPressed: () async {
-                          SharedPreferences pref = await SharedPreferences.getInstance();
-                          pref.clear();
+                        onPressed: (){
+                          Provide.value<PlayMusic>(context).clearData();
                           Routes.router.navigateTo(context, Routes.login, clearStack: true  );
-
                         },
                         child: Text("确定", style: TextStyle( color: Colors.white ),),
                       )

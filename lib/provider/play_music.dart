@@ -15,6 +15,7 @@ class PlayMusic with ChangeNotifier{
   Tracks tracks = null;                             // 一首歌的信息
   int currentIndex = 0;                             // 当前播放歌曲的index
   int playListId = 0;                               // 歌曲列表的id
+  int commentCount = 0;                             // 评论总数
   LyricModel lyricModel = null;                     // 歌词modal
 
 
@@ -54,8 +55,6 @@ class PlayMusic with ChangeNotifier{
     // tracks = playlist.tracks[currentIndex];
     // print("${ tracks.name }----------${ tracks.al.name }");
     // computed();
-    getDuration();
-    getPosition();
     notifyListeners();
   }
   // 保存歌曲列表
@@ -81,6 +80,7 @@ class PlayMusic with ChangeNotifier{
       requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
         initLyricModel(onValue);
       });
+      getCommentCount();
     }
 
   }
@@ -108,6 +108,7 @@ class PlayMusic with ChangeNotifier{
   setTrack( index ){
     currentIndex = index;
     tracks = playlist.tracks[index];
+
     setSongData();
     notifyListeners();
   }
@@ -116,7 +117,7 @@ class PlayMusic with ChangeNotifier{
 
     tracks = Tracks.fromJson( data['songs'][0] );
     setSongData();
-
+    getCommentCount();
     notifyListeners();
   }
 
@@ -126,11 +127,12 @@ class PlayMusic with ChangeNotifier{
     playUrl = data;
     isPlay = true;
     audioPlayer.setUrl( data );
-    Timer( Duration( milliseconds: 600 ) , (){
+    Timer( Duration( milliseconds: 100 ) , (){
       priresume();
     } );
-
+    getCommentCount();
     notifyListeners();
+    
   }
   // 获取歌曲时长
   getDuration(){
@@ -171,7 +173,7 @@ class PlayMusic with ChangeNotifier{
           position = Duration( seconds: 0 );
           nowLyricIndex = 0;
           nextPlay();
-          atimer = Timer( Duration(milliseconds: 600), (){
+          atimer = Timer( Duration(milliseconds: 100), (){
             atimer.cancel();
             atimer = null;
           });
@@ -184,13 +186,15 @@ class PlayMusic with ChangeNotifier{
     if( playUrl.length == 0 ){
       playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
       audioPlayer.setUrl(playUrl);
-      Timer( Duration( milliseconds: 600 ) , (){
+      Timer( Duration( milliseconds: 100 ) , (){
         audioPlayer.resume();
       } );
     }else{
       audioPlayer.resume();
     }
     isPlay = true;
+    getDuration();
+    getPosition();
     computed();
     notifyListeners();
   }
@@ -225,7 +229,6 @@ class PlayMusic with ChangeNotifier{
       tracks = playlist.tracks[ currentIndex ];
       notifyListeners();
       requestGet( "checkmusic", formData: { "id" : tracks.id } ).then((res1){
-        // print("------------------请求下一曲${res1.toString()}");
         if( res1['success'] == true ){
           requestGet("songurl", formData: { "id" : tracks.id } ).then( ( res ){
             setPlayUrl( res['data'][0]['url'] );
@@ -234,6 +237,7 @@ class PlayMusic with ChangeNotifier{
           requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
             initLyricModel(onValue);
           });
+          getCommentCount();
         } else {
           nextPlay();
         }
@@ -266,7 +270,8 @@ class PlayMusic with ChangeNotifier{
           requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
             initLyricModel(onValue);
           });
-          } else {
+          getCommentCount();
+        } else {
           forwardSong();
         }
         notifyListeners();
@@ -322,6 +327,23 @@ class PlayMusic with ChangeNotifier{
     lyricTimes = [];
     lyricTimes..addAll( preTimes )..addAll( nowlyricTimes )..addAll( preTimes );
     
+    notifyListeners();
+  }
+
+  // 获取评论数
+  getCommentCount(){
+    requestGet( "commentMusic", formData: { "id" : tracks.id } ).then((onValue){
+      commentCount = onValue["total"];
+      notifyListeners();
+    });
+  }
+  // 退出登录，销毁所有信息
+  clearData(){
+    prefs.clear();
+    setPause();
+    tracks = null;
+    playlist = null;
+    playListId = 0;
     notifyListeners();
   }
 

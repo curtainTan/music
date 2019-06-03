@@ -76,7 +76,8 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
                 data.tracks.al.picUrl,
                 data.tracks.name,
                 data.tracks.al.name,
-                data.tracks.id
+                data.tracks.id,
+                data.commentCount
               ),
               _two( context, data.lyricList, data.nowLyricIndex, scrollController )
             ],
@@ -86,7 +87,7 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
     );
   }
 
-  Widget _one( String coverUrl, String title, String  userName, int songId ){
+  Widget _one( String coverUrl, String title, String  userName, int songId, int commentCount ){
 
     
     Widget oneIcon( int icon, int type ){
@@ -101,10 +102,48 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
               nowName: userName,
               nowTitle: title
             );
+            Routes.router.navigateTo(context, Routes.commentPage );
           }
-          Routes.router.navigateTo(context, Routes.commentPage );
         },
         icon: Icon( IconData( icon, fontFamily: 'iconfont' ), color: Colors.white, size: ScreenUtil().setSp(65), ),
+      );
+    }
+
+    Widget commentIcon( int count ){
+      return GestureDetector(
+        onTap: (){
+          Provide.value<CommentProvider>(context).initData(
+            nowType: 0,
+            nowCover: coverUrl,
+            nowId: songId,
+            nowName: userName,
+            nowTitle: title
+          );
+          Routes.router.navigateTo(context, Routes.commentPage );
+        },
+        child: Container(
+          child: Stack(
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Icon( IconData( 0xe631, fontFamily: 'iconfont' ), color: Colors.white, size: ScreenUtil().setSp(65), ),
+              Positioned(
+                top: ScreenUtil().setHeight( -18 ),
+                left: ScreenUtil().setWidth( 50 ),
+                child: Container(
+                  padding: EdgeInsets.symmetric( 
+                    horizontal :ScreenUtil().setWidth( 12 ),
+                    vertical: ScreenUtil().setHeight( 6 )
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular( 2 ),
+                    color: Colors.grey,
+                  ),
+                  child: Text( count > 10000 ? "${ (count / 10000).floor() }万" : "$count", style: TextStyle( fontSize: ScreenUtil().setSp( 28 ), color: Colors.white ), ),
+                )
+              )
+            ],
+          ),
+        ),
       );
     }
 
@@ -129,18 +168,6 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
                     h: ScreenUtil().setWidth(650),
                     w: ScreenUtil().setWidth(650),
                   ),
-                  // child: Container(
-                  //   height: ScreenUtil().setWidth(650),
-                  //   width: ScreenUtil().setWidth(650),
-                  //   decoration: BoxDecoration(
-                  //     image: DecorationImage(
-                  //       // image: NetworkImage("https://www.curtaintan.club/bg/m2.jpg"),
-                  //       image: NetworkImage(url),
-                  //       fit: BoxFit.cover
-                  //     ),
-                  //     shape: BoxShape.circle
-                  //   ),
-                  // ),
                 )
               )
             ),
@@ -152,7 +179,8 @@ class _ContentBoxState extends State<ContentBox> with SingleTickerProviderStateM
                 oneIcon( 0xe7df, 1 ),
                 oneIcon( 0xe7ef, 2 ),
                 oneIcon( 0xe64d, 3 ),
-                oneIcon( 0xe631, 4 ),
+                // oneIcon( 0xe631, 4 ),
+                commentIcon( commentCount ),
                 oneIcon( 0xe6bf, 5 ),
               ],
             ),
