@@ -1,0 +1,101 @@
+{
+    "songs": [
+        {
+            "ar": [
+                {
+                    "id": 10557,
+                    "name": "张悬"
+                }
+            ],
+            "al": {
+                "id": 32311,
+                "name": "神的游戏",
+                "picUrl": "https://p2.music.126.net/klOSGBRQhevtM6c9RXrM1A==/18808245906527670.jpg"
+            },
+            "pst": 0,
+            "t": 0,
+            "alia": [
+                "Fleeting Days"
+            ],
+            "pop": 95,
+            "rt": "600902000009458562",
+            "djId": 0,
+            "cd": "1",
+            "name": "日子",
+            "id": 326704
+        }
+    ],
+    "code": 200,
+    "album": {
+        "paid": false,
+        "onSale": false,
+        "mark": 0,
+        "copyrightId": 7001,
+        "commentThreadId": "R_AL_3_32311",
+        "briefDesc": "",
+        "publishTime": 1344528000000,
+        "artist": {
+            "img1v1Id": 18686200114669624,
+            "topicPerson": 0,
+            "img1v1Url": "https://p2.music.126.net/VnZiScyynLG7atLIZ2YPkw==/18686200114669622.jpg",
+            "albumSize": 11,
+            "briefDesc": "",
+            "picId": 18700493767020560,
+            "alias": [
+                "Anpu"
+            ],
+            "picUrl": "https://p2.music.126.net/7YvV8RpFZS2xdwZygyuAlA==/18700493767020561.jpg",
+            "followed": false,
+            "musicSize": 168,
+            "trans": "",
+            "name": "张悬",
+            "id": 10557,
+            "picId_str": "18700493767020561",
+            "img1v1Id_str": "18686200114669622"
+        },
+        "picId": 18808245906527670,
+        "alias": [
+            "Games We Play"
+        ],
+        "picUrl": "https://p2.music.126.net/klOSGBRQhevtM6c9RXrM1A==/18808245906527670.jpg",
+        "tags": "",
+        "status": 3,
+        "subType": "录音室版",
+        "description": "2012年盛夏，最令人期待的专辑之一。张悬最新作品『神的游戏』，词、曲、编曲、制作全由张悬倾注心血完成。风格独到的音乐与观点细腻的文字，第一次聆听就被深深吸引，这张专辑却同样直指人生各种境地，在时光与反复中将依旧无限耐人寻味。一如张悬历来作品的展现，此刻交出的这张作品，总括张悬三年以来个人生活的累积心得，既安稳的平心静气娓娓道来，又蓄势着蕴涵为未来将要展开的行动预备新能量。\n\n",
+        "company": "索尼音乐娱乐",
+        "companyId": 0,
+        "blurPicUrl": "https://p2.music.126.net/klOSGBRQhevtM6c9RXrM1A==/18808245906527670.jpg",
+        "pic": 18808245906527670,
+        "name": "神的游戏",
+        "id": 32311,
+        "type": "专辑",
+        "size": 9,
+        "picId_str": "18808245906527670",
+        "info": {
+            "commentThread": {
+                "id": "R_AL_3_32311",
+                "resourceInfo": {
+                    "id": 32311,
+                    "userId": -1,
+                    "name": "神的游戏",
+                    "imgUrl": "http://p1.music.126.net/klOSGBRQhevtM6c9RXrM1A==/18808245906527670.jpg"
+                },
+                "resourceType": 3,
+                "commentCount": 1593,
+                "likedCount": 0,
+                "shareCount": 1323,
+                "hotCount": 37,
+                "resourceOwnerId": -1,
+                "resourceTitle": "神的游戏",
+                "resourceId": 32311
+            },
+            "liked": false,
+            "resourceType": 3,
+            "resourceId": 32311,
+            "commentCount": 1593,
+            "likedCount": 0,
+            "shareCount": 1323,
+            "threadId": "R_AL_3_32311"
+        }
+    }
+}
