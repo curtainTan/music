@@ -122,7 +122,7 @@ class PlayMusic with ChangeNotifier{
   }
 
   // 设置url
-  setPlayUrl( data ) async {
+  setPlayUrl( data ){
 
     playUrl = data;
     isPlay = true;
@@ -182,15 +182,23 @@ class PlayMusic with ChangeNotifier{
     });
   }
   // 恢复播放
-  priresume() async {
+  priresume() {
     if( playUrl.length == 0 ){
       playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
       audioPlayer.setUrl(playUrl);
+      Timer( Duration( milliseconds: 200 ) , (){
+        audioPlayer.resume();
+        isPlay = true;
+        getDuration();
+        getPosition();
+      } );
+    } else {
+      audioPlayer.resume();
+      isPlay = true;
+      getDuration();
+      getPosition();
     }
-    await audioPlayer.resume();
-    isPlay = true;
-    getDuration();
-    getPosition();
+    // await audioPlayer.resume();
     computed();
     notifyListeners();
   }

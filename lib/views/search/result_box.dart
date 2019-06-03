@@ -866,8 +866,9 @@ class OneMenu extends StatelessWidget {
 
   String imageUrl, title;
   int id, playCount, trackCount;
+  bool isAlbum;
 
-  OneMenu({Key key, this.imageUrl,this.title, this.id, this.playCount, this.trackCount }) : super(key: key);
+  OneMenu({Key key, this.imageUrl,this.title, this.id, this.playCount, this.trackCount, this.isAlbum = false }) : super(key: key);
 
   Widget headImg( context, dd ){
     return Container(
@@ -912,9 +913,21 @@ class OneMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-
-        Provide.value<InPlayList>(context).setHeader( imageUrl, title, id);
-        Routes.router.navigateTo(context, '/songList/' + id.toString() ,  );
+        
+        if( isAlbum ){
+          showDialog(
+            context: context,
+            builder: ( context ){
+              return AlertDialog(
+                title: Text("抱歉,暂时不支持播放专辑...", style: TextStyle( fontSize: ScreenUtil().setSp(36), color: Colors.red, fontWeight: FontWeight.bold ),),
+                content: Text("请试用歌单..", style: TextStyle( fontSize: ScreenUtil().setSp(32) ),),
+              );
+            }
+          );
+        } else {
+          Provide.value<InPlayList>(context).setHeader( imageUrl, title, id);
+          Routes.router.navigateTo(context, '/songList/' + id.toString() ,  );
+        }
         
       },
       child: Container(

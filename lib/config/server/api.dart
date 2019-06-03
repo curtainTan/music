@@ -68,6 +68,10 @@ const servicePath = {
                                                               // cid : 评论 id
                                                               // t : 是否点赞 ,1 为点赞 ,0 为取消点赞
                                                               // tpye: 数字 , 资源类型 , 对应歌曲 , mv, 专辑 , 歌单 , 电台, 视频对应以下类型
+  "commentAlbum" : serviceUrl + "/comment/album",             // 该专辑的所有评论   id: 专辑 id  limit: 取出评论数量 , 默认为 20
+  // 专辑
+  "album" : serviceUrl + "/album",                            // 调用此接口 , 传入专辑 id, 可获得专辑内容
+                                                            
 
 
 };
