@@ -167,7 +167,7 @@ class _CommentPageState extends State<CommentPage> {
                   },
                   childCount: provideData.commentModal?.hotComments?.length ?? 0,
                 ),
-              ) : SliverToBoxAdapter( child: loading(), ),
+              ) : SliverToBoxAdapter( child: loading(  ), ),
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: ScreenUtil().setHeight( 120 ),
@@ -191,7 +191,7 @@ class _CommentPageState extends State<CommentPage> {
                   },
                   childCount: provideData.commentsList?.length ?? 0,
                 ),
-              ) : SliverToBoxAdapter( child: loading(), ),
+              ) : SliverToBoxAdapter( child: provideData.haveMore ? loading( ) : Container(), ),
               SliverToBoxAdapter(
                 child: provideData.commentModal != null ? _buildProgressIndicator( provideData.haveMore ) : Container(),
               )
