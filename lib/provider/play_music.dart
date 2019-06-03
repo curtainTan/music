@@ -127,7 +127,7 @@ class PlayMusic with ChangeNotifier{
     playUrl = data;
     isPlay = true;
     audioPlayer.setUrl( data );
-    Timer( Duration( milliseconds: 100 ) , (){
+    Timer( Duration( milliseconds: 200 ) , (){
       priresume();
     } );
     getCommentCount();

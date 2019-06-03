@@ -144,10 +144,10 @@ class _CommentPageState extends State<CommentPage> {
             controller: _scrollController,
             slivers: <Widget>[
               SliverToBoxAdapter(
-                child: CommentTopBox(),
+                child: CommentTopBox( parent: context, ),
               ),
               SliverToBoxAdapter(
-                child: provideData.type == 0 ? SimiSongBox() : Container(),
+                child: provideData.type == 0 ? SimiSongBox( parent: context, ) : Container(),
               ),
               SliverToBoxAdapter(
                 child: someTitle( "精彩评论" ),

@@ -96,7 +96,15 @@ class _ComplesState extends State<Comples> with AutomaticKeepAliveClientMixin {
 
         requestGet( "checkmusic", formData: { "id" : id } ).then((res1){
           if( res1['success'] != true ){
-            print("-------------没有权限----------");
+            showDialog(
+              context: context,
+              builder: ( context ){
+                return AlertDialog(
+                  title: Text("抱歉,这首歌需要vip才能获取.", style: TextStyle( fontSize: ScreenUtil().setSp(36), color: Colors.red, fontWeight: FontWeight.bold ),),
+                  content: Text("请重新选择歌曲播放...", style: TextStyle( fontSize: ScreenUtil().setSp(32) ),),
+                );
+              }
+            );
           }else{
             // 获取歌曲信息，并复制到tracks上面
             requestGet("songdetail", formData: { "ids" : id } ).then((onValue){

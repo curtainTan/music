@@ -49,8 +49,7 @@ class ListBox extends StatelessWidget {
 
   Widget oneItem( int index, context, String songname, String auth, int id, int playListId ){
     return InkWell(
-      onTap: () async {
-
+      onTap: () {
         requestGet( "checkmusic", formData: { "id" : id } ).then((res1){
           if( res1['success'] != true ){
             showDialog(

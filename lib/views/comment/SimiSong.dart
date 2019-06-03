@@ -3,10 +3,15 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
 
-
+import 'package:music/provider/play_music.dart';
 import 'package:music/provider/commentProvider.dart';
+import 'package:music/service/http.dart';
+
 
 class SimiSongBox extends StatelessWidget {
+
+  BuildContext parent;
+  SimiSongBox({ this.parent });
 
   Widget titleBox(){
     return Container(
@@ -40,7 +45,53 @@ class SimiSongBox extends StatelessWidget {
   Widget oneItem( { coverUrl, id, user, title, album }){
     return GestureDetector(
       onTap: (){
-        
+        showDialog(
+          context: parent,
+          barrierDismissible: true,
+          builder: ( context ){
+            return AlertDialog(
+              title: Text("----小提示----", style: TextStyle( fontWeight: FontWeight.bold ),),
+              content: Text("你确定要播放${title}吗？"),
+              actions: <Widget>[
+                RaisedButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  child: Text("取消", style: TextStyle( color: Colors.white ),),
+                ),
+                RaisedButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                    requestGet( "checkmusic", formData: { "id" : id } ).then((res1){
+                    if( res1['success'] != true ){
+                      showDialog(
+                        context: context,
+                        builder: ( context ){
+                          return AlertDialog(
+                            title: Text("抱歉,这首歌需要vip才能获取.", style: TextStyle( fontSize: ScreenUtil().setSp(36), color: Colors.red, fontWeight: FontWeight.bold ),),
+                            content: Text("请重新选择歌曲播放...", style: TextStyle( fontSize: ScreenUtil().setSp(32) ),),
+                          );
+                        }
+                      );
+                    }else{
+                      requestGet("songdetail", formData: { "ids" : id } ).then((onValue){
+                        Provide.value<PlayMusic>(parent).onlySetTrack( onValue );
+                      });
+                      requestGet("songurl", formData: { "id" : id } ).then( ( res ){
+                        Provide.value<PlayMusic>(parent).setPlayUrl( res['data'][0]['url'] );
+                      } );
+                      requestGet("lyric", formData: { "id" : id }).then((onValue){
+                        Provide.value<PlayMusic>(parent).initLyricModel(onValue);
+                      });
+                    }
+                  });
+                  },
+                  child: Text("确定", style: TextStyle( color: Colors.white ),),
+                )
+              ],
+            );
+          }
+        );
       },
       child: Container(
         height: ScreenUtil().setHeight( 150 ),
