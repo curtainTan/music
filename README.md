@@ -28,6 +28,27 @@
 
 好可惜啊，界面还没有写完，网易的界面就更新了
 
+---
+### 项目难点与问题解决
+
+#### 1.安卓9无法播放音乐的问题：
+    无法在Android 9上播放远程文件：Android 9已经更改了一些网络安全默认值，因此默认情况下它可能会阻止您播放https以外的文件，此stackoverflow问题是解决此问题的良好来源。
+解决方法：
+    在android/app/src/main/AndroidManifest.xml文件中添加：android:usesCleartextTraffic="true"
+
+    (```)
+    <manifest ...>
+        <uses-permission android:name="android.permission.INTERNET" />
+        <application
+            ...
+            android:usesCleartextTraffic="true"
+            ...>
+            ...
+        </application>
+    </manifest>
+    (```)
+
+
 
 下面放上截图：
 ## 6.2更新  歌曲评论和歌单评论
