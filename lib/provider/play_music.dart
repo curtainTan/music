@@ -191,15 +191,16 @@ class PlayMusic with ChangeNotifier{
         isPlay = true;
         getDuration();
         getPosition();
+        computed();
       } );
     } else {
       audioPlayer.resume();
       isPlay = true;
       getDuration();
       getPosition();
+      computed();
     }
     // await audioPlayer.resume();
-    computed();
     notifyListeners();
   }
   // 跳转
