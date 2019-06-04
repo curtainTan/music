@@ -32,7 +32,7 @@ class Login2 extends StatelessWidget {
                 ),
                 InkWell(
                   onLongPress: (){
-                    Clipboard.setData( ClipboardData( text: "1388262831" ) );
+                    Clipboard.setData( ClipboardData( text: "13882628313" ) );
                     final snackBar = SnackBar(
                       content: Text("账号已复制到粘贴板."),
                     );

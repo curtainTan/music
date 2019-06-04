@@ -127,9 +127,9 @@ class PlayMusic with ChangeNotifier{
     playUrl = data;
     isPlay = true;
     audioPlayer.setUrl( data );
-    Timer( Duration( milliseconds: 200 ) , (){
+    // Timer( Duration( milliseconds: 200 ) , (){
       priresume();
-    } );
+    // } );
     getCommentCount();
     notifyListeners();
     
@@ -173,7 +173,7 @@ class PlayMusic with ChangeNotifier{
           position = Duration( seconds: 0 );
           nowLyricIndex = 0;
           nextPlay();
-          atimer = Timer( Duration(milliseconds: 100), (){
+          atimer = Timer( Duration(milliseconds: 200), (){
             atimer.cancel();
             atimer = null;
           });
@@ -242,7 +242,6 @@ class PlayMusic with ChangeNotifier{
           requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
             initLyricModel(onValue);
           });
-          getCommentCount();
         } else {
           nextPlay();
         }
@@ -275,7 +274,6 @@ class PlayMusic with ChangeNotifier{
           requestGet("lyric", formData: { "id" : tracks.id }).then((onValue){
             initLyricModel(onValue);
           });
-          getCommentCount();
         } else {
           forwardSong();
         }
