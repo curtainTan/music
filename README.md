@@ -36,7 +36,6 @@
 解决方法：
     在android/app/src/main/AndroidManifest.xml文件中添加：android:usesCleartextTraffic="true"
 
-    (```)
     <manifest ...>
         <uses-permission android:name="android.permission.INTERNET" />
         <application
@@ -46,7 +45,19 @@
             ...
         </application>
     </manifest>
-    (```)
+
+#### 2.使用高斯模糊：
+    使用高斯模糊时，背景层全屏模糊
+    解决办法：
+        在BackdropFilter组件的外层包裹ClipRect，
+        详细使用请参考文件：lib/views/songList/header.dart
+
+#### 3.二级导航栏联动：
+    到tabview中嵌套tabBar-tabview时，二级目录是不能滑动到一级目录去的，
+此时就要借助插件：<a href="https://pub.flutter-io.cn/packages?q=extended_tabs"  target="_blank" >extended_tabs</a>
+    使用文档：[文档](https://juejin.im/post/5c34b87ef265da61553b01a8)
+    
+
 
 
 
