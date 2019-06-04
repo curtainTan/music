@@ -1,4 +1,8 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
@@ -6,6 +10,7 @@ import 'package:music/provider/me.dart';
 import 'package:provide/provide.dart';
 
 
+import 'package:music/commonFunc/bottomModal.dart';
 import './one_menu.dart';
 
 
@@ -117,7 +122,9 @@ class _MyAnimateZhuanState extends State<MyAnimateZhuan> with SingleTickerProvid
 
   }
 
-  Widget _head(){
+  Widget _head( context ){
+    List<int> icon =[ 0xe60d, 0xe655, 0xe67f, 0xe605 ];
+    List<String> text = [ "创建新歌单", "我的歌单", "截图导入歌单", "回复歌单" ];
     return Container(
       color: Colors.black12,
       height: ScreenUtil().setHeight(80),
@@ -149,7 +156,9 @@ class _MyAnimateZhuanState extends State<MyAnimateZhuan> with SingleTickerProvid
           ),
           IconButton(
             onPressed: (){
-              print("点了一下图标");
+              myShowModal( context, icon, text ).then((onValue){
+                print("---返回的值------$onValue");
+              });
             },
             iconSize: ScreenUtil().setSp(30),
             icon: Icon( IconData( 0xe64b, fontFamily: 'iconfont' ) ),
@@ -165,7 +174,7 @@ class _MyAnimateZhuanState extends State<MyAnimateZhuan> with SingleTickerProvid
     return Container(
       child: Column(
         children: <Widget>[
-          _head(),
+          _head( context ),
           gedan( context )
         ],
       )
