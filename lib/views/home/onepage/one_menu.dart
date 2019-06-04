@@ -6,8 +6,9 @@ import 'package:provide/provide.dart';
 
 import 'package:music/provider/inPlayList.dart';
 import 'package:music/routers/route.dart';
-// import 'package:extended_image/extended_image.dart';
 import 'package:music/component/myImage.dart';
+
+import 'package:music/commonFunc/bottomModal.dart';
 
 
 
@@ -68,7 +69,7 @@ class OneMenu extends StatelessWidget {
     );
   }
 
-  Widget _left(){
+  Widget _left( context, title ){
     return Container(
       width: ScreenUtil().setWidth( 900 ),
       decoration: BoxDecoration(
@@ -80,16 +81,25 @@ class OneMenu extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           midabout(),
-          _right()
+          _right( context, title )
         ],
       ),
     );
   }
 
-  Widget _right(){
+  Widget _right( context, title ){
+    List<int> iconData = [ 0xe7ef, 0xe606, 0xe658, 0xe650 ];
+    List<String> textList = [ "下载", "分享", "编辑歌单信息", "删除" ];
+
+
     return InkWell(
       onTap: (){
-        print("更多.......");
+        myShowModal(
+          context: context,
+          iconList: iconData,
+          textList: textList,
+          titleText: "歌单：$title"
+        );
       },
       child: Container(
         width: ScreenUtil().setWidth( 100 ),
@@ -115,7 +125,7 @@ class OneMenu extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             headImg( context, 133953518 ),
-            _left()
+            _left( context, title )
           ],
         ),
       )

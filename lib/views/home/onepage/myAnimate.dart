@@ -124,7 +124,11 @@ class _MyAnimateZhuanState extends State<MyAnimateZhuan> with SingleTickerProvid
 
   Widget _head( context ){
     List<int> icon =[ 0xe60d, 0xe655, 0xe67f, 0xe605 ];
-    List<String> text = [ "创建新歌单", "我的歌单", "截图导入歌单", "回复歌单" ];
+    List<String> text = [ "创建新歌单", "歌单管理", "截图导入歌单", "回复歌单" ];
+
+    List<int> icon1 =[ 0xe655 ];
+    List<String> text1 = [ "歌单管理" ];
+
     return Container(
       color: Colors.black12,
       height: ScreenUtil().setHeight(80),
@@ -156,7 +160,12 @@ class _MyAnimateZhuanState extends State<MyAnimateZhuan> with SingleTickerProvid
           ),
           IconButton(
             onPressed: (){
-              myShowModal( context, icon, text ).then((onValue){
+              myShowModal( 
+                context : context,
+                iconList : widget.isMe ? icon : icon1 , 
+                textList : widget.isMe ? text : text1, 
+                titleText : widget.isMe ? "创建的歌单" : "收藏的歌单"
+              ).then((onValue){
                 print("---返回的值------$onValue");
               });
             },

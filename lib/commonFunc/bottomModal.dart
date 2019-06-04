@@ -45,7 +45,7 @@ Widget oneModalMenu( context, int icon, String text, int type ){
   );
 }
 
-Future<int> myShowModal( context, List<int> iconList, List<String> textList ) async {
+Future<int> myShowModal({ context, List<int> iconList, List<String> textList, String titleText }) async {
   int tan = -1;
   tan = await showModalBottomSheet(
     context: context,
@@ -78,7 +78,7 @@ Future<int> myShowModal( context, List<int> iconList, List<String> textList ) as
                         )
                       )
                     ),
-                    child: Text("创建的歌单", style: TextStyle( color: Colors.white, fontSize: ScreenUtil().setSp( 32 ) ),),
+                    child: Text( titleText ?? "-" , style: TextStyle( color: Colors.white, fontSize: ScreenUtil().setSp( 32 ) ),),
                   ),
                   Container(
                     height: ScreenUtil().setHeight( iconList.length > 6 ? 930 : 150.0 * iconList.length + 30 ),
