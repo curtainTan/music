@@ -13,6 +13,7 @@
 - 播放mv/video
 - 用户中心
 - 评论页(歌单和歌曲)--歌单页点击播放相似歌曲，播放当前评论歌曲
+- 在歌单中指定下一曲播放歌曲
 
 ## 接下来要完成的功能
 
@@ -66,6 +67,7 @@
 下面放上截图：
 ## 6.4更新  添加showModalBottomSheet,并把部分函数抽离，上图：
 <a><img src="./asset/picture/modal.png" width="200" ></a>
+<a><img src="./asset/picture/modal1.png" width="200" ></a>
 
 ## 6.2更新  歌曲评论和歌单评论
 <a><img src="./asset/picture/comment.png" width="200" ></a>
