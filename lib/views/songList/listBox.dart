@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../routers/route.dart';
 import 'package:music/provider/inPlayList.dart';
@@ -8,7 +9,7 @@ import 'package:provide/provide.dart';
 import 'package:music/provider/play_music.dart';
 import 'package:music/service/http.dart';
 
-
+import 'package:music/commonFunc/bottomModal.dart';
 
 
 class ListBox extends StatelessWidget {
@@ -36,7 +37,8 @@ class ListBox extends StatelessWidget {
                   data.tracks[index].name, 
                   data.tracks[index].ar[0].name, 
                   data.tracks[index].id, 
-                  data.nowUiList.playlist.id );
+                  data.nowUiList.playlist.id
+                );
               },
               childCount: data.tracks.length
             ),
@@ -92,7 +94,7 @@ class ListBox extends StatelessWidget {
               child: Text( "${ index + 1 }", style: TextStyle( fontSize: ScreenUtil().setSp( 50 ), color: Colors.grey ), ),
             ),
             aboutBox( songname, auth ),
-            sub()
+            sub( context, index, auth, songname, playListId )
           ],
         ),
       ),
@@ -114,7 +116,10 @@ class ListBox extends StatelessWidget {
     );
   }
 
-  Widget sub(){
+  Widget sub( context, index, auth, songname, playListId ){
+    List<int> iconData = [ 0xe61e, 0xe63f, 0xe75c, 0xe601, 0xe606, 0xe619, 0xe63c, 0xe625 ];
+    List<String> textList = [ "下一首播放", "收藏到歌单", "下载", "评论", "分享", "歌手", "专辑", "查看视频", "删除" ];
+
     return Container(
       height: ScreenUtil().setHeight(170),
       child: Row(
@@ -129,7 +134,54 @@ class ListBox extends StatelessWidget {
             )
           ),
           InkWell(
-            onTap: (){},
+            onTap: (){
+              myShowModal(
+                context: context,
+                iconList: iconData,
+                textList: textList,
+                titleText: songname
+              ).then( ( int type ){
+                if( type == null ){
+
+                } else {
+                  if( type == 0 ){
+                    int nowPlayListId = Provide.value<PlayMusic>(context).playListId;
+                    if( nowPlayListId != playListId ){
+                      showDialog(
+                        context: context,
+                        builder: ( context ){
+                          return AlertDialog(
+                            title: Text("对不起..真的对不起..", style: TextStyle( fontSize: ScreenUtil().setSp(36), color: Colors.red, fontWeight: FontWeight.bold ),),
+                            content: Text("暂时只能对当前播放列表有效，请到当前播放目录尝试....", maxLines: 4, style: TextStyle( fontSize: ScreenUtil().setSp(32) ),),
+                          );
+                        }
+                      );
+                    } else {
+                      Provide.value<PlayMusic>(context).setCurrentIndex(index);
+                      Fluttertoast.showToast(
+                        msg: "已添加到下一首播放......",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIos: 1,
+                        backgroundColor: Colors.grey,
+                        textColor: Colors.white,
+                        fontSize: ScreenUtil().setSp(34)
+                      );
+                    }
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: ( context ){
+                        return AlertDialog(
+                          title: Text("抱歉,暂时只支持播放下一曲...", style: TextStyle( fontSize: ScreenUtil().setSp(36), color: Colors.red, fontWeight: FontWeight.bold ),),
+                          content: Text("不好意思.....", style: TextStyle( fontSize: ScreenUtil().setSp(32) ),),
+                        );
+                      }
+                    );
+                  }
+                }
+              });
+            },
             child: Container(
               height: ScreenUtil().setHeight(170),
               width: ScreenUtil().setWidth(100),

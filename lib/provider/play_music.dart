@@ -350,6 +350,11 @@ class PlayMusic with ChangeNotifier{
     playListId = 0;
     notifyListeners();
   }
+  // 在列表中设置下一曲播放此歌曲
+  setCurrentIndex( int index ){
+    currentIndex = index - 1;
+    notifyListeners();
+  }
 
 
 }

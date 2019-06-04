@@ -48,7 +48,7 @@ Future requestGet( url, { formData } ) async {
 
     if( myCookie.length != 0 ){
       // print("----------携带cookie------${myCookie.toString()}---");
-      print("--有cookie---");
+      // print("--有cookie---");
       mdio.options.cookies = myCookie;
       mdio.options.followRedirects = true;
       mdio.head("https://music.163.com/weapi/");
