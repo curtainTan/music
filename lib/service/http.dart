@@ -48,10 +48,16 @@ Future requestGet( url, { formData } ) async {
 
     if( myCookie.length != 0 ){
       // print("----------携带cookie------${myCookie.toString()}---");
+      print("--有cookie---");
       mdio.options.cookies = myCookie;
+      mdio.options.followRedirects = true;
+      mdio.head("https://music.163.com/weapi/");
+      // xhrFields: { withCredentials: true };
+      mdio.options.queryParameters = { "xhrFields" : { "withCredentials": true } };
     }
 
     mdio.options.contentType = ContentType.parse("application/x-www-form-urlencoded");
+
     if( formData == null ){
       response = await mdio.get( servicePath[url] );
     } else {

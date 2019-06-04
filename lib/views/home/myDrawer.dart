@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:music/service/http.dart';
 import 'package:provide/provide.dart';
 
 
@@ -183,7 +183,10 @@ class MyDrawer extends StatelessWidget {
                         child: FlatButton(
                           onPressed: (){
                             print("签到");
-                            Routes.router.navigateTo(context, "/mvs/5436712/wertreer");
+                            // Routes.router.navigateTo(context, "/mvs/5436712/wertreer");
+                            requestGet("daily_signin").then((onValue){
+                              print("签到测试---------数据>>>>>>${onValue.toString()}");
+                            });
                           },
                           textColor: Colors.white,
                           shape: RoundedRectangleBorder(

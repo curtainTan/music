@@ -56,12 +56,17 @@
     到tabview中嵌套tabBar-tabview时，二级目录是不能滑动到一级目录去的，
 此时就要借助插件：<a href="https://pub.flutter-io.cn/packages?q=extended_tabs"  target="_blank" >extended_tabs</a>
     使用文档：[文档](https://juejin.im/post/5c34b87ef265da61553b01a8)
+
+#### 4.状态管理：
+    状态管理使用的provide，现在谷歌已经公开宣布放弃了，并推荐使用provider，项目已经写差不多了，我也没改了，
     
 
 
 
-
 下面放上截图：
+## 6.4更新  添加showModalBottomSheet,并把部分函数抽离，上图：
+<a><img src="./asset/picture/modal.png" width="200" ></a>
+
 ## 6.2更新  歌曲评论和歌单评论
 <a><img src="./asset/picture/comment.png" width="200" ></a>
 <a><img src="./asset/picture/comment1.png" width="200" ></a>
