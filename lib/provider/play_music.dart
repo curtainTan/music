@@ -127,9 +127,9 @@ class PlayMusic with ChangeNotifier{
     playUrl = data;
     isPlay = true;
     audioPlayer.setUrl( data );
-    // Timer( Duration( milliseconds: 200 ) , (){
+    Timer( Duration( milliseconds: 200 ) , (){
       priresume();
-    // } );
+    } );
     getCommentCount();
     notifyListeners();
     
@@ -167,39 +167,49 @@ class PlayMusic with ChangeNotifier{
   }
   // 播放完成              //只触发一次
   computed(){
-    playerCompleteSubscription = audioPlayer.onPlayerStateChanged.listen((onData){
-      if( onData == AudioPlayerState.COMPLETED ){
-        if( atimer == null ){
-          position = Duration( seconds: 0 );
-          nowLyricIndex = 0;
-          nextPlay();
-          atimer = Timer( Duration(milliseconds: 200), (){
-            atimer.cancel();
-            atimer = null;
-          });
-        }
+    // playerCompleteSubscription = audioPlayer.onPlayerCompletion.listen((onData){
+    //   if( onData == AudioPlayerState.COMPLETED ){
+    //     if( atimer == null ){
+    //       position = Duration( seconds: 0 );
+    //       nowLyricIndex = 0;
+    //       nextPlay();
+    //       atimer = Timer( Duration(milliseconds: 800), (){
+    //         atimer.cancel();
+    //         atimer = null;
+    //       });
+    //     }
+    //   }
+    // });
+    playerCompleteSubscription = audioPlayer.onPlayerCompletion.listen((onData){
+      if( atimer == null ){
+        position = Duration( seconds: 0 );
+        nowLyricIndex = 0;
+        nextPlay();
+        atimer = Timer( Duration(milliseconds: 1000), (){
+          atimer.cancel();
+          atimer = null;
+        });
       }
-    });
+    },);
   }
   // 恢复播放
   priresume() {
     if( playUrl.length == 0 ){
-      playUrl = prefs.getString("playUrl") ?? "";           // 获取歌曲url，并设置
+      playUrl = prefs.getString("playUrl");           // 获取歌曲url，并设置
       audioPlayer.setUrl(playUrl);
       Timer( Duration( milliseconds: 200 ) , (){
         audioPlayer.resume();
-        isPlay = true;
         getDuration();
         getPosition();
         computed();
       } );
     } else {
       audioPlayer.resume();
-      isPlay = true;
       getDuration();
       getPosition();
       computed();
     }
+    isPlay = true;
     // await audioPlayer.resume();
     notifyListeners();
   }
@@ -225,8 +235,7 @@ class PlayMusic with ChangeNotifier{
       seek( 0 );
     }else{
       audioPlayer.stop();
-      int mynowindex = currentIndex;
-      if( ( mynowindex + 1 ) >= playlist.tracks.length ){
+      if( ( currentIndex + 1 ) >= playlist.tracks.length ){
         currentIndex = 0;
       }else{
         currentIndex = currentIndex + 1 ;
