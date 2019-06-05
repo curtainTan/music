@@ -21,6 +21,11 @@
 - 设置皮肤
 - 动态展示
 
+### 体验方式：
+[点我下载](https://www.curtaintan.club/music.apk)
+
+扫码下载：<a><img src="./asset/picture/some/musicApp.png" width="100" ></a>
+
 ---
 
 ## 嘤嘤嘤
