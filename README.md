@@ -59,8 +59,29 @@
 此时就要借助插件：<a href="https://pub.flutter-io.cn/packages?q=extended_tabs"  target="_blank" >extended_tabs</a>
     使用文档：[文档](https://juejin.im/post/5c34b87ef265da61553b01a8)
 
-#### 4.状态管理：
-    状态管理使用的provide，现在谷歌已经公开宣布放弃了，并推荐使用provider，项目已经写差不多了，我也没改了，
+#### 4.修改启动白屏为想要的图片：
+    修改文件android/app/srrc/main/res/drawable/launch_background.xml
+    添加：
+        <item>
+            <bitmap
+                android:gravity="center"
+                android:src="@mipmap/sp" />
+        </item>
+    添加完后的代码：
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+            <item>
+                <bitmap
+                    android:gravity="center"
+                    android:src="@mipmap/sp" />
+            </item>
+        </layer-list>
+    再在下面的目录下添加名称为sp的png图片，
+    这里必须使用png格式的图片，安卓默认的图片格式
+<a><img src="./asset/picture//some/path.png" width="200" ></a>
+
+#### 5.状态管理：
+    状态管理使用的provide，现在谷歌已经公开宣布放弃了，并推荐使用provider，
+    由于项目已经写差不多了，我就不打算再进行更改了，
     
 
 
@@ -95,8 +116,6 @@
 <a><img src="./asset/picture/gif/login1.gif" width="200" ></a>
 
 ## Home页相关：歌单点击动画、drawer、二级导航联动
-<span><img src="./asset/picture/gif/switchAnimation.gif" width="200" ></span>
-<span><img src="./asset/picture/gif/drawer.gif" width="200" ></span>
 <span><img src="./asset/picture/gif/twoNav.gif" width="200" ></span>
 
 ## 歌单相关：歌单展示和歌单Header折叠
@@ -104,7 +123,6 @@
 
 ## 用户中心相关：用户信息展示、header折叠
 <span><img src="./asset/picture/gif/userData.gif" width="200" ></span>
-<span><img src="./asset/picture/gif/userHeader.gif" width="200" ></span>
 
 ## 歌曲播放页面：点歌、在播放页面点下一曲和上一曲
 <span><img src="./asset/picture/gif/changeSong.gif" width="200" ></span>
