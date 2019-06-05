@@ -95,7 +95,13 @@
 
 ### 项目难点与问题解决
 
-#### 1.安卓9无法播放音乐的问题：
+#### 1.首当其冲的是后台数据：
+    后台使用Binaryify写的NeteaseCloudMusicApi项目提供的api，真的非常感谢!
+[NeteaseCloudMusicApi的github地址](https://github.com/Binaryify/NeteaseCloudMusicApi)
+
+[api文档](https://binaryify.github.io/NeteaseCloudMusicApi)
+
+#### 2.安卓9无法播放音乐的问题：
     无法在Android 9上播放远程文件：Android 9已经更改了一些网络安全默认值，
     因此默认情况下它可能会阻止您播放https以外的文件，此stackoverflow问题是解决此问题的良好来源。
 解决方法：
@@ -111,18 +117,18 @@
         </application>
     </manifest>
 
-#### 2.使用高斯模糊：
+#### 3.使用高斯模糊：
     使用高斯模糊时，背景层全屏模糊
     解决办法：
         在BackdropFilter组件的外层包裹ClipRect，
         详细使用请参考文件：lib/views/songList/header.dart
 
-#### 3.二级导航栏联动：
+#### 4.二级导航栏联动：
     到tabview中嵌套tabBar-tabview时，二级目录是不能滑动到一级目录去的，
 此时就要借助插件：<a href="https://pub.flutter-io.cn/packages?q=extended_tabs"  target="_blank" >extended_tabs</a>
     使用文档：[文档](https://juejin.im/post/5c34b87ef265da61553b01a8)
 
-#### 4.修改启动白屏为想要的图片：
+#### 5.修改启动白屏为想要的图片：
     修改文件android/app/srrc/main/res/drawable/launch_background.xml
     添加：
         <item>
@@ -142,7 +148,7 @@
     这里必须使用png格式的图片，安卓默认的图片格式
 <a><img src="./asset/picture//some/path.png" width="200" ></a>
 
-#### 5.状态管理：
+#### 6.状态管理：
     状态管理使用的provide，现在谷歌已经公开宣布放弃了，并推荐使用provider，
     由于项目已经写差不多了，我就不打算再进行更改了，
     
