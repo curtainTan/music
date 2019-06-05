@@ -17,7 +17,7 @@
 
 ## 接下来要完成的功能
 
-- 评论（带emoji表情的）
+- 评论（带emoji表情的）(写不了了，数据传输搞不定，CSRF不会---)
 - 设置皮肤
 - 动态展示
 
@@ -49,15 +49,13 @@
 ### 增加了搜索的数据管理结构，界面还没开始写，手写了搜索推荐的局部dialog，上图吧，
 <a><img src="./asset/picture/gif/search_modal.gif" width="200" ></a>
 
-局部dialog，嘿嘿，我觉得写得蛮不错的，
-
+    局部dialog，嘿嘿，我觉得写得蛮不错的，
 
 ## 5.4更新
 ### 动图来了，这次更新了很多
 ### 进入app时的splash屏闪页、进入登录页面的动画，登录提示
 <a><img src="./asset/picture/gif/splash.gif" width="200" ></a>
 <a><img src="./asset/picture/gif/login.gif" width="200" ></a>
-<a><img src="./asset/picture/gif/login1.gif" width="200" ></a>
 
 ### Home页相关：歌单点击动画、drawer、二级导航联动
 <span><img src="./asset/picture/gif/twoNav.gif" width="200" ></span>
@@ -74,22 +72,17 @@
 ### 歌词跟随，歌词可以跟随进度条改动而调整，可以拉动查看歌词
 <span><img src="./asset/picture/gif/lyric.gif" width="200" ></span>
 
-## 第一屏   登录 home页面 Drower页面、第二个页面
-
+### 第一屏   登录 home页面 Drower页面、第二个页面
 <span><img src="./asset/picture/1.png" width="200" ></span>
-<span><img src="./asset/picture/2.png" width="200" ></span>
 <span><img src="./asset/picture/3.png" width="200" ></span>
 <span><img src="./asset/picture/4.png" width="200" ></span>
 <span><img src="./asset/picture/5.png" width="200" ></span>
 
-
-这里使用了extended_tabs插件，来解决二级导航滑动的问题，，，，，
-
-相信写过的小伙伴知道我说的二级导航滑动的问题，这里当初自己写写了好久，我哭了.......
+    这里使用了extended_tabs插件，来解决二级导航滑动的问题，，，，，
+    相信写过的小伙伴知道我说的二级导航滑动的问题，这里当初自己写写了好久，我哭了.......
 
 
-## 一级导航的第二页 一级导航的第二页中的第二页 个人中心
-
+### 一级导航的第二页 一级导航的第二页中的第二页 个人中心
 <span><img src="./asset/picture/6.png" width="200" ></span>
 <span><img src="./asset/picture/7.png" width="200" ></span>
 <span><img src="./asset/picture/8.png" width="200" ></span>
