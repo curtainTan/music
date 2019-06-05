@@ -22,7 +22,8 @@
 - 动态展示
 
 ### 体验方式：
-[点我下载](https://www.curtaintan.club/music.apk)
+    由于没有ios手机，暂时只支持安卓。
+<a href="https://www.curtaintan.club/music.apk" target="_blank" >点我下载</a>
 
 扫码下载：<a><img src="./asset/picture/some/musicApp.png" width="100" ></a>
 
@@ -97,9 +98,9 @@
 
 #### 1.首当其冲的是后台数据：
     后台使用Binaryify写的NeteaseCloudMusicApi项目提供的api，真的非常感谢!
-[NeteaseCloudMusicApi的github地址](https://github.com/Binaryify/NeteaseCloudMusicApi)
+<a href="https://github.com/Binaryify/NeteaseCloudMusicApi" target="_blank" >NeteaseCloudMusicApi的github地址</a>
 
-[api文档](https://binaryify.github.io/NeteaseCloudMusicApi)
+<a href="https://binaryify.github.io/NeteaseCloudMusicApi" target="_blank" >NeteaseCloudMusicApi api文档</a>
 
 #### 2.安卓9无法播放音乐的问题：
     无法在Android 9上播放远程文件：Android 9已经更改了一些网络安全默认值，
@@ -152,4 +153,24 @@
     状态管理使用的provide，现在谷歌已经公开宣布放弃了，并推荐使用provider，
     由于项目已经写差不多了，我就不打算再进行更改了，
     
+### 对页面布局和组件选用的思考：
+    flutter的组件是真的多，只有你想不到的，没有它不存在的，
+    不同的组件有不同是属性，构造方法也五花八门，
+    这里我列出几个比较常见的页面的布局和组件选用时的思考。
+1. Sliver大家族是个不错的选择--
+
+
+
+### 开发的感悟与总结
+    首先，对组件式开发和函数式编程有了更深的见解：
+    样式差不多的组件，一定要封装，用起来会非常爽的，
+    对常用的组件：加载中，加载完成，showModal---,图片，一定要封装.....
+
+    
+    作为一个前端，虽然写js的时间不长，但是觉得js写起来是真的爽，
+    写了dart之后，写代码时考虑的也更多了，对null的理解更深了，
+    也对报错理解加深了(写了很多的bug..).........
+
+    对流的操作也有了一点点自我的见解(其实懵逼中..)......
+
 
