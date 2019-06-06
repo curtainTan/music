@@ -18,6 +18,7 @@ class PlayMusic with ChangeNotifier{
   int commentCount = 0;                             // 评论总数
   LyricModel lyricModel = null;                     // 歌词modal
 
+  bool justOnce = true;                            // 让流监听只执行一次
 
   List<String> preposition = [                      // 前置空白
     "", "", "" 
@@ -47,7 +48,6 @@ class PlayMusic with ChangeNotifier{
 
   initplayer() async {
     audioPlayer.setReleaseMode( ReleaseMode.STOP );
-    // audioPlayer.stop();
     prefs = await SharedPreferences.getInstance();
     await getListToLocal();
     await getSongData();
@@ -149,7 +149,6 @@ class PlayMusic with ChangeNotifier{
         if( nowLyricIndex < lyricTimes.length ){
           if( position.inSeconds > lyricTimes[nowLyricIndex] ){
             nowLyricIndex++;
-            // print("----------当前歌词----${lyricList[nowLyricIndex]}------------");
           }
         }
         notifyListeners();
@@ -184,6 +183,7 @@ class PlayMusic with ChangeNotifier{
       if( atimer == null ){
         position = Duration( seconds: 0 );
         nowLyricIndex = 0;
+        notifyListeners();
         nextPlay();
         atimer = Timer( Duration(milliseconds: 1000), (){
           atimer.cancel();
@@ -197,17 +197,25 @@ class PlayMusic with ChangeNotifier{
     if( playUrl.length == 0 ){
       playUrl = prefs.getString("playUrl");           // 获取歌曲url，并设置
       audioPlayer.setUrl(playUrl);
-      Timer( Duration( milliseconds: 200 ) , (){
-        audioPlayer.resume();
+      audioPlayer.resume();
+      Timer( Duration( milliseconds: 400 ) , (){
+        // audioPlayer.resume();
+        justOnce = false;
         getDuration();
         getPosition();
         computed();
       } );
     } else {
       audioPlayer.resume();
-      getDuration();
-      getPosition();
-      computed();
+      if( justOnce ){
+        Timer( Duration( milliseconds: 400 ) , (){
+        // audioPlayer.resume();
+          justOnce = false;
+          getDuration();
+          getPosition();
+          computed();
+        });
+      }
     }
     isPlay = true;
     // await audioPlayer.resume();
