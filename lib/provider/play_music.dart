@@ -88,7 +88,7 @@ class PlayMusic with ChangeNotifier{
   setSongData(){
     prefs.setInt( 'currentIndex', currentIndex );  // 保存歌曲的在列表中的index
     prefs.setString("playUrl", playUrl);           // 保存歌曲url
-    prefs.setInt("duration", duration.inMilliseconds ); // 保存歌曲时长
+    // prefs.setInt("duration", duration.inMilliseconds ); // 保存歌曲时长
     prefs.setString("onetracks", json.encode( tracks ).toString() );    // 保存一首歌的信息
   }
   // 设置列表id
@@ -122,11 +122,11 @@ class PlayMusic with ChangeNotifier{
   }
 
   // 设置url
-  setPlayUrl( data ){
+  setPlayUrl( data ) async {
 
     playUrl = data;
     isPlay = true;
-    audioPlayer.setUrl( data );
+    await audioPlayer.setUrl( data );
     Timer( Duration( milliseconds: 200 ) , (){
       priresume();
     } );
@@ -139,6 +139,7 @@ class PlayMusic with ChangeNotifier{
     durationSubscription = audioPlayer.onDurationChanged.listen((onData){
       if( duration != onData ){
         duration = onData;
+        prefs.setInt("duration", duration.inMilliseconds ); // 保存歌曲时长
       }
     });
   }
@@ -193,23 +194,21 @@ class PlayMusic with ChangeNotifier{
     },);
   }
   // 恢复播放
-  priresume() {
+  priresume() async {
     if( playUrl.length == 0 ){
       playUrl = prefs.getString("playUrl");           // 获取歌曲url，并设置
-      audioPlayer.setUrl(playUrl);
-      audioPlayer.resume();
+      await audioPlayer.setUrl(playUrl);
+      await audioPlayer.resume();
       Timer( Duration( milliseconds: 400 ) , (){
-        // audioPlayer.resume();
         justOnce = false;
         getDuration();
         getPosition();
         computed();
       } );
     } else {
-      audioPlayer.resume();
+      await audioPlayer.resume();
       if( justOnce ){
         Timer( Duration( milliseconds: 400 ) , (){
-        // audioPlayer.resume();
           justOnce = false;
           getDuration();
           getPosition();
@@ -238,7 +237,7 @@ class PlayMusic with ChangeNotifier{
     notifyListeners();
   }
   // 下一曲
-  nextPlay() async {
+  nextPlay() {
     if( playlist == null ){
       seek( 0 );
     }else{
@@ -269,7 +268,7 @@ class PlayMusic with ChangeNotifier{
     
   }
   // 上一曲
-  forwardSong() async {
+  forwardSong() {
     if( playlist == null ){
       seek( 0 );
     }else{
