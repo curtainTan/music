@@ -169,6 +169,28 @@
     这里我列出几个比较常见的页面的布局和组件选用时的思考。
 1. Sliver大家族是个不错的选择--
 
+### 目录结构
+
+    |-- android                                  // 安卓配置目录
+    |-- asset                                    // 项目静态资源目录
+    |   |-- font                                 // 字体和图标文件
+    |   |-- image                                // 静态图片文件
+    |-- ios                                      // ios配置目录
+    |-- lib                                      // 源码目录
+    |   |-- commonFunc                           // 通用方法文件
+    |   |-- component                            // 组件
+    |   |-- config                               
+    |       |-- json                             // 请求接口获取的json文件
+    |       |-- server                           // api接口文件
+    |   |-- modal                                // json转成dart对象后的模型
+    |   |-- provider                             // provide状态管理目录
+    |   |-- routers                              // 路由文件
+    |   |-- service                              // 封装dio请求方法
+    |   |-- view                                 // 页面目录
+    |   main.dart                                // 程序入口文件
+    |-- .gitignore                               // 配置git忽略的文件
+    |-- pubspec.lock                             // 记录当前项目依赖的包和版本  
+    |-- pubspec.yaml                             // 包管理文件
 
 
 ### 开发的感悟与总结
