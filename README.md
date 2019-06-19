@@ -1,6 +1,6 @@
 # music
-    前言：我想把代码写得像诗一般优美，
-    每个函数都恰到好处
+    前言： 我想把代码写得像诗一般优美，
+           每个函数都恰到好处
 
 
 ## 当前项目已经完成的功能：
@@ -74,7 +74,6 @@
 <span><img src="./asset/picture/gif/userData.gif" width="200" ></span>
 
 ### 歌曲播放页面：点歌、在播放页面点下一曲和上一曲、播放和暂停
-<span><img src="./asset/picture/gif/changeSong.gif" width="200" ></span>
 <span><img src="./asset/picture/gif/nextSong.gif" width="200" ></span>
 <span><img src="./asset/picture/gif/playandstop.gif" width="200" ></span>
 

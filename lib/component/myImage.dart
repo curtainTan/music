@@ -28,6 +28,19 @@ class _MyImageState extends State<MyImage> {
   @override
   Widget build(BuildContext context) {
 
+    // return Container(
+    //   width: widget.w,
+    //   height: widget.h,
+    //   decoration: BoxDecoration(
+    //     shape: widget.shape,
+    //     borderRadius: BorderRadius.all( Radius.circular( widget.br ) ),
+    //     image: DecorationImage(
+    //       image: NetworkImage( widget.url ),
+    //       fit: widget.b
+    //     )
+    //   ),
+    // );
+
     return ExtendedImage.network(
       widget.url,
       cache: true,
